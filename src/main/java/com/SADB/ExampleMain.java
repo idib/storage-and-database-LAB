@@ -2,14 +2,13 @@ package com.SADB;
 
 import com.SADB.Entities.Exampe.tables.Car;
 import com.SADB.Entities.Exampe.tables.records.CarRecord;
-import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.Result;
-import org.jooq.SQLDialect;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.SADB.Entities.Exampe.Tables.CAR;
 
@@ -49,20 +48,22 @@ public class ExampleMain {
 			// конектимся к бд 2
 			try (Connection conn1 = DriverManager.getConnection(url1, userName, password)) {
 
-				DSLContext create1 = DSL.using(conn, SQLDialect.POSTGRES);
+				DSLContext create1 = DSL.using(conn1, SQLDialect.POSTGRES);
 				System.out.println("connection to test1");
 
 				//все записи из бд1 запихиваем в бд2
-				create1.insertInto(CAR)
-						.select(create.selectFrom(CAR));
+				for (CarRecord r : result) {
+					r.changed(true);    //судя по всему там стоит какое-то условие, которое не дает загружать на сервер не измененные данные
+				}
+				create1.batchInsert(result).execute();
 
 				System.out.println("inserted");
 
 
 				// берем все записиm из бд 2
 				// более извращенный вывод
-				Result<Record> result1 = create1.select().from(CAR).fetch();
-				for (Record r : result1) {
+				Result<Record> result2 = create1.select().from(CAR).fetch();
+				for (Record r : result2) {
 					Long id = r.getValue(CAR.ID);
 					String name = r.getValue(CAR.NAME);
 					Integer wb = r.getValue(CAR.WHEELBASE);
@@ -70,9 +71,7 @@ public class ExampleMain {
 
 					System.out.println("ID: " + id + " name: " + name + " wei: " + wb);
 				}
-				System.out.println(result1.size());
-
-
+				System.out.println(result2.size());
 
 
 			} catch (Exception e) {
