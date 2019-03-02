@@ -1,16 +1,16 @@
 package com.SADB;
 
-import com.SADB.Entities.Exampe.tables.Car;
-import com.SADB.Entities.Exampe.tables.records.CarRecord;
-import org.jooq.*;
+import com.SADB.ExampleEntities.tables.records.CarRecord;
+import org.jooq.DSLContext;
+import org.jooq.Record;
+import org.jooq.Result;
+import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.ArrayList;
-import java.util.List;
 
-import static com.SADB.Entities.Exampe.Tables.CAR;
+import static com.SADB.ExampleEntities.Tables.CAR;
 
 
 public class ExampleMain {
