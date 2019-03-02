@@ -38,3 +38,11 @@ current version 1.0
 
 
 ![](img/UML%20v1.jpg)
+
+
+
+**SQL**
+
+current "[result.sql](sql/RESULT.sql)" target to postgres.
+
+converter [link](http://www.sqlines.com/online)
