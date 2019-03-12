@@ -11,7 +11,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <!--Java version-->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -20,9 +19,6 @@
         <postgresql-version>42.2.2</postgresql-version>
         <mysql-version>6.0.3</mysql-version>
         <oracle-version>11</oracle-version>
-
-        <!--JOOQ version-->
-        <JOOQ-version>3.11.9</JOOQ-version>
     </properties>
 
     <dependencies>
@@ -47,21 +43,16 @@
         <!--<version>${oracle-version}</version>-->
         <!--</dependency>-->
 
-        <!--JOOQ-->
+
         <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq</artifactId>
-            <version>${JOOQ-version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>2.0.4.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq-meta</artifactId>
-            <version>${JOOQ-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq-codegen</artifactId>
-            <version>${JOOQ-version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.0.4.RELEASE</version>
         </dependency>
 
     </dependencies>
@@ -126,7 +117,7 @@
                                 <inputSchema>public</inputSchema>
                             </database>
                             <target>
-                                <packageName>com.SADB.Entities</packageName>
+                                <packageName>com.sadb.entities</packageName>
                                 <directory>/Users/idib/Documents/Git/github/storage-and-database-LAB/src/main/java/</directory>
                             </target>
                         </generator>

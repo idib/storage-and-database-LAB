@@ -18,7 +18,8 @@ CREATE TABLE teacher (
 );
 
 CREATE TABLE discipline (
-	discipline_name varchar(255) PRIMARY KEY,
+	discipline_id numeric PRIMARY KEY,
+	discipline_name varchar(255),
 	lections_hours numeric,
 	practicals_hours numeric,
 	labs_houes numeric,
@@ -29,7 +30,7 @@ CREATE TABLE discipline (
 
 CREATE TABLE results (
 	student_id numeric REFERENCES student(id),
-	discipline_name varchar(255) REFERENCES discipline(discipline_name),
+	discipline_id numeric REFERENCES discipline(discipline_id),
 	control_form varchar(255),
 	result float,
 	result_date date,
