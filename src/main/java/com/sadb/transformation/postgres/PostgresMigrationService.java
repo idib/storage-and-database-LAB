@@ -1,7 +1,7 @@
 package com.sadb.transformation.postgres;
 
 
-import com.sadb.entities.tables.records.DisciplineRecord;
+import com.sadb.generated.dest.oracle.tables.records.DisciplineRecord;
 import com.sadb.transformation.ConnectionManager;
 import org.jooq.DSLContext;
 import org.jooq.Result;
@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import static com.sadb.entities.tables.Discipline.DISCIPLINE;
+import static com.sadb.generated.dest.oracle.tables.Discipline.DISCIPLINE;
+
 
 @Service
 public class PostgresMigrationService {
