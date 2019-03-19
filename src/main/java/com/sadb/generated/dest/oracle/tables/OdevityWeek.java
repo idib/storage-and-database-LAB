@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.OdevityWeekRecord;
 
 import java.sql.Timestamp;
@@ -41,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class OdevityWeek extends TableImpl<OdevityWeekRecord> {
 
-    private static final long serialVersionUID = -606107440;
+    private static final long serialVersionUID = 2141607284;
 
     /**
-     * The reference instance of <code>public.odevity_week</code>
+     * The reference instance of <code>SANDDB.ODEVITY_WEEK</code>
      */
     public static final OdevityWeek ODEVITY_WEEK = new OdevityWeek();
 
@@ -57,41 +57,41 @@ public class OdevityWeek extends TableImpl<OdevityWeekRecord> {
     }
 
     /**
-     * The column <code>public.odevity_week.odevity_id</code>.
+     * The column <code>SANDDB.ODEVITY_WEEK.ODEVITY_ID</code>.
      */
-    public final TableField<OdevityWeekRecord, Integer> ODEVITY_ID = createField("odevity_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<OdevityWeekRecord, Long> ODEVITY_ID = createField("ODEVITY_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.odevity_week.week</code>.
+     * The column <code>SANDDB.ODEVITY_WEEK.WEEK</code>.
      */
-    public final TableField<OdevityWeekRecord, String> WEEK = createField("week", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<OdevityWeekRecord, String> WEEK = createField("WEEK", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.odevity_week.creat_time</code>.
+     * The column <code>SANDDB.ODEVITY_WEEK.CREAT_TIME</code>.
      */
-    public final TableField<OdevityWeekRecord, Timestamp> CREAT_TIME = createField("creat_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<OdevityWeekRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.odevity_week.update_time</code>.
+     * The column <code>SANDDB.ODEVITY_WEEK.UPDATE_TIME</code>.
      */
-    public final TableField<OdevityWeekRecord, Timestamp> UPDATE_TIME = createField("update_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<OdevityWeekRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * Create a <code>public.odevity_week</code> table reference
+     * Create a <code>SANDDB.ODEVITY_WEEK</code> table reference
      */
     public OdevityWeek() {
-        this(DSL.name("odevity_week"), null);
+        this(DSL.name("ODEVITY_WEEK"), null);
     }
 
     /**
-     * Create an aliased <code>public.odevity_week</code> table reference
+     * Create an aliased <code>SANDDB.ODEVITY_WEEK</code> table reference
      */
     public OdevityWeek(String alias) {
         this(DSL.name(alias), ODEVITY_WEEK);
     }
 
     /**
-     * Create an aliased <code>public.odevity_week</code> table reference
+     * Create an aliased <code>SANDDB.ODEVITY_WEEK</code> table reference
      */
     public OdevityWeek(Name alias) {
         this(alias, ODEVITY_WEEK);
@@ -114,7 +114,7 @@ public class OdevityWeek extends TableImpl<OdevityWeekRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**

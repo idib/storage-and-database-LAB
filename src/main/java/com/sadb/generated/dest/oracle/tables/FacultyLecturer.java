@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.FacultyLecturerRecord;
 
 import java.sql.Timestamp;
@@ -41,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class FacultyLecturer extends TableImpl<FacultyLecturerRecord> {
 
-    private static final long serialVersionUID = 1918402974;
+    private static final long serialVersionUID = 725783561;
 
     /**
-     * The reference instance of <code>public.faculty_lecturer</code>
+     * The reference instance of <code>SANDDB.FACULTY_LECTURER</code>
      */
     public static final FacultyLecturer FACULTY_LECTURER = new FacultyLecturer();
 
@@ -57,46 +57,46 @@ public class FacultyLecturer extends TableImpl<FacultyLecturerRecord> {
     }
 
     /**
-     * The column <code>public.faculty_lecturer.lec_id</code>.
+     * The column <code>SANDDB.FACULTY_LECTURER.LEC_ID</code>.
      */
-    public final TableField<FacultyLecturerRecord, Integer> LEC_ID = createField("LEC_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<FacultyLecturerRecord, Long> LEC_ID = createField("LEC_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.faculty_lecturer.fac_id</code>.
+     * The column <code>SANDDB.FACULTY_LECTURER.FAC_ID</code>.
      */
-    public final TableField<FacultyLecturerRecord, Integer> FAC_ID = createField("FAC_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<FacultyLecturerRecord, Long> FAC_ID = createField("FAC_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.faculty_lecturer.fac_lect_id</code>.
+     * The column <code>SANDDB.FACULTY_LECTURER.FAC_LECT_ID</code>.
      */
-    public final TableField<FacultyLecturerRecord, Integer> FAC_LECT_ID = createField("FAC_LECT_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<FacultyLecturerRecord, Long> FAC_LECT_ID = createField("FAC_LECT_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.faculty_lecturer.creat_time</code>.
+     * The column <code>SANDDB.FACULTY_LECTURER.CREAT_TIME</code>.
      */
-    public final TableField<FacultyLecturerRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<FacultyLecturerRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.faculty_lecturer.update_time</code>.
+     * The column <code>SANDDB.FACULTY_LECTURER.UPDATE_TIME</code>.
      */
-    public final TableField<FacultyLecturerRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIM", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<FacultyLecturerRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * Create a <code>public.faculty_lecturer</code> table reference
+     * Create a <code>SANDDB.FACULTY_LECTURER</code> table reference
      */
     public FacultyLecturer() {
-        this(DSL.name("faculty_lecturer"), null);
+        this(DSL.name("FACULTY_LECTURER"), null);
     }
 
     /**
-     * Create an aliased <code>public.faculty_lecturer</code> table reference
+     * Create an aliased <code>SANDDB.FACULTY_LECTURER</code> table reference
      */
     public FacultyLecturer(String alias) {
         this(DSL.name(alias), FACULTY_LECTURER);
     }
 
     /**
-     * Create an aliased <code>public.faculty_lecturer</code> table reference
+     * Create an aliased <code>SANDDB.FACULTY_LECTURER</code> table reference
      */
     public FacultyLecturer(Name alias) {
         this(alias, FACULTY_LECTURER);
@@ -119,7 +119,7 @@ public class FacultyLecturer extends TableImpl<FacultyLecturerRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -151,15 +151,15 @@ public class FacultyLecturer extends TableImpl<FacultyLecturerRecord> {
      */
     @Override
     public List<ForeignKey<FacultyLecturerRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<FacultyLecturerRecord, ?>>asList(Keys.FACULTY_LECTURER__R_16, Keys.FACULTY_LECTURER__R_15);
+        return Arrays.<ForeignKey<FacultyLecturerRecord, ?>>asList(Keys.R_16, Keys.R_15);
     }
 
     public Lecturer lecturer() {
-        return new Lecturer(this, Keys.FACULTY_LECTURER__R_16);
+        return new Lecturer(this, Keys.R_16);
     }
 
     public Faculty faculty() {
-        return new Faculty(this, Keys.FACULTY_LECTURER__R_15);
+        return new Faculty(this, Keys.R_15);
     }
 
     /**

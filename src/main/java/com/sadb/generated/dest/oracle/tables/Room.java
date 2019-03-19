@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.RoomRecord;
 
 import java.sql.Timestamp;
@@ -17,7 +17,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -42,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Room extends TableImpl<RoomRecord> {
 
-    private static final long serialVersionUID = -1828046746;
+    private static final long serialVersionUID = 1164227685;
 
     /**
-     * The reference instance of <code>public.room</code>
+     * The reference instance of <code>SANDDB.ROOM</code>
      */
     public static final Room ROOM = new Room();
 
@@ -58,51 +57,51 @@ public class Room extends TableImpl<RoomRecord> {
     }
 
     /**
-     * The column <code>public.room.id</code>.
+     * The column <code>SANDDB.ROOM.ID</code>.
      */
-    public final TableField<RoomRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('room_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<RoomRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.room.number</code>.
+     * The column <code>SANDDB.ROOM.NUMBERROOM</code>.
      */
-    public final TableField<RoomRecord, String> NUMBER = createField("number", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<RoomRecord, String> NUMBERROOM = createField("NUMBERROOM", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.room.max_student</code>.
+     * The column <code>SANDDB.ROOM.MAX_STUDENT</code>.
      */
-    public final TableField<RoomRecord, Integer> MAX_STUDENT = createField("max_student", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<RoomRecord, Long> MAX_STUDENT = createField("MAX_STUDENT", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.room.block_id</code>.
+     * The column <code>SANDDB.ROOM.BLOCK_ID</code>.
      */
-    public final TableField<RoomRecord, Integer> BLOCK_ID = createField("block_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<RoomRecord, Long> BLOCK_ID = createField("BLOCK_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.room.date_update</code>.
+     * The column <code>SANDDB.ROOM.DATE_UPDATE</code>.
      */
-    public final TableField<RoomRecord, Timestamp> DATE_UPDATE = createField("date_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<RoomRecord, Timestamp> DATE_UPDATE = createField("DATE_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
 
     /**
-     * The column <code>public.room.date_create</code>.
+     * The column <code>SANDDB.ROOM.DATE_CREATE</code>.
      */
-    public final TableField<RoomRecord, Timestamp> DATE_CREATE = createField("date_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<RoomRecord, Timestamp> DATE_CREATE = createField("DATE_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
 
     /**
-     * Create a <code>public.room</code> table reference
+     * Create a <code>SANDDB.ROOM</code> table reference
      */
     public Room() {
-        this(DSL.name("room"), null);
+        this(DSL.name("ROOM"), null);
     }
 
     /**
-     * Create an aliased <code>public.room</code> table reference
+     * Create an aliased <code>SANDDB.ROOM</code> table reference
      */
     public Room(String alias) {
         this(DSL.name(alias), ROOM);
     }
 
     /**
-     * Create an aliased <code>public.room</code> table reference
+     * Create an aliased <code>SANDDB.ROOM</code> table reference
      */
     public Room(Name alias) {
         this(alias, ROOM);
@@ -125,7 +124,7 @@ public class Room extends TableImpl<RoomRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -134,14 +133,6 @@ public class Room extends TableImpl<RoomRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.ROOM_PK);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<RoomRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_ROOM;
     }
 
     /**
@@ -165,11 +156,11 @@ public class Room extends TableImpl<RoomRecord> {
      */
     @Override
     public List<ForeignKey<RoomRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<RoomRecord, ?>>asList(Keys.ROOM__ROOM_FK0);
+        return Arrays.<ForeignKey<RoomRecord, ?>>asList(Keys.ROOM_FK0);
     }
 
     public Block block() {
-        return new Block(this, Keys.ROOM__ROOM_FK0);
+        return new Block(this, Keys.ROOM_FK0);
     }
 
     /**

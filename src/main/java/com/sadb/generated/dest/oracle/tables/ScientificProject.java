@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.ScientificProjectRecord;
 
 import java.sql.Timestamp;
@@ -17,7 +17,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -42,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ScientificProject extends TableImpl<ScientificProjectRecord> {
 
-    private static final long serialVersionUID = 1488378862;
+    private static final long serialVersionUID = -1229329847;
 
     /**
-     * The reference instance of <code>public.scientific_project</code>
+     * The reference instance of <code>SANDDB.SCIENTIFIC_PROJECT</code>
      */
     public static final ScientificProject SCIENTIFIC_PROJECT = new ScientificProject();
 
@@ -58,46 +57,46 @@ public class ScientificProject extends TableImpl<ScientificProjectRecord> {
     }
 
     /**
-     * The column <code>public.scientific_project.id</code>.
+     * The column <code>SANDDB.SCIENTIFIC_PROJECT.ID</code>.
      */
-    public final TableField<ScientificProjectRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('scientific_project_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<ScientificProjectRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.scientific_project.name</code>.
+     * The column <code>SANDDB.SCIENTIFIC_PROJECT.NAME</code>.
      */
-    public final TableField<ScientificProjectRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<ScientificProjectRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.scientific_project.period_participation</code>.
+     * The column <code>SANDDB.SCIENTIFIC_PROJECT.PERIOD_PARTICIPATION</code>.
      */
-    public final TableField<ScientificProjectRecord, String> PERIOD_PARTICIPATION = createField("period_participation", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<ScientificProjectRecord, String> PERIOD_PARTICIPATION = createField("PERIOD_PARTICIPATION", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.scientific_project.data_update</code>.
+     * The column <code>SANDDB.SCIENTIFIC_PROJECT.DATA_UPDATE</code>.
      */
-    public final TableField<ScientificProjectRecord, Timestamp> DATA_UPDATE = createField("data_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ScientificProjectRecord, Timestamp> DATA_UPDATE = createField("DATA_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * The column <code>public.scientific_project.data_create</code>.
+     * The column <code>SANDDB.SCIENTIFIC_PROJECT.DATA_CREATE</code>.
      */
-    public final TableField<ScientificProjectRecord, Timestamp> DATA_CREATE = createField("data_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ScientificProjectRecord, Timestamp> DATA_CREATE = createField("DATA_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * Create a <code>public.scientific_project</code> table reference
+     * Create a <code>SANDDB.SCIENTIFIC_PROJECT</code> table reference
      */
     public ScientificProject() {
-        this(DSL.name("scientific_project"), null);
+        this(DSL.name("SCIENTIFIC_PROJECT"), null);
     }
 
     /**
-     * Create an aliased <code>public.scientific_project</code> table reference
+     * Create an aliased <code>SANDDB.SCIENTIFIC_PROJECT</code> table reference
      */
     public ScientificProject(String alias) {
         this(DSL.name(alias), SCIENTIFIC_PROJECT);
     }
 
     /**
-     * Create an aliased <code>public.scientific_project</code> table reference
+     * Create an aliased <code>SANDDB.SCIENTIFIC_PROJECT</code> table reference
      */
     public ScientificProject(Name alias) {
         this(alias, SCIENTIFIC_PROJECT);
@@ -120,7 +119,7 @@ public class ScientificProject extends TableImpl<ScientificProjectRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -128,15 +127,7 @@ public class ScientificProject extends TableImpl<ScientificProjectRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.SCIENTIFIC_PROJECT_PKEY);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<ScientificProjectRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_SCIENTIFIC_PROJECT;
+        return Arrays.<Index>asList(Indexes.SYS_C005202);
     }
 
     /**
@@ -144,7 +135,7 @@ public class ScientificProject extends TableImpl<ScientificProjectRecord> {
      */
     @Override
     public UniqueKey<ScientificProjectRecord> getPrimaryKey() {
-        return Keys.SCIENTIFIC_PROJECT_PKEY;
+        return Keys.SYS_C005202;
     }
 
     /**
@@ -152,7 +143,7 @@ public class ScientificProject extends TableImpl<ScientificProjectRecord> {
      */
     @Override
     public List<UniqueKey<ScientificProjectRecord>> getKeys() {
-        return Arrays.<UniqueKey<ScientificProjectRecord>>asList(Keys.SCIENTIFIC_PROJECT_PKEY);
+        return Arrays.<UniqueKey<ScientificProjectRecord>>asList(Keys.SYS_C005202);
     }
 
     /**

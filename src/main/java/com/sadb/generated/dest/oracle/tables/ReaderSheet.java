@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.ReaderSheetRecord;
 
 import java.sql.Date;
@@ -18,7 +18,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -43,10 +42,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ReaderSheet extends TableImpl<ReaderSheetRecord> {
 
-    private static final long serialVersionUID = -2083445834;
+    private static final long serialVersionUID = 1026289143;
 
     /**
-     * The reference instance of <code>public.reader_sheet</code>
+     * The reference instance of <code>SANDDB.READER_SHEET</code>
      */
     public static final ReaderSheet READER_SHEET = new ReaderSheet();
 
@@ -59,56 +58,56 @@ public class ReaderSheet extends TableImpl<ReaderSheetRecord> {
     }
 
     /**
-     * The column <code>public.reader_sheet.id</code>.
+     * The column <code>SANDDB.READER_SHEET.ID</code>.
      */
-    public final TableField<ReaderSheetRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('reader_sheet_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<ReaderSheetRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.reader_sheet.participant_id</code>.
+     * The column <code>SANDDB.READER_SHEET.PARTICIPANT_ID</code>.
      */
-    public final TableField<ReaderSheetRecord, Integer> PARTICIPANT_ID = createField("participant_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ReaderSheetRecord, Long> PARTICIPANT_ID = createField("PARTICIPANT_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.reader_sheet.title_book</code>.
+     * The column <code>SANDDB.READER_SHEET.TITLE_BOOK</code>.
      */
-    public final TableField<ReaderSheetRecord, String> TITLE_BOOK = createField("title_book", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<ReaderSheetRecord, String> TITLE_BOOK = createField("TITLE_BOOK", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.reader_sheet.date_take</code>.
+     * The column <code>SANDDB.READER_SHEET.DATE_TAKE</code>.
      */
-    public final TableField<ReaderSheetRecord, Date> DATE_TAKE = createField("date_take", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
+    public final TableField<ReaderSheetRecord, Date> DATE_TAKE = createField("DATE_TAKE", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
 
     /**
-     * The column <code>public.reader_sheet.date_put</code>.
+     * The column <code>SANDDB.READER_SHEET.DATE_PUT</code>.
      */
-    public final TableField<ReaderSheetRecord, Date> DATE_PUT = createField("date_put", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
+    public final TableField<ReaderSheetRecord, Date> DATE_PUT = createField("DATE_PUT", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
 
     /**
-     * The column <code>public.reader_sheet.data_update</code>.
+     * The column <code>SANDDB.READER_SHEET.DATA_UPDATE</code>.
      */
-    public final TableField<ReaderSheetRecord, Timestamp> DATA_UPDATE = createField("data_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ReaderSheetRecord, Timestamp> DATA_UPDATE = createField("DATA_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * The column <code>public.reader_sheet.data_create</code>.
+     * The column <code>SANDDB.READER_SHEET.DATA_CREATE</code>.
      */
-    public final TableField<ReaderSheetRecord, Timestamp> DATA_CREATE = createField("data_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ReaderSheetRecord, Timestamp> DATA_CREATE = createField("DATA_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * Create a <code>public.reader_sheet</code> table reference
+     * Create a <code>SANDDB.READER_SHEET</code> table reference
      */
     public ReaderSheet() {
-        this(DSL.name("reader_sheet"), null);
+        this(DSL.name("READER_SHEET"), null);
     }
 
     /**
-     * Create an aliased <code>public.reader_sheet</code> table reference
+     * Create an aliased <code>SANDDB.READER_SHEET</code> table reference
      */
     public ReaderSheet(String alias) {
         this(DSL.name(alias), READER_SHEET);
     }
 
     /**
-     * Create an aliased <code>public.reader_sheet</code> table reference
+     * Create an aliased <code>SANDDB.READER_SHEET</code> table reference
      */
     public ReaderSheet(Name alias) {
         this(alias, READER_SHEET);
@@ -131,7 +130,7 @@ public class ReaderSheet extends TableImpl<ReaderSheetRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -139,15 +138,7 @@ public class ReaderSheet extends TableImpl<ReaderSheetRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.READER_SHEET_PKEY);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<ReaderSheetRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_READER_SHEET;
+        return Arrays.<Index>asList(Indexes.SYS_C005210);
     }
 
     /**
@@ -155,7 +146,7 @@ public class ReaderSheet extends TableImpl<ReaderSheetRecord> {
      */
     @Override
     public UniqueKey<ReaderSheetRecord> getPrimaryKey() {
-        return Keys.READER_SHEET_PKEY;
+        return Keys.SYS_C005210;
     }
 
     /**
@@ -163,7 +154,7 @@ public class ReaderSheet extends TableImpl<ReaderSheetRecord> {
      */
     @Override
     public List<UniqueKey<ReaderSheetRecord>> getKeys() {
-        return Arrays.<UniqueKey<ReaderSheetRecord>>asList(Keys.READER_SHEET_PKEY);
+        return Arrays.<UniqueKey<ReaderSheetRecord>>asList(Keys.SYS_C005210);
     }
 
     /**
@@ -171,11 +162,11 @@ public class ReaderSheet extends TableImpl<ReaderSheetRecord> {
      */
     @Override
     public List<ForeignKey<ReaderSheetRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ReaderSheetRecord, ?>>asList(Keys.READER_SHEET__READER_SHEET_FK0);
+        return Arrays.<ForeignKey<ReaderSheetRecord, ?>>asList(Keys.READER_SHEET_FK0);
     }
 
     public Student student() {
-        return new Student(this, Keys.READER_SHEET__READER_SHEET_FK0);
+        return new Student(this, Keys.READER_SHEET_FK0);
     }
 
     /**

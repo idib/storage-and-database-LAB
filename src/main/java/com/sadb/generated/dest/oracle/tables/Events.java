@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.EventsRecord;
 
 import java.sql.Timestamp;
@@ -17,7 +17,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -42,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Events extends TableImpl<EventsRecord> {
 
-    private static final long serialVersionUID = 135286482;
+    private static final long serialVersionUID = -1347809246;
 
     /**
-     * The reference instance of <code>public.events</code>
+     * The reference instance of <code>SANDDB.EVENTS</code>
      */
     public static final Events EVENTS = new Events();
 
@@ -58,51 +57,51 @@ public class Events extends TableImpl<EventsRecord> {
     }
 
     /**
-     * The column <code>public.events.id</code>.
+     * The column <code>SANDDB.EVENTS.ID</code>.
      */
-    public final TableField<EventsRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('events_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<EventsRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.events.student_id</code>.
+     * The column <code>SANDDB.EVENTS.STUDENT_ID</code>.
      */
-    public final TableField<EventsRecord, Integer> STUDENT_ID = createField("student_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<EventsRecord, Long> STUDENT_ID = createField("STUDENT_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.events.event_type_id</code>.
+     * The column <code>SANDDB.EVENTS.EVENT_TYPE_ID</code>.
      */
-    public final TableField<EventsRecord, Integer> EVENT_TYPE_ID = createField("event_type_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<EventsRecord, Long> EVENT_TYPE_ID = createField("EVENT_TYPE_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.events.datetime</code>.
+     * The column <code>SANDDB.EVENTS.DATETIME</code>.
      */
-    public final TableField<EventsRecord, Timestamp> DATETIME = createField("datetime", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<EventsRecord, Timestamp> DATETIME = createField("DATETIME", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
 
     /**
-     * The column <code>public.events.date_update</code>.
+     * The column <code>SANDDB.EVENTS.DATE_UPDATE</code>.
      */
-    public final TableField<EventsRecord, Timestamp> DATE_UPDATE = createField("date_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<EventsRecord, Timestamp> DATE_UPDATE = createField("DATE_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
 
     /**
-     * The column <code>public.events.date_create</code>.
+     * The column <code>SANDDB.EVENTS.DATE_CREATE</code>.
      */
-    public final TableField<EventsRecord, Timestamp> DATE_CREATE = createField("date_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<EventsRecord, Timestamp> DATE_CREATE = createField("DATE_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
 
     /**
-     * Create a <code>public.events</code> table reference
+     * Create a <code>SANDDB.EVENTS</code> table reference
      */
     public Events() {
-        this(DSL.name("events"), null);
+        this(DSL.name("EVENTS"), null);
     }
 
     /**
-     * Create an aliased <code>public.events</code> table reference
+     * Create an aliased <code>SANDDB.EVENTS</code> table reference
      */
     public Events(String alias) {
         this(DSL.name(alias), EVENTS);
     }
 
     /**
-     * Create an aliased <code>public.events</code> table reference
+     * Create an aliased <code>SANDDB.EVENTS</code> table reference
      */
     public Events(Name alias) {
         this(alias, EVENTS);
@@ -125,7 +124,7 @@ public class Events extends TableImpl<EventsRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -134,14 +133,6 @@ public class Events extends TableImpl<EventsRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.EVENTS_PK);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<EventsRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_EVENTS;
     }
 
     /**
@@ -165,15 +156,15 @@ public class Events extends TableImpl<EventsRecord> {
      */
     @Override
     public List<ForeignKey<EventsRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<EventsRecord, ?>>asList(Keys.EVENTS__EVENTS_FK0, Keys.EVENTS__EVENTS_FK1);
+        return Arrays.<ForeignKey<EventsRecord, ?>>asList(Keys.EVENTS_FK0, Keys.EVENTS_FK1);
     }
 
     public Student student() {
-        return new Student(this, Keys.EVENTS__EVENTS_FK0);
+        return new Student(this, Keys.EVENTS_FK0);
     }
 
     public EventType eventType() {
-        return new EventType(this, Keys.EVENTS__EVENTS_FK1);
+        return new EventType(this, Keys.EVENTS_FK1);
     }
 
     /**

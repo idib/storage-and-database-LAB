@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.ConferenceRecord;
 
 import java.sql.Date;
@@ -18,7 +18,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -43,10 +42,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Conference extends TableImpl<ConferenceRecord> {
 
-    private static final long serialVersionUID = -449534228;
+    private static final long serialVersionUID = 1576846761;
 
     /**
-     * The reference instance of <code>public.conference</code>
+     * The reference instance of <code>SANDDB.CONFERENCE</code>
      */
     public static final Conference CONFERENCE = new Conference();
 
@@ -59,51 +58,51 @@ public class Conference extends TableImpl<ConferenceRecord> {
     }
 
     /**
-     * The column <code>public.conference.id</code>.
+     * The column <code>SANDDB.CONFERENCE.ID</code>.
      */
-    public final TableField<ConferenceRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('conference_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<ConferenceRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.conference.name</code>.
+     * The column <code>SANDDB.CONFERENCE.NAME</code>.
      */
-    public final TableField<ConferenceRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<ConferenceRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.conference.venue</code>.
+     * The column <code>SANDDB.CONFERENCE.VENUE</code>.
      */
-    public final TableField<ConferenceRecord, String> VENUE = createField("venue", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<ConferenceRecord, String> VENUE = createField("VENUE", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.conference.date_conference</code>.
+     * The column <code>SANDDB.CONFERENCE.DATE_CONFERENCE</code>.
      */
-    public final TableField<ConferenceRecord, Date> DATE_CONFERENCE = createField("date_conference", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
+    public final TableField<ConferenceRecord, Date> DATE_CONFERENCE = createField("DATE_CONFERENCE", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
 
     /**
-     * The column <code>public.conference.data_update</code>.
+     * The column <code>SANDDB.CONFERENCE.DATA_UPDATE</code>.
      */
-    public final TableField<ConferenceRecord, Timestamp> DATA_UPDATE = createField("data_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ConferenceRecord, Timestamp> DATA_UPDATE = createField("DATA_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * The column <code>public.conference.data_create</code>.
+     * The column <code>SANDDB.CONFERENCE.DATA_CREATE</code>.
      */
-    public final TableField<ConferenceRecord, Timestamp> DATA_CREATE = createField("data_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ConferenceRecord, Timestamp> DATA_CREATE = createField("DATA_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * Create a <code>public.conference</code> table reference
+     * Create a <code>SANDDB.CONFERENCE</code> table reference
      */
     public Conference() {
-        this(DSL.name("conference"), null);
+        this(DSL.name("CONFERENCE"), null);
     }
 
     /**
-     * Create an aliased <code>public.conference</code> table reference
+     * Create an aliased <code>SANDDB.CONFERENCE</code> table reference
      */
     public Conference(String alias) {
         this(DSL.name(alias), CONFERENCE);
     }
 
     /**
-     * Create an aliased <code>public.conference</code> table reference
+     * Create an aliased <code>SANDDB.CONFERENCE</code> table reference
      */
     public Conference(Name alias) {
         this(alias, CONFERENCE);
@@ -126,7 +125,7 @@ public class Conference extends TableImpl<ConferenceRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -134,15 +133,7 @@ public class Conference extends TableImpl<ConferenceRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.CONFERENCE_PKEY);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<ConferenceRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_CONFERENCE;
+        return Arrays.<Index>asList(Indexes.SYS_C005172);
     }
 
     /**
@@ -150,7 +141,7 @@ public class Conference extends TableImpl<ConferenceRecord> {
      */
     @Override
     public UniqueKey<ConferenceRecord> getPrimaryKey() {
-        return Keys.CONFERENCE_PKEY;
+        return Keys.SYS_C005172;
     }
 
     /**
@@ -158,7 +149,7 @@ public class Conference extends TableImpl<ConferenceRecord> {
      */
     @Override
     public List<UniqueKey<ConferenceRecord>> getKeys() {
-        return Arrays.<UniqueKey<ConferenceRecord>>asList(Keys.CONFERENCE_PKEY);
+        return Arrays.<UniqueKey<ConferenceRecord>>asList(Keys.SYS_C005172);
     }
 
     /**

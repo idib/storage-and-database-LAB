@@ -27,7 +27,7 @@ import org.jooq.impl.CatalogImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DefaultCatalog extends CatalogImpl {
 
-    private static final long serialVersionUID = -1554744049;
+    private static final long serialVersionUID = 2042584982;
 
     /**
      * The reference instance of <code></code>
@@ -35,9 +35,9 @@ public class DefaultCatalog extends CatalogImpl {
     public static final DefaultCatalog DEFAULT_CATALOG = new DefaultCatalog();
 
     /**
-     * The schema <code>public</code>.
+     * The schema <code>SANDDB</code>.
      */
-    public final Public PUBLIC = Public.PUBLIC;
+    public final Sanddb SANDDB = com.sadb.generated.dest.oracle.Sanddb.SANDDB;
 
     /**
      * No further instances allowed
@@ -55,6 +55,6 @@ public class DefaultCatalog extends CatalogImpl {
 
     private final List<Schema> getSchemas0() {
         return Arrays.<Schema>asList(
-            Public.PUBLIC);
+            Sanddb.SANDDB);
     }
 }

@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.DormitoryRecord;
 
 import java.sql.Timestamp;
@@ -17,7 +17,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -42,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Dormitory extends TableImpl<DormitoryRecord> {
 
-    private static final long serialVersionUID = 1304311482;
+    private static final long serialVersionUID = 216443705;
 
     /**
-     * The reference instance of <code>public.dormitory</code>
+     * The reference instance of <code>SANDDB.DORMITORY</code>
      */
     public static final Dormitory DORMITORY = new Dormitory();
 
@@ -58,46 +57,46 @@ public class Dormitory extends TableImpl<DormitoryRecord> {
     }
 
     /**
-     * The column <code>public.dormitory.id</code>.
+     * The column <code>SANDDB.DORMITORY.ID</code>.
      */
-    public final TableField<DormitoryRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('dormitory_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<DormitoryRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.dormitory.name</code>.
+     * The column <code>SANDDB.DORMITORY.NAME</code>.
      */
-    public final TableField<DormitoryRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
+    public final TableField<DormitoryRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
     /**
-     * The column <code>public.dormitory.address</code>.
+     * The column <code>SANDDB.DORMITORY.ADDRESS</code>.
      */
-    public final TableField<DormitoryRecord, String> ADDRESS = createField("address", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
+    public final TableField<DormitoryRecord, String> ADDRESS = createField("ADDRESS", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
     /**
-     * The column <code>public.dormitory.date_update</code>.
+     * The column <code>SANDDB.DORMITORY.DATE_UPDATE</code>.
      */
-    public final TableField<DormitoryRecord, Timestamp> DATE_UPDATE = createField("date_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<DormitoryRecord, Timestamp> DATE_UPDATE = createField("DATE_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
 
     /**
-     * The column <code>public.dormitory.date_create</code>.
+     * The column <code>SANDDB.DORMITORY.DATE_CREATE</code>.
      */
-    public final TableField<DormitoryRecord, Timestamp> DATE_CREATE = createField("date_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<DormitoryRecord, Timestamp> DATE_CREATE = createField("DATE_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
 
     /**
-     * Create a <code>public.dormitory</code> table reference
+     * Create a <code>SANDDB.DORMITORY</code> table reference
      */
     public Dormitory() {
-        this(DSL.name("dormitory"), null);
+        this(DSL.name("DORMITORY"), null);
     }
 
     /**
-     * Create an aliased <code>public.dormitory</code> table reference
+     * Create an aliased <code>SANDDB.DORMITORY</code> table reference
      */
     public Dormitory(String alias) {
         this(DSL.name(alias), DORMITORY);
     }
 
     /**
-     * Create an aliased <code>public.dormitory</code> table reference
+     * Create an aliased <code>SANDDB.DORMITORY</code> table reference
      */
     public Dormitory(Name alias) {
         this(alias, DORMITORY);
@@ -120,7 +119,7 @@ public class Dormitory extends TableImpl<DormitoryRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -129,14 +128,6 @@ public class Dormitory extends TableImpl<DormitoryRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.DORMITORY_PK);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<DormitoryRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_DORMITORY;
     }
 
     /**

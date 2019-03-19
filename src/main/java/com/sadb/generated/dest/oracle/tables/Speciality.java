@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.SpecialityRecord;
 
 import java.sql.Timestamp;
@@ -41,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Speciality extends TableImpl<SpecialityRecord> {
 
-    private static final long serialVersionUID = 1033252719;
+    private static final long serialVersionUID = 2130422325;
 
     /**
-     * The reference instance of <code>public.speciality</code>
+     * The reference instance of <code>SANDDB.SPECIALITY</code>
      */
     public static final Speciality SPECIALITY = new Speciality();
 
@@ -57,71 +57,71 @@ public class Speciality extends TableImpl<SpecialityRecord> {
     }
 
     /**
-     * The column <code>public.speciality.spec_id</code>.
+     * The column <code>SANDDB.SPECIALITY.SPEC_ID</code>.
      */
-    public final TableField<SpecialityRecord, Integer> SPEC_ID = createField("spec_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<SpecialityRecord, Long> SPEC_ID = createField("SPEC_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.speciality.spec_name</code>.
+     * The column <code>SANDDB.SPECIALITY.SPEC_NAME</code>.
      */
-    public final TableField<SpecialityRecord, String> SPEC_NAME = createField("spec_name", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<SpecialityRecord, String> SPEC_NAME = createField("SPEC_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.speciality.spec_number</code>.
+     * The column <code>SANDDB.SPECIALITY.SPEC_NUMBER</code>.
      */
-    public final TableField<SpecialityRecord, String> SPEC_NUMBER = createField("spec_number", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<SpecialityRecord, String> SPEC_NUMBER = createField("SPEC_NUMBER", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.speciality.spec_degree</code>.
+     * The column <code>SANDDB.SPECIALITY.SPEC_DEGREE</code>.
      */
-    public final TableField<SpecialityRecord, String> SPEC_DEGREE = createField("spec_degree", org.jooq.impl.SQLDataType.VARCHAR(10), this, "");
+    public final TableField<SpecialityRecord, String> SPEC_DEGREE = createField("SPEC_DEGREE", org.jooq.impl.SQLDataType.VARCHAR(10), this, "");
 
     /**
-     * The column <code>public.speciality.free_educ_count</code>.
+     * The column <code>SANDDB.SPECIALITY.FREE_EDUC_COUNT</code>.
      */
-    public final TableField<SpecialityRecord, Integer> FREE_EDUC_COUNT = createField("free_educ_count", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<SpecialityRecord, Long> FREE_EDUC_COUNT = createField("FREE_EDUC_COUNT", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>public.speciality.paid_educ_count</code>.
+     * The column <code>SANDDB.SPECIALITY.PAID_EDUC_COUNT</code>.
      */
-    public final TableField<SpecialityRecord, Integer> PAID_EDUC_COUNT = createField("paid_educ_count", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<SpecialityRecord, Long> PAID_EDUC_COUNT = createField("PAID_EDUC_COUNT", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>public.speciality.sponsored_educ_count</code>.
+     * The column <code>SANDDB.SPECIALITY.SPONSORED_EDUC_COUNT</code>.
      */
-    public final TableField<SpecialityRecord, Integer> SPONSORED_EDUC_COUNT = createField("sponsored_educ_count", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<SpecialityRecord, Long> SPONSORED_EDUC_COUNT = createField("SPONSORED_EDUC_COUNT", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>public.speciality.prog_id</code>.
+     * The column <code>SANDDB.SPECIALITY.PROG_ID</code>.
      */
-    public final TableField<SpecialityRecord, Integer> PROG_ID = createField("prog_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<SpecialityRecord, Long> PROG_ID = createField("PROG_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>public.speciality.creat_time</code>.
+     * The column <code>SANDDB.SPECIALITY.CREAT_TIME</code>.
      */
-    public final TableField<SpecialityRecord, Timestamp> CREAT_TIME = createField("creat_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<SpecialityRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.speciality.update_time</code>.
+     * The column <code>SANDDB.SPECIALITY.UPDATE_TIME</code>.
      */
-    public final TableField<SpecialityRecord, Timestamp> UPDATE_TIME = createField("update_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<SpecialityRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * Create a <code>public.speciality</code> table reference
+     * Create a <code>SANDDB.SPECIALITY</code> table reference
      */
     public Speciality() {
-        this(DSL.name("speciality"), null);
+        this(DSL.name("SPECIALITY"), null);
     }
 
     /**
-     * Create an aliased <code>public.speciality</code> table reference
+     * Create an aliased <code>SANDDB.SPECIALITY</code> table reference
      */
     public Speciality(String alias) {
         this(DSL.name(alias), SPECIALITY);
     }
 
     /**
-     * Create an aliased <code>public.speciality</code> table reference
+     * Create an aliased <code>SANDDB.SPECIALITY</code> table reference
      */
     public Speciality(Name alias) {
         this(alias, SPECIALITY);
@@ -144,7 +144,7 @@ public class Speciality extends TableImpl<SpecialityRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -176,11 +176,11 @@ public class Speciality extends TableImpl<SpecialityRecord> {
      */
     @Override
     public List<ForeignKey<SpecialityRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<SpecialityRecord, ?>>asList(Keys.SPECIALITY__R_26);
+        return Arrays.<ForeignKey<SpecialityRecord, ?>>asList(Keys.R_26);
     }
 
     public ProgramTrack programTrack() {
-        return new ProgramTrack(this, Keys.SPECIALITY__R_26);
+        return new ProgramTrack(this, Keys.R_26);
     }
 
     /**

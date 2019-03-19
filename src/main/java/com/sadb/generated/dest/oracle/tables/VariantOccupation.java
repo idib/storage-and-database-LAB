@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.VariantOccupationRecord;
 
 import java.sql.Timestamp;
@@ -41,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class VariantOccupation extends TableImpl<VariantOccupationRecord> {
 
-    private static final long serialVersionUID = -1406948605;
+    private static final long serialVersionUID = -1253619655;
 
     /**
-     * The reference instance of <code>public.variant_occupation</code>
+     * The reference instance of <code>SANDDB.VARIANT_OCCUPATION</code>
      */
     public static final VariantOccupation VARIANT_OCCUPATION = new VariantOccupation();
 
@@ -57,41 +57,41 @@ public class VariantOccupation extends TableImpl<VariantOccupationRecord> {
     }
 
     /**
-     * The column <code>public.variant_occupation.variant_occupation_id</code>.
+     * The column <code>SANDDB.VARIANT_OCCUPATION.VARIANT_OCCUPATION_ID</code>.
      */
-    public final TableField<VariantOccupationRecord, Integer> VARIANT_OCCUPATION_ID = createField("variant_occupation_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<VariantOccupationRecord, Long> VARIANT_OCCUPATION_ID = createField("VARIANT_OCCUPATION_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.variant_occupation.var_occ_type</code>.
+     * The column <code>SANDDB.VARIANT_OCCUPATION.VAR_OCC_TYPE</code>.
      */
-    public final TableField<VariantOccupationRecord, String> VAR_OCC_TYPE = createField("var_occ_type", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<VariantOccupationRecord, String> VAR_OCC_TYPE = createField("VAR_OCC_TYPE", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.variant_occupation.creat_time</code>.
+     * The column <code>SANDDB.VARIANT_OCCUPATION.CREAT_TIME</code>.
      */
-    public final TableField<VariantOccupationRecord, Timestamp> CREAT_TIME = createField("creat_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<VariantOccupationRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.variant_occupation.update_time</code>.
+     * The column <code>SANDDB.VARIANT_OCCUPATION.UPDATE_TIME</code>.
      */
-    public final TableField<VariantOccupationRecord, Timestamp> UPDATE_TIME = createField("update_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<VariantOccupationRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * Create a <code>public.variant_occupation</code> table reference
+     * Create a <code>SANDDB.VARIANT_OCCUPATION</code> table reference
      */
     public VariantOccupation() {
-        this(DSL.name("variant_occupation"), null);
+        this(DSL.name("VARIANT_OCCUPATION"), null);
     }
 
     /**
-     * Create an aliased <code>public.variant_occupation</code> table reference
+     * Create an aliased <code>SANDDB.VARIANT_OCCUPATION</code> table reference
      */
     public VariantOccupation(String alias) {
         this(DSL.name(alias), VARIANT_OCCUPATION);
     }
 
     /**
-     * Create an aliased <code>public.variant_occupation</code> table reference
+     * Create an aliased <code>SANDDB.VARIANT_OCCUPATION</code> table reference
      */
     public VariantOccupation(Name alias) {
         this(alias, VARIANT_OCCUPATION);
@@ -114,7 +114,7 @@ public class VariantOccupation extends TableImpl<VariantOccupationRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**

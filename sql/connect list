@@ -1,0 +1,32 @@
+Oracle RESULT   Oracle RESULT   Oracle RESULT   Oracle RESULT
+
+user SandDB
+pwd 132$ndfT7
+name dbresult
+port 1521
+instance SandDB
+Endpoint sanddb.ct7ose5lnvl9.eu-central-1.rds.amazonaws.com
+
+
+mysql   mysql   mysql   mysql
+
+host: conference.cakqhkplapqx.eu-central-1.rds.amazonaws.com
+port: 3306
+user: db_itmo
+pwd: qwerty14
+Bdname: conference
+
+
+oracl   oracl   oracl   oracl
+
+host: mydboraclinstance.c2wx7dijsbls.eu-west-3.rds.amazonaws.com
+port: 1521
+user: USER1
+pwd: KMuZgdy4gbTDPps
+bdName: ORCLDB
+
+postgres    postgres    postgres    postgres
+host: db-kr.cjppjzsibknt.eu-central-1.rds.amazonaws.com
+
+
+mvn install:install-file -Dfile=/Users/idib/Git/github/storage-and-database-LAB/libs/jooq-codegen-3.11.10.jar -DgroupId=org.jooq -DartifactId=jooq-codegen-maven -Dversion=3.11.10 -Dpackaging=jar -DgeneratePom=true

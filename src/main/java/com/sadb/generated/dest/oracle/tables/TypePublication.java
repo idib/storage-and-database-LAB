@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.TypePublicationRecord;
 
 import java.sql.Timestamp;
@@ -17,7 +17,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -42,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TypePublication extends TableImpl<TypePublicationRecord> {
 
-    private static final long serialVersionUID = 2003217563;
+    private static final long serialVersionUID = -888404401;
 
     /**
-     * The reference instance of <code>public.type_publication</code>
+     * The reference instance of <code>SANDDB.TYPE_PUBLICATION</code>
      */
     public static final TypePublication TYPE_PUBLICATION = new TypePublication();
 
@@ -58,41 +57,41 @@ public class TypePublication extends TableImpl<TypePublicationRecord> {
     }
 
     /**
-     * The column <code>public.type_publication.id</code>.
+     * The column <code>SANDDB.TYPE_PUBLICATION.ID</code>.
      */
-    public final TableField<TypePublicationRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('type_publication_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<TypePublicationRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.type_publication.name</code>.
+     * The column <code>SANDDB.TYPE_PUBLICATION.NAME</code>.
      */
-    public final TableField<TypePublicationRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<TypePublicationRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.type_publication.data_update</code>.
+     * The column <code>SANDDB.TYPE_PUBLICATION.DATA_UPDATE</code>.
      */
-    public final TableField<TypePublicationRecord, Timestamp> DATA_UPDATE = createField("data_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<TypePublicationRecord, Timestamp> DATA_UPDATE = createField("DATA_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * The column <code>public.type_publication.data_create</code>.
+     * The column <code>SANDDB.TYPE_PUBLICATION.DATA_CREATE</code>.
      */
-    public final TableField<TypePublicationRecord, Timestamp> DATA_CREATE = createField("data_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<TypePublicationRecord, Timestamp> DATA_CREATE = createField("DATA_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * Create a <code>public.type_publication</code> table reference
+     * Create a <code>SANDDB.TYPE_PUBLICATION</code> table reference
      */
     public TypePublication() {
-        this(DSL.name("type_publication"), null);
+        this(DSL.name("TYPE_PUBLICATION"), null);
     }
 
     /**
-     * Create an aliased <code>public.type_publication</code> table reference
+     * Create an aliased <code>SANDDB.TYPE_PUBLICATION</code> table reference
      */
     public TypePublication(String alias) {
         this(DSL.name(alias), TYPE_PUBLICATION);
     }
 
     /**
-     * Create an aliased <code>public.type_publication</code> table reference
+     * Create an aliased <code>SANDDB.TYPE_PUBLICATION</code> table reference
      */
     public TypePublication(Name alias) {
         this(alias, TYPE_PUBLICATION);
@@ -115,7 +114,7 @@ public class TypePublication extends TableImpl<TypePublicationRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -123,15 +122,7 @@ public class TypePublication extends TableImpl<TypePublicationRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.TYPE_PUBLICATION_PKEY);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<TypePublicationRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_TYPE_PUBLICATION;
+        return Arrays.<Index>asList(Indexes.SYS_C005196);
     }
 
     /**
@@ -139,7 +130,7 @@ public class TypePublication extends TableImpl<TypePublicationRecord> {
      */
     @Override
     public UniqueKey<TypePublicationRecord> getPrimaryKey() {
-        return Keys.TYPE_PUBLICATION_PKEY;
+        return Keys.SYS_C005196;
     }
 
     /**
@@ -147,7 +138,7 @@ public class TypePublication extends TableImpl<TypePublicationRecord> {
      */
     @Override
     public List<UniqueKey<TypePublicationRecord>> getKeys() {
-        return Arrays.<UniqueKey<TypePublicationRecord>>asList(Keys.TYPE_PUBLICATION_PKEY);
+        return Arrays.<UniqueKey<TypePublicationRecord>>asList(Keys.SYS_C005196);
     }
 
     /**

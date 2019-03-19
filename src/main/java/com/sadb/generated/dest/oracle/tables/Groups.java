@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.GroupsRecord;
 
 import java.sql.Timestamp;
@@ -41,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Groups extends TableImpl<GroupsRecord> {
 
-    private static final long serialVersionUID = 1378586750;
+    private static final long serialVersionUID = 1241556908;
 
     /**
-     * The reference instance of <code>public.groups</code>
+     * The reference instance of <code>SANDDB.GROUPS</code>
      */
     public static final Groups GROUPS = new Groups();
 
@@ -57,66 +57,66 @@ public class Groups extends TableImpl<GroupsRecord> {
     }
 
     /**
-     * The column <code>public.groups.group_id</code>.
+     * The column <code>SANDDB.GROUPS.GROUP_ID</code>.
      */
-    public final TableField<GroupsRecord, Integer> GROUP_ID = createField("group_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<GroupsRecord, Long> GROUP_ID = createField("GROUP_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.groups.spec_id</code>.
+     * The column <code>SANDDB.GROUPS.SPEC_ID</code>.
      */
-    public final TableField<GroupsRecord, Integer> SPEC_ID = createField("spec_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<GroupsRecord, Long> SPEC_ID = createField("SPEC_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>public.groups.group_num</code>.
+     * The column <code>SANDDB.GROUPS.GROUP_NUM</code>.
      */
-    public final TableField<GroupsRecord, String> GROUP_NUM = createField("group_num", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<GroupsRecord, String> GROUP_NUM = createField("GROUP_NUM", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.groups.course</code>.
+     * The column <code>SANDDB.GROUPS.COURSE</code>.
      */
-    public final TableField<GroupsRecord, Integer> COURSE = createField("course", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<GroupsRecord, Long> COURSE = createField("COURSE", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>public.groups.education_time_from</code>.
+     * The column <code>SANDDB.GROUPS.EDUCATION_TIME_FROM</code>.
      */
-    public final TableField<GroupsRecord, Timestamp> EDUCATION_TIME_FROM = createField("education_time_from", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<GroupsRecord, Timestamp> EDUCATION_TIME_FROM = createField("EDUCATION_TIME_FROM", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.groups.education_time_to</code>.
+     * The column <code>SANDDB.GROUPS.EDUCATION_TIME_TO</code>.
      */
-    public final TableField<GroupsRecord, Timestamp> EDUCATION_TIME_TO = createField("education_time_to", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<GroupsRecord, Timestamp> EDUCATION_TIME_TO = createField("EDUCATION_TIME_TO", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.groups.academ_year_id</code>.
+     * The column <code>SANDDB.GROUPS.ACADEM_YEAR_ID</code>.
      */
-    public final TableField<GroupsRecord, Integer> ACADEM_YEAR_ID = createField("academ_year_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<GroupsRecord, Long> ACADEM_YEAR_ID = createField("ACADEM_YEAR_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.groups.creat_time</code>.
+     * The column <code>SANDDB.GROUPS.CREAT_TIME</code>.
      */
-    public final TableField<GroupsRecord, Timestamp> CREAT_TIME = createField("creat_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<GroupsRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.groups.update_time</code>.
+     * The column <code>SANDDB.GROUPS.UPDATE_TIME</code>.
      */
-    public final TableField<GroupsRecord, Timestamp> UPDATE_TIME = createField("update_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<GroupsRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * Create a <code>public.groups</code> table reference
+     * Create a <code>SANDDB.GROUPS</code> table reference
      */
     public Groups() {
-        this(DSL.name("groups"), null);
+        this(DSL.name("GROUPS"), null);
     }
 
     /**
-     * Create an aliased <code>public.groups</code> table reference
+     * Create an aliased <code>SANDDB.GROUPS</code> table reference
      */
     public Groups(String alias) {
         this(DSL.name(alias), GROUPS);
     }
 
     /**
-     * Create an aliased <code>public.groups</code> table reference
+     * Create an aliased <code>SANDDB.GROUPS</code> table reference
      */
     public Groups(Name alias) {
         this(alias, GROUPS);
@@ -139,7 +139,7 @@ public class Groups extends TableImpl<GroupsRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -171,15 +171,15 @@ public class Groups extends TableImpl<GroupsRecord> {
      */
     @Override
     public List<ForeignKey<GroupsRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<GroupsRecord, ?>>asList(Keys.GROUPS__R_6, Keys.GROUPS__R_29);
+        return Arrays.<ForeignKey<GroupsRecord, ?>>asList(Keys.R_6, Keys.R_29);
     }
 
     public Speciality speciality() {
-        return new Speciality(this, Keys.GROUPS__R_6);
+        return new Speciality(this, Keys.R_6);
     }
 
     public AcademicYear academicYear() {
-        return new AcademicYear(this, Keys.GROUPS__R_29);
+        return new AcademicYear(this, Keys.R_29);
     }
 
     /**

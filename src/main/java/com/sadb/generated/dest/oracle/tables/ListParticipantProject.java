@@ -5,7 +5,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.ListParticipantProjectRecord;
 
 import java.sql.Timestamp;
@@ -38,10 +38,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ListParticipantProject extends TableImpl<ListParticipantProjectRecord> {
 
-    private static final long serialVersionUID = 180920647;
+    private static final long serialVersionUID = 1242993954;
 
     /**
-     * The reference instance of <code>public.list_participant_project</code>
+     * The reference instance of <code>SANDDB.LIST_PARTICIPANT_PROJECT</code>
      */
     public static final ListParticipantProject LIST_PARTICIPANT_PROJECT = new ListParticipantProject();
 
@@ -54,41 +54,41 @@ public class ListParticipantProject extends TableImpl<ListParticipantProjectReco
     }
 
     /**
-     * The column <code>public.list_participant_project.participant_id</code>.
+     * The column <code>SANDDB.LIST_PARTICIPANT_PROJECT.PARTICIPANT_ID</code>.
      */
-    public final TableField<ListParticipantProjectRecord, Integer> PARTICIPANT_ID = createField("participant_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ListParticipantProjectRecord, Long> PARTICIPANT_ID = createField("PARTICIPANT_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.list_participant_project.project_id</code>.
+     * The column <code>SANDDB.LIST_PARTICIPANT_PROJECT.PROJECT_ID</code>.
      */
-    public final TableField<ListParticipantProjectRecord, Integer> PROJECT_ID = createField("project_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ListParticipantProjectRecord, Long> PROJECT_ID = createField("PROJECT_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.list_participant_project.data_update</code>.
+     * The column <code>SANDDB.LIST_PARTICIPANT_PROJECT.DATA_UPDATE</code>.
      */
-    public final TableField<ListParticipantProjectRecord, Timestamp> DATA_UPDATE = createField("data_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ListParticipantProjectRecord, Timestamp> DATA_UPDATE = createField("DATA_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * The column <code>public.list_participant_project.data_create</code>.
+     * The column <code>SANDDB.LIST_PARTICIPANT_PROJECT.DATA_CREATE</code>.
      */
-    public final TableField<ListParticipantProjectRecord, Timestamp> DATA_CREATE = createField("data_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ListParticipantProjectRecord, Timestamp> DATA_CREATE = createField("DATA_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * Create a <code>public.list_participant_project</code> table reference
+     * Create a <code>SANDDB.LIST_PARTICIPANT_PROJECT</code> table reference
      */
     public ListParticipantProject() {
-        this(DSL.name("list_participant_project"), null);
+        this(DSL.name("LIST_PARTICIPANT_PROJECT"), null);
     }
 
     /**
-     * Create an aliased <code>public.list_participant_project</code> table reference
+     * Create an aliased <code>SANDDB.LIST_PARTICIPANT_PROJECT</code> table reference
      */
     public ListParticipantProject(String alias) {
         this(DSL.name(alias), LIST_PARTICIPANT_PROJECT);
     }
 
     /**
-     * Create an aliased <code>public.list_participant_project</code> table reference
+     * Create an aliased <code>SANDDB.LIST_PARTICIPANT_PROJECT</code> table reference
      */
     public ListParticipantProject(Name alias) {
         this(alias, LIST_PARTICIPANT_PROJECT);
@@ -111,7 +111,7 @@ public class ListParticipantProject extends TableImpl<ListParticipantProjectReco
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -119,15 +119,15 @@ public class ListParticipantProject extends TableImpl<ListParticipantProjectReco
      */
     @Override
     public List<ForeignKey<ListParticipantProjectRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ListParticipantProjectRecord, ?>>asList(Keys.LIST_PARTICIPANT_PROJECT__LIST_PARTICIPANT_PROJECT_FK0, Keys.LIST_PARTICIPANT_PROJECT__LIST_PARTICIPANT_PROJECT_FK1);
+        return Arrays.<ForeignKey<ListParticipantProjectRecord, ?>>asList(Keys.LIST_PARTICIPANT_PROJECT_FK0, Keys.LIST_PARTICIPANT_PROJECT_FK1);
     }
 
     public Student student() {
-        return new Student(this, Keys.LIST_PARTICIPANT_PROJECT__LIST_PARTICIPANT_PROJECT_FK0);
+        return new Student(this, Keys.LIST_PARTICIPANT_PROJECT_FK0);
     }
 
     public ScientificProject scientificProject() {
-        return new ScientificProject(this, Keys.LIST_PARTICIPANT_PROJECT__LIST_PARTICIPANT_PROJECT_FK1);
+        return new ScientificProject(this, Keys.LIST_PARTICIPANT_PROJECT_FK1);
     }
 
     /**

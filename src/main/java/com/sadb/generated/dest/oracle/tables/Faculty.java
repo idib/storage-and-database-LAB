@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.FacultyRecord;
 
 import java.sql.Timestamp;
@@ -41,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Faculty extends TableImpl<FacultyRecord> {
 
-    private static final long serialVersionUID = 2120496761;
+    private static final long serialVersionUID = 891484005;
 
     /**
-     * The reference instance of <code>public.faculty</code>
+     * The reference instance of <code>SANDDB.FACULTY</code>
      */
     public static final Faculty FACULTY = new Faculty();
 
@@ -57,46 +57,46 @@ public class Faculty extends TableImpl<FacultyRecord> {
     }
 
     /**
-     * The column <code>public.faculty.fac_id</code>.
+     * The column <code>SANDDB.FACULTY.FAC_ID</code>.
      */
-    public final TableField<FacultyRecord, Integer> FAC_ID = createField("fac_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<FacultyRecord, Long> FAC_ID = createField("FAC_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.faculty.fac_name</code>.
+     * The column <code>SANDDB.FACULTY.FAC_NAME</code>.
      */
-    public final TableField<FacultyRecord, String> FAC_NAME = createField("fac_name", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<FacultyRecord, String> FAC_NAME = createField("FAC_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.faculty.megafac_id</code>.
+     * The column <code>SANDDB.FACULTY.MEGAFAC_ID</code>.
      */
-    public final TableField<FacultyRecord, Integer> MEGAFAC_ID = createField("megafac_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<FacultyRecord, Long> MEGAFAC_ID = createField("MEGAFAC_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.faculty.creat_time</code>.
+     * The column <code>SANDDB.FACULTY.CREAT_TIME</code>.
      */
-    public final TableField<FacultyRecord, Timestamp> CREAT_TIME = createField("creat_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<FacultyRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.faculty.update_time</code>.
+     * The column <code>SANDDB.FACULTY.UPDATE_TIME</code>.
      */
-    public final TableField<FacultyRecord, Timestamp> UPDATE_TIME = createField("update_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<FacultyRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * Create a <code>public.faculty</code> table reference
+     * Create a <code>SANDDB.FACULTY</code> table reference
      */
     public Faculty() {
-        this(DSL.name("faculty"), null);
+        this(DSL.name("FACULTY"), null);
     }
 
     /**
-     * Create an aliased <code>public.faculty</code> table reference
+     * Create an aliased <code>SANDDB.FACULTY</code> table reference
      */
     public Faculty(String alias) {
         this(DSL.name(alias), FACULTY);
     }
 
     /**
-     * Create an aliased <code>public.faculty</code> table reference
+     * Create an aliased <code>SANDDB.FACULTY</code> table reference
      */
     public Faculty(Name alias) {
         this(alias, FACULTY);
@@ -119,7 +119,7 @@ public class Faculty extends TableImpl<FacultyRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -151,11 +151,11 @@ public class Faculty extends TableImpl<FacultyRecord> {
      */
     @Override
     public List<ForeignKey<FacultyRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<FacultyRecord, ?>>asList(Keys.FACULTY__R_33);
+        return Arrays.<ForeignKey<FacultyRecord, ?>>asList(Keys.R_33);
     }
 
     public Megafaculty megafaculty() {
-        return new Megafaculty(this, Keys.FACULTY__R_33);
+        return new Megafaculty(this, Keys.R_33);
     }
 
     /**
