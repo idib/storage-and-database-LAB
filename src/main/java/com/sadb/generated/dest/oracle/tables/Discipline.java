@@ -60,48 +60,48 @@ public class Discipline extends TableImpl<DisciplineRecord> {
     /**
      * The column <code>public.discipline.discipline_id</code>.
      */
-    public final TableField<DisciplineRecord, Integer> DISCIPLINE_ID = createField("discipline_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<DisciplineRecord, Integer> DISCIPLINE_ID = createField("DISCIPLINE_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>public.discipline.discipline_name</code>.
      */
-    public final TableField<DisciplineRecord, String> DISCIPLINE_NAME = createField("discipline_name", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<DisciplineRecord, String> DISCIPLINE_NAME = createField("DISCIPLINE_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
      * The column <code>public.discipline.lections_hours</code>.
      */
-    public final TableField<DisciplineRecord, BigDecimal> LECTIONS_HOURS = createField("lections_hours", org.jooq.impl.SQLDataType.NUMERIC, this, "");
+    public final TableField<DisciplineRecord, BigDecimal> LECTIONS_HOURS = createField("LECTIONS_HOURS", org.jooq.impl.SQLDataType.NUMERIC, this, "");
 
     /**
      * The column <code>public.discipline.practicals_hours</code>.
      */
-    public final TableField<DisciplineRecord, BigDecimal> PRACTICALS_HOURS = createField("practicals_hours", org.jooq.impl.SQLDataType.NUMERIC, this, "");
+    public final TableField<DisciplineRecord, BigDecimal> PRACTICALS_HOURS = createField("PRACTICALS_HOURS", org.jooq.impl.SQLDataType.NUMERIC, this, "");
 
     /**
      * The column <code>public.discipline.labs_houes</code>.
      */
-    public final TableField<DisciplineRecord, BigDecimal> LABS_HOUES = createField("labs_houes", org.jooq.impl.SQLDataType.NUMERIC, this, "");
+    public final TableField<DisciplineRecord, BigDecimal> LABS_HOUES = createField("LABS_HOUES", org.jooq.impl.SQLDataType.NUMERIC, this, "");
 
     /**
      * The column <code>public.discipline.education_standart_type</code>.
      */
-    public final TableField<DisciplineRecord, String> EDUCATION_STANDART_TYPE = createField("education_standart_type", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<DisciplineRecord, String> EDUCATION_STANDART_TYPE = createField("EDUCATION_STANDART_TYPE", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>public.discipline.creat_time</code>.
      */
-    public final TableField<DisciplineRecord, Timestamp> CREAT_TIME = createField("creat_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<DisciplineRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * The column <code>public.discipline.update_time</code>.
      */
-    public final TableField<DisciplineRecord, Timestamp> UPDATE_TIME = createField("update_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<DisciplineRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * Create a <code>public.discipline</code> table reference
      */
     public Discipline() {
-        this(DSL.name("discipline"), null);
+        this(DSL.name("DISCIPLINE"), null);
     }
 
     /**

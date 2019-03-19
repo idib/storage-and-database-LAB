@@ -3,6 +3,8 @@
  */
 package com.sadb.generated.dest.oracle;
 
+import com.sadb.generated.dest.oracle.tables.*;
+
 import javax.annotation.Generated;
 
 

@@ -233,7 +233,7 @@ public class Public extends SchemaImpl {
      * No further instances allowed
      */
     private Public() {
-        super("public", null);
+        super("SANDDB", null);
     }
 
 

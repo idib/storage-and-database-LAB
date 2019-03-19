@@ -18,7 +18,7 @@
         <!--Version db connectors-->
         <postgresql-version>42.2.2</postgresql-version>
         <mysql-version>6.0.3</mysql-version>
-        <oracle-version>11</oracle-version>
+        <oracle-version>14</oracle-version>
     </properties>
 
     <dependencies>
@@ -36,12 +36,14 @@
         <!--<version>${mysql-version}</version>-->
         <!--</dependency>-->
 
-        <!--Oracle-->
-        <!--<dependency>-->
-            <!--<groupId>com.oracle</groupId>-->
-            <!--<artifactId>ojdbc6</artifactId>-->
-            <!--<version>${oracle-version}</version>-->
-        <!--</dependency>-->
+        <!-- Orcale -->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc</artifactId>
+            <version>${oracle-version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/ojdbc8.jar</systemPath>
+        </dependency>
 
 
         <dependency>
