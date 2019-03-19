@@ -2,11 +2,14 @@ package com.sadb.transformation.postgres;
 
 
 import com.sadb.generated.dest.oracle.tables.records.DisciplineRecord;
+import com.sadb.generated.dest.oracle.tables.records.FormEducationRecord;
+import com.sadb.generated.dest.oracle.tables.records.LecturerRecord;
+import com.sadb.generated.dest.oracle.tables.records.StudentRecord;
 import com.sadb.generated.source.postgres.tables.records.SrcPgsDisciplineRecord;
+import com.sadb.generated.source.postgres.tables.records.SrcPgsSudentRecord;
+import com.sadb.generated.source.postgres.tables.records.SrcPgsTeacherRecord;
 import com.sadb.transformation.ConnectionManager;
-import org.jooq.DSLContext;
-import org.jooq.Result;
-import org.jooq.SQLDialect;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -19,8 +22,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
+import static com.sadb.generated.dest.oracle.Tables.*;
 import static com.sadb.generated.dest.oracle.tables.Discipline.DISCIPLINE;
+import static com.sadb.generated.source.postgres.Tables.SRC_PGS_SUDENT;
+import static com.sadb.generated.source.postgres.Tables.SRC_PGS_TEACHER;
 import static com.sadb.generated.source.postgres.tables.SrcPgsDiscipline.SRC_PGS_DISCIPLINE;
 
 
@@ -34,79 +41,294 @@ public class PostgresMigrationService {
     private static final String PASSWORD = System.getenv("aws_postgres_password");
 
     @Scheduled(fixedDelayString = "#{ 60 * 1000}")
-    public void process() throws ClassNotFoundException {
+    public void process() throws ClassNotFoundException, SQLException {
 
+        List<TableRecord<?>> toInsert = new ArrayList<>();
+        List<UpdatableRecord<?>> toUpdate = new ArrayList<>();
+
+        // Connect to Postgres
         Class.forName(JDBC_DRIVER);
+        Connection connectionPostgres = getSourcePostgresConnection();
 
-        Connection connectionPostgres = null;
-        try {
-            connectionPostgres = ConnectionManager.getConnection(URL, USER, PASSWORD);
-        } catch (SQLException e) {
-            return;
-        }
+        // Connect to Oracle
+        Connection connectionOracle = ConnectionManager.getDestDBConnection();
 
-        Connection connectionOracle = null;
-        try {
-            connectionOracle = ConnectionManager.getDestDBConnection();
-        } catch (SQLException e) {
-            return;
-        }
-
+        // Create context
         DSLContext contextPostgres = DSL.using(connectionPostgres, SQLDialect.POSTGRES);
         DSLContext contextOracle = DSL.using(connectionOracle, SQLDialect.ORACLE);
 
+
+        // DISCIPLINES DISCIPLINES DISCIPLINES DISCIPLINES DISCIPLINES
         Result<SrcPgsDisciplineRecord> postgresDisciplines =
                 contextPostgres.select().from(SRC_PGS_DISCIPLINE).fetch().into(SRC_PGS_DISCIPLINE);
 
         Result<DisciplineRecord> oracleDisciplines =
                 contextOracle.select().from(DISCIPLINE).fetch().into(DISCIPLINE);
 
+        processDisciplines(
+                postgresDisciplines,
+                oracleDisciplines,
+                toInsert,
+                toUpdate
+        );
+
+
+        // LECTURER LECTURER LECTURER LECTURER LECTURER LECTURER LECTURER
+        Result<SrcPgsTeacherRecord> postgresTeachers =
+                contextPostgres.select().from(SRC_PGS_TEACHER).fetch().into(SRC_PGS_TEACHER);
+
+        Result<LecturerRecord> oracleLectures =
+                contextOracle.select().from(LECTURER).fetch().into(LECTURER);
+
+
+        processTeachers(
+                postgresTeachers,
+                oracleLectures,
+                toInsert,
+                toUpdate
+        );
+
+        // STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS
+
+        Result<SrcPgsSudentRecord> postgresStudents =
+                contextPostgres.select().from(SRC_PGS_SUDENT).fetch().into(SRC_PGS_SUDENT);
+
+        Result<StudentRecord> oracleStudents =
+                contextOracle.select().from(STUDENT).fetch().into(STUDENT);
+
+        Result<FormEducationRecord> oracleEducationForms =
+                contextOracle.select().from(FORM_EDUCATION).fetch().into(FORM_EDUCATION);
+
+        processStudents(
+                postgresStudents,
+                oracleStudents,
+                oracleEducationForms,
+                toInsert,
+                toUpdate
+        );
+
+
+
+
+        if (!toInsert.isEmpty()) {
+            contextOracle.batchInsert(toInsert).execute();
+        }
+        if (!toUpdate.isEmpty()) {
+            contextOracle.batchUpdate(toUpdate).execute();
+        }
+
+
+    }
+
+
+    private void processDisciplines(
+            List<SrcPgsDisciplineRecord> postgresDisciplines,
+            List<DisciplineRecord> oracleDisciplines,
+            List<TableRecord<?>> toInsert,
+            List<UpdatableRecord<?>> toUpdate) {
+
+
+        // Build id -> updateTime map
         Map<Integer, Timestamp> disciplineIdToUpdatedDateMap = new HashMap<>();
+        Map<Integer, DisciplineRecord> disciplineIdToRecordMap = new HashMap<>();
 
         oracleDisciplines.forEach(oracleDiscipline -> {
             disciplineIdToUpdatedDateMap.put(oracleDiscipline.getDisciplineId(), oracleDiscipline.getUpdateTime());
+            disciplineIdToRecordMap.put(oracleDiscipline.getDisciplineId(), oracleDiscipline);
         });
 
 
-        List<DisciplineRecord> toInsert = new ArrayList<>();
-        List<DisciplineRecord> toUpdate = new ArrayList<>();
+        for (SrcPgsDisciplineRecord postgresDisciplineRecord : postgresDisciplines) {
 
-        for (SrcPgsDisciplineRecord disciplineRecord : postgresDisciplines) {
-
-            Timestamp postgresRecordUpdateDate = Timestamp.valueOf(disciplineRecord.getUpdatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime());
-            Timestamp oracleRecordUpdateDate = disciplineIdToUpdatedDateMap.get(disciplineRecord.getDisciplineId().intValue());
+            Timestamp postgresRecordUpdateDate = Timestamp.valueOf(postgresDisciplineRecord.getUpdatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime());
+            Timestamp oracleRecordUpdateDate = disciplineIdToUpdatedDateMap.get(postgresDisciplineRecord.getDisciplineId().intValue());
 
             // if oracleRecordUpdateDate == null -> insert new record
             // if oracleUpdateTime after postgresUpdateTime -> Ignore
             // if oracleUpdateTime before postgresUpdateTime -> Update current record
             if (oracleRecordUpdateDate == null || postgresRecordUpdateDate.after(oracleRecordUpdateDate)) {
-                disciplineRecord.changed(true);
-                DisciplineRecord newRecord = new DisciplineRecord();
-                newRecord.setDisciplineId(disciplineRecord.getDisciplineId().toBigInteger().intValue());
-                newRecord.setDisciplineName(disciplineRecord.getDisciplineName());
-                newRecord.setEducationStandartType(disciplineRecord.getEducationStandartType());
-                newRecord.setLabsHoues(disciplineRecord.getLabsHoues());
-                newRecord.setLectionsHours(disciplineRecord.getLectionsHours());
-                newRecord.setPracticalsHours(disciplineRecord.getPracticalsHours());
-                newRecord.setCreatTime(Timestamp.valueOf(disciplineRecord.getCreatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
-                newRecord.setUpdateTime(postgresRecordUpdateDate);
+
+                DisciplineRecord oldRecord = disciplineIdToRecordMap.get(postgresDisciplineRecord.getDisciplineId().intValue());
+
+                DisciplineRecord disciplineRecord;
+                if (oldRecord == null) {
+                    disciplineRecord = new DisciplineRecord();
+                } else {
+                    disciplineRecord = oldRecord;
+                    disciplineRecord.changed(true);
+                }
+
+
+                disciplineRecord.setDisciplineId(postgresDisciplineRecord.getDisciplineId().toBigInteger().intValue());
+                disciplineRecord.setDisciplineName(postgresDisciplineRecord.getDisciplineName());
+                disciplineRecord.setEducationStandartType(postgresDisciplineRecord.getEducationStandartType());
+                disciplineRecord.setLabsHoues(postgresDisciplineRecord.getLabsHoues());
+                disciplineRecord.setLectionsHours(postgresDisciplineRecord.getLectionsHours());
+                disciplineRecord.setPracticalsHours(postgresDisciplineRecord.getPracticalsHours());
+                disciplineRecord.setCreatTime(Timestamp.valueOf(postgresDisciplineRecord.getCreatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
+                disciplineRecord.setUpdateTime(postgresRecordUpdateDate);
 
                 if (oracleRecordUpdateDate == null) {
-                    toInsert.add(newRecord);
+                    toInsert.add(disciplineRecord);
                 } else if (postgresRecordUpdateDate.after(oracleRecordUpdateDate)) {
-                    toUpdate.add(newRecord);
+                    toUpdate.add(disciplineRecord);
                 }
             }
 
-            if (!toInsert.isEmpty()) {
-                contextOracle.batchInsert(toInsert).execute();
-            }
-            if (!toUpdate.isEmpty()) {
-                contextOracle.batchUpdate(toUpdate).execute();
+        }
+
+    }
+
+
+    private void processTeachers(
+            List<SrcPgsTeacherRecord> postgresTeachers,
+            List<LecturerRecord> oracleLectures,
+            List<TableRecord<?>> toInsert,
+            List<UpdatableRecord<?>> toUpdate) {
+
+        Map<Integer, Timestamp> lecturerIdToUpdatedDateMap = new HashMap<>();
+        Map<Integer, LecturerRecord> lecturerIdToRecordMap = new HashMap<>();
+
+        oracleLectures.forEach(oracleLecture -> {
+            lecturerIdToUpdatedDateMap.put(oracleLecture.getLecId(), oracleLecture.getUpdateTime());
+            lecturerIdToRecordMap.put(oracleLecture.getLecId(), oracleLecture);
+        });
+
+
+        for (SrcPgsTeacherRecord postgresTeacherRecord : postgresTeachers) {
+
+            Timestamp postgresRecordUpdateDate = Timestamp.valueOf(postgresTeacherRecord.getUpdatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime());
+            Timestamp oracleRecordUpdateDate = lecturerIdToUpdatedDateMap.get(postgresTeacherRecord.getId().intValue());
+
+            // if oracleRecordUpdateDate == null -> insert new record
+            // if oracleUpdateTime after postgresUpdateTime -> Ignore
+            // if oracleUpdateTime before postgresUpdateTime -> Update current record
+            if (oracleRecordUpdateDate == null || postgresRecordUpdateDate.after(oracleRecordUpdateDate)) {
+
+                LecturerRecord oldRecord = lecturerIdToRecordMap.get(postgresTeacherRecord.getId().intValue());
+
+                LecturerRecord lecturerRecord;
+                if (oldRecord == null) {
+                    lecturerRecord = new LecturerRecord();
+                } else {
+                    lecturerRecord = oldRecord;
+                    lecturerRecord.changed(true);
+                }
+
+
+                String FIO = postgresTeacherRecord.getFio();
+                String[] fioArray = FIO.split(" ");
+
+                lecturerRecord.setLecId(postgresTeacherRecord.getId().intValue());
+                lecturerRecord.setPatronymicName(fioArray[0]);
+                lecturerRecord.setFirstName(fioArray[1]);
+                lecturerRecord.setSecondName(fioArray[2]);
+                lecturerRecord.setCreatTime(Timestamp.valueOf(postgresTeacherRecord.getCreatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
+                lecturerRecord.setUpdateTime(postgresRecordUpdateDate);
+
+
+                if (oracleRecordUpdateDate == null) {
+                    toInsert.add(lecturerRecord);
+                } else if (postgresRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                    toUpdate.add(lecturerRecord);
+                }
             }
 
         }
 
 
+    }
+
+    private void processStudents(
+            List<SrcPgsSudentRecord> postgresStudents,
+            List<StudentRecord> oracleStudents,
+            List<FormEducationRecord> educationForms,
+            List<TableRecord<?>> toInsert,
+            List<UpdatableRecord<?>> toUpdate) {
+
+        Map<Integer, Timestamp> studentIdToUpdatedDateMap = new HashMap<>();
+        Map<Integer, StudentRecord> studentIdToRecordMap = new HashMap<>();
+
+        AtomicReference<Integer> maxId = new AtomicReference<>(1);
+        Map<String, Integer> educationFormNameToIdMap = new HashMap<>();
+
+        oracleStudents.forEach(oracleStudent -> {
+            studentIdToUpdatedDateMap.put(oracleStudent.getId().intValue(), oracleStudent.getUpdationDate());
+            studentIdToRecordMap.put(oracleStudent.getId().intValue(), oracleStudent);
+        });
+
+        educationForms.forEach(educationForm -> {
+            educationFormNameToIdMap.put(educationForm.getName(), educationForm.getId());
+            if (educationForm.getId() > maxId.get()) {
+                maxId.set(educationForm.getId() + 1);
+            }
+        });
+
+
+        for (SrcPgsSudentRecord postgresStudentRecord : postgresStudents) {
+
+            Timestamp postgresRecordUpdateDate = Timestamp.valueOf(postgresStudentRecord.getUpdatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime());
+            Timestamp oracleRecordUpdateDate = studentIdToUpdatedDateMap.get(postgresStudentRecord.getId().intValue());
+
+            // if oracleRecordUpdateDate == null -> insert new record
+            // if oracleUpdateTime after postgresUpdateTime -> Ignore
+            // if oracleUpdateTime before postgresUpdateTime -> Update current record
+            if (oracleRecordUpdateDate == null || postgresRecordUpdateDate.after(oracleRecordUpdateDate)) {
+
+                StudentRecord oldRecord = studentIdToRecordMap.get(postgresStudentRecord.getId().intValue());
+
+                StudentRecord studentRecord;
+                if (oldRecord == null) {
+                    studentRecord = new StudentRecord();
+                } else {
+                    studentRecord = oldRecord;
+                    studentRecord.changed(true);
+                }
+
+
+                String FIO = postgresStudentRecord.getFio();
+                String[] fioArray = FIO.split(" ");
+
+                studentRecord.setId(postgresStudentRecord.getId());
+                studentRecord.setSurname(fioArray[0]);
+                studentRecord.setName(fioArray[1]);
+                studentRecord.setSecondName(fioArray[2]);
+                studentRecord.setUniversity(postgresStudentRecord.getUniversity());
+                studentRecord.setEducationPlace(postgresStudentRecord.getEducationPlace());
+
+                Integer formId = educationFormNameToIdMap.get(postgresStudentRecord.getEducationForm());
+                if (formId == null) {
+                    FormEducationRecord record = new FormEducationRecord();
+                    record.setId(maxId.get());
+                    record.setName(postgresStudentRecord.getEducationForm());
+                    // TODO set dates
+                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                    record.setDateCreate(timestamp);
+                    record.setDateUpdate(timestamp);
+
+                    toInsert.add(record);
+                }
+
+                studentRecord.setFormEducation(formId);
+
+
+                studentRecord.setSemester(postgresStudentRecord.getSemester());
+                studentRecord.setSpeciality(postgresStudentRecord.getSpeciality());
+
+
+                if (oracleRecordUpdateDate == null) {
+                    toInsert.add(studentRecord);
+                } else if (postgresRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                    toUpdate.add(studentRecord);
+                }
+            }
+
+        }
+
+
+    }
+
+    private Connection getSourcePostgresConnection() throws SQLException {
+        return ConnectionManager.getConnection(URL, USER, PASSWORD);
     }
 }

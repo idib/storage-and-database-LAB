@@ -10,9 +10,19 @@ public class ConnectionManager {
     private static final String USER = System.getenv("dest_oracle_user");
     private static final String PASSWORD = System.getenv("dest_oracle_password");
 
-    public static Connection getDestDBConnection() throws SQLException, ClassNotFoundException {
-        Class.forName("oracle.jdbc.driver.OracleDriver");
-        return getConnection(URL, USER, PASSWORD);
+    private static Connection destOracleConnection;
+
+    static {
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            destOracleConnection = getConnection(URL, USER, PASSWORD);
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException();
+        }
+    }
+
+    public static Connection getDestDBConnection() {
+        return destOracleConnection;
     }
 
     public static Connection getConnection(String url, String userName, String password) throws SQLException {

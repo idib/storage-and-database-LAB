@@ -61,103 +61,103 @@ public class Student extends TableImpl<StudentRecord> {
     /**
      * The column <code>public.student.id</code>.
      */
-    public final TableField<StudentRecord, BigDecimal> ID = createField("id", org.jooq.impl.SQLDataType.NUMERIC.nullable(false), this, "");
+    public final TableField<StudentRecord, BigDecimal> ID = createField("ID", org.jooq.impl.SQLDataType.NUMERIC.nullable(false), this, "");
 
     /**
      * The column <code>public.student.name</code>.
      */
-    public final TableField<StudentRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<StudentRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
      * The column <code>public.student.surname</code>.
      */
-    public final TableField<StudentRecord, String> SURNAME = createField("surname", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<StudentRecord, String> SURNAME = createField("SURNAME", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
      * The column <code>public.student.second_name</code>.
      */
-    public final TableField<StudentRecord, String> SECOND_NAME = createField("second_name", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<StudentRecord, String> SECOND_NAME = createField("SECOND_NAME", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
      * The column <code>public.student.university</code>.
      */
-    public final TableField<StudentRecord, String> UNIVERSITY = createField("university", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<StudentRecord, String> UNIVERSITY = createField("UNIVERSITY", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>public.student.education_place</code>.
      */
-    public final TableField<StudentRecord, String> EDUCATION_PLACE = createField("education_place", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<StudentRecord, String> EDUCATION_PLACE = createField("EDUCATION_PLACE", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>public.student.speciality</code>.
      */
-    public final TableField<StudentRecord, String> SPECIALITY = createField("speciality", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<StudentRecord, String> SPECIALITY = createField("SPECIALITY", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>public.student.semester</code>.
      */
-    public final TableField<StudentRecord, BigDecimal> SEMESTER = createField("semester", org.jooq.impl.SQLDataType.NUMERIC, this, "");
+    public final TableField<StudentRecord, BigDecimal> SEMESTER = createField("SEMESTER", org.jooq.impl.SQLDataType.NUMERIC, this, "");
 
     /**
      * The column <code>public.student.creation_date</code>.
      */
-    public final TableField<StudentRecord, Timestamp> CREATION_DATE = createField("creation_date", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<StudentRecord, Timestamp> CREATION_DATE = createField("CREATION_DATE", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * The column <code>public.student.updation_date</code>.
      */
-    public final TableField<StudentRecord, Timestamp> UPDATION_DATE = createField("updation_date", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<StudentRecord, Timestamp> UPDATION_DATE = createField("UPDATION_DATE", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * The column <code>public.student.concession</code>.
      */
-    public final TableField<StudentRecord, Boolean> CONCESSION = createField("concession", org.jooq.impl.SQLDataType.BOOLEAN.nullable(false), this, "");
+    public final TableField<StudentRecord, Boolean> CONCESSION = createField("CONCESSION", org.jooq.impl.SQLDataType.BOOLEAN.nullable(false), this, "");
 
     /**
      * The column <code>public.student.room_id</code>.
      */
-    public final TableField<StudentRecord, Integer> ROOM_ID = createField("room_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<StudentRecord, Integer> ROOM_ID = createField("ROOM_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>public.student.date_checkin</code>.
      */
-    public final TableField<StudentRecord, Date> DATE_CHECKIN = createField("date_checkin", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
+    public final TableField<StudentRecord, Date> DATE_CHECKIN = createField("DATE_CHECKIN", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
 
     /**
      * The column <code>public.student.date_checkout</code>.
      */
-    public final TableField<StudentRecord, Date> DATE_CHECKOUT = createField("date_checkout", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
+    public final TableField<StudentRecord, Date> DATE_CHECKOUT = createField("DATE_CHECKOUT", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
 
     /**
      * The column <code>public.student.form_education</code>.
      */
-    public final TableField<StudentRecord, Integer> FORM_EDUCATION = createField("form_education", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<StudentRecord, Integer> FORM_EDUCATION = createField("FORM_EDUCATION", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>public.student.position_id</code>.
      */
-    public final TableField<StudentRecord, Integer> POSITION_ID = createField("position_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<StudentRecord, Integer> POSITION_ID = createField("POSITION_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>public.student.group_id</code>.
      */
-    public final TableField<StudentRecord, Integer> GROUP_ID = createField("group_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<StudentRecord, Integer> GROUP_ID = createField("GROUP_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>public.student.birth_date</code>.
      */
-    public final TableField<StudentRecord, Timestamp> BIRTH_DATE = createField("birth_date", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<StudentRecord, Timestamp> BIRTH_DATE = createField("BIRTH_DATE", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * The column <code>public.student.birth_place</code>.
      */
-    public final TableField<StudentRecord, String> BIRTH_PLACE = createField("birth_place", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<StudentRecord, String> BIRTH_PLACE = createField("BIRTH_PLACE", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
      * Create a <code>public.student</code> table reference
      */
     public Student() {
-        this(DSL.name("student"), null);
+        this(DSL.name("STUDENT"), null);
     }
 
     /**

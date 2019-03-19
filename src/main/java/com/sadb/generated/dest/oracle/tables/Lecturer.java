@@ -59,63 +59,63 @@ public class Lecturer extends TableImpl<LecturerRecord> {
     /**
      * The column <code>public.lecturer.lec_id</code>.
      */
-    public final TableField<LecturerRecord, Integer> LEC_ID = createField("lec_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<LecturerRecord, Integer> LEC_ID = createField("LEC_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>public.lecturer.second_name</code>.
      */
-    public final TableField<LecturerRecord, String> SECOND_NAME = createField("second_name", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<LecturerRecord, String> SECOND_NAME = createField("SECOND_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
      * The column <code>public.lecturer.first_name</code>.
      */
-    public final TableField<LecturerRecord, String> FIRST_NAME = createField("first_name", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<LecturerRecord, String> FIRST_NAME = createField("FIRST_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
      * The column <code>public.lecturer.patronymic_name</code>.
      */
-    public final TableField<LecturerRecord, String> PATRONYMIC_NAME = createField("patronymic_name", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<LecturerRecord, String> PATRONYMIC_NAME = createField("PATRONYMIC_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
      * The column <code>public.lecturer.birth_date</code>.
      */
-    public final TableField<LecturerRecord, Timestamp> BIRTH_DATE = createField("birth_date", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<LecturerRecord, Timestamp> BIRTH_DATE = createField("BIRTH_DATE", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * The column <code>public.lecturer.birth_place</code>.
      */
-    public final TableField<LecturerRecord, String> BIRTH_PLACE = createField("birth_place", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<LecturerRecord, String> BIRTH_PLACE = createField("BIRTH_PLACE", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
      * The column <code>public.lecturer.post</code>.
      */
-    public final TableField<LecturerRecord, String> POST = createField("post", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<LecturerRecord, String> POST = createField("POST", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
      * The column <code>public.lecturer.work_period_from</code>.
      */
-    public final TableField<LecturerRecord, Timestamp> WORK_PERIOD_FROM = createField("work_period_from", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<LecturerRecord, Timestamp> WORK_PERIOD_FROM = createField("WORK_PERIOD_FROM", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * The column <code>public.lecturer.work_period_to</code>.
      */
-    public final TableField<LecturerRecord, Timestamp> WORK_PERIOD_TO = createField("work_period_to", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<LecturerRecord, Timestamp> WORK_PERIOD_TO = createField("WORK_PERIOD_TO", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * The column <code>public.lecturer.creat_time</code>.
      */
-    public final TableField<LecturerRecord, Timestamp> CREAT_TIME = createField("creat_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<LecturerRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * The column <code>public.lecturer.update_time</code>.
      */
-    public final TableField<LecturerRecord, Timestamp> UPDATE_TIME = createField("update_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<LecturerRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * Create a <code>public.lecturer</code> table reference
      */
     public Lecturer() {
-        this(DSL.name("lecturer"), null);
+        this(DSL.name("LECTURER"), null);
     }
 
     /**

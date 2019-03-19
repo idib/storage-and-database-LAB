@@ -60,28 +60,28 @@ public class FormEducation extends TableImpl<FormEducationRecord> {
     /**
      * The column <code>public.form_education.id</code>.
      */
-    public final TableField<FormEducationRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('form_education_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<FormEducationRecord, Integer> ID = createField("ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('form_education_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>public.form_education.name</code>.
      */
-    public final TableField<FormEducationRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<FormEducationRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
      * The column <code>public.form_education.date_update</code>.
      */
-    public final TableField<FormEducationRecord, Timestamp> DATE_UPDATE = createField("date_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<FormEducationRecord, Timestamp> DATE_UPDATE = createField("DATE_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
 
     /**
      * The column <code>public.form_education.date_create</code>.
      */
-    public final TableField<FormEducationRecord, Timestamp> DATE_CREATE = createField("date_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<FormEducationRecord, Timestamp> DATE_CREATE = createField("DATE_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
 
     /**
      * Create a <code>public.form_education</code> table reference
      */
     public FormEducation() {
-        this(DSL.name("form_education"), null);
+        this(DSL.name("FORM_EDUCATION"), null);
     }
 
     /**

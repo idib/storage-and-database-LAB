@@ -59,27 +59,27 @@ public class FacultyLecturer extends TableImpl<FacultyLecturerRecord> {
     /**
      * The column <code>public.faculty_lecturer.lec_id</code>.
      */
-    public final TableField<FacultyLecturerRecord, Integer> LEC_ID = createField("lec_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<FacultyLecturerRecord, Integer> LEC_ID = createField("LEC_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>public.faculty_lecturer.fac_id</code>.
      */
-    public final TableField<FacultyLecturerRecord, Integer> FAC_ID = createField("fac_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<FacultyLecturerRecord, Integer> FAC_ID = createField("FAC_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>public.faculty_lecturer.fac_lect_id</code>.
      */
-    public final TableField<FacultyLecturerRecord, Integer> FAC_LECT_ID = createField("fac_lect_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<FacultyLecturerRecord, Integer> FAC_LECT_ID = createField("FAC_LECT_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>public.faculty_lecturer.creat_time</code>.
      */
-    public final TableField<FacultyLecturerRecord, Timestamp> CREAT_TIME = createField("creat_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<FacultyLecturerRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * The column <code>public.faculty_lecturer.update_time</code>.
      */
-    public final TableField<FacultyLecturerRecord, Timestamp> UPDATE_TIME = createField("update_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<FacultyLecturerRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIM", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * Create a <code>public.faculty_lecturer</code> table reference
