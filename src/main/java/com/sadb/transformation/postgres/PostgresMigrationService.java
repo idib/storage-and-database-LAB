@@ -147,8 +147,8 @@ public class PostgresMigrationService {
         Map<Integer, DisciplineRecord> disciplineIdToRecordMap = new HashMap<>();
 
         oracleDisciplines.forEach(oracleDiscipline -> {
-            disciplineIdToUpdatedDateMap.put(oracleDiscipline.getDisciplineId(), oracleDiscipline.getUpdateTime());
-            disciplineIdToRecordMap.put(oracleDiscipline.getDisciplineId(), oracleDiscipline);
+            disciplineIdToUpdatedDateMap.put(oracleDiscipline.getDisciplineId().intValue(), oracleDiscipline.getUpdateTime());
+            disciplineIdToRecordMap.put(oracleDiscipline.getDisciplineId().intValue(), oracleDiscipline);
         });
 
 
@@ -173,7 +173,8 @@ public class PostgresMigrationService {
                 }
 
 
-                disciplineRecord.setDisciplineId(postgresDisciplineRecord.getDisciplineId().toBigInteger().intValue());
+
+                disciplineRecord.setDisciplineId(postgresDisciplineRecord.getDisciplineId().longValue());
                 disciplineRecord.setDisciplineName(postgresDisciplineRecord.getDisciplineName());
                 disciplineRecord.setEducationStandartType(postgresDisciplineRecord.getEducationStandartType());
                 disciplineRecord.setLabsHoues(postgresDisciplineRecord.getLabsHoues());
@@ -204,8 +205,8 @@ public class PostgresMigrationService {
         Map<Integer, LecturerRecord> lecturerIdToRecordMap = new HashMap<>();
 
         oracleLectures.forEach(oracleLecture -> {
-            lecturerIdToUpdatedDateMap.put(oracleLecture.getLecId(), oracleLecture.getUpdateTime());
-            lecturerIdToRecordMap.put(oracleLecture.getLecId(), oracleLecture);
+            lecturerIdToUpdatedDateMap.put(oracleLecture.getLecId().intValue(), oracleLecture.getUpdateTime());
+            lecturerIdToRecordMap.put(oracleLecture.getLecId().intValue(), oracleLecture);
         });
 
 
@@ -233,7 +234,7 @@ public class PostgresMigrationService {
                 String FIO = postgresTeacherRecord.getFio();
                 String[] fioArray = FIO.split(" ");
 
-                lecturerRecord.setLecId(postgresTeacherRecord.getId().intValue());
+                lecturerRecord.setLecId(postgresTeacherRecord.getId().longValue());
                 lecturerRecord.setPatronymicName(fioArray[0]);
                 lecturerRecord.setFirstName(fioArray[1]);
                 lecturerRecord.setSecondName(fioArray[2]);
@@ -272,9 +273,9 @@ public class PostgresMigrationService {
         });
 
         educationForms.forEach(educationForm -> {
-            educationFormNameToIdMap.put(educationForm.getName(), educationForm.getId());
+            educationFormNameToIdMap.put(educationForm.getName(), educationForm.getId().intValue());
             if (educationForm.getId() > maxId.get()) {
-                maxId.set(educationForm.getId() + 1);
+                maxId.set(educationForm.getId().intValue() + 1);
             }
         });
 
@@ -315,7 +316,7 @@ public class PostgresMigrationService {
                 Integer formId = educationFormNameToIdMap.get(postgresStudentRecord.getEducationForm());
                 if (formId == null) {
                     FormEducationRecord record = new FormEducationRecord();
-                    record.setId(maxId.get());
+                    record.setId(maxId.get().longValue());
                     record.setName(postgresStudentRecord.getEducationForm());
                     // TODO set dates
                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -325,7 +326,7 @@ public class PostgresMigrationService {
                     toInsert.add(record);
                 }
 
-                studentRecord.setFormEducation(formId);
+                studentRecord.setFormEducation(formId.longValue());
 
 
                 studentRecord.setSemester(postgresStudentRecord.getSemester());

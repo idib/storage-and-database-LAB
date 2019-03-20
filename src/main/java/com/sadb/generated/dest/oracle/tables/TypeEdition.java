@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.TypeEditionRecord;
 
 import java.sql.Timestamp;
@@ -17,7 +17,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -42,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TypeEdition extends TableImpl<TypeEditionRecord> {
 
-    private static final long serialVersionUID = -1633889557;
+    private static final long serialVersionUID = 1820117814;
 
     /**
-     * The reference instance of <code>public.type_edition</code>
+     * The reference instance of <code>SANDDB.TYPE_EDITION</code>
      */
     public static final TypeEdition TYPE_EDITION = new TypeEdition();
 
@@ -58,41 +57,41 @@ public class TypeEdition extends TableImpl<TypeEditionRecord> {
     }
 
     /**
-     * The column <code>public.type_edition.id</code>.
+     * The column <code>SANDDB.TYPE_EDITION.ID</code>.
      */
-    public final TableField<TypeEditionRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('type_edition_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<TypeEditionRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.type_edition.name</code>.
+     * The column <code>SANDDB.TYPE_EDITION.NAME</code>.
      */
-    public final TableField<TypeEditionRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<TypeEditionRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.type_edition.data_update</code>.
+     * The column <code>SANDDB.TYPE_EDITION.DATA_UPDATE</code>.
      */
-    public final TableField<TypeEditionRecord, Timestamp> DATA_UPDATE = createField("data_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<TypeEditionRecord, Timestamp> DATA_UPDATE = createField("DATA_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * The column <code>public.type_edition.data_create</code>.
+     * The column <code>SANDDB.TYPE_EDITION.DATA_CREATE</code>.
      */
-    public final TableField<TypeEditionRecord, Timestamp> DATA_CREATE = createField("data_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<TypeEditionRecord, Timestamp> DATA_CREATE = createField("DATA_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * Create a <code>public.type_edition</code> table reference
+     * Create a <code>SANDDB.TYPE_EDITION</code> table reference
      */
     public TypeEdition() {
-        this(DSL.name("type_edition"), null);
+        this(DSL.name("TYPE_EDITION"), null);
     }
 
     /**
-     * Create an aliased <code>public.type_edition</code> table reference
+     * Create an aliased <code>SANDDB.TYPE_EDITION</code> table reference
      */
     public TypeEdition(String alias) {
         this(DSL.name(alias), TYPE_EDITION);
     }
 
     /**
-     * Create an aliased <code>public.type_edition</code> table reference
+     * Create an aliased <code>SANDDB.TYPE_EDITION</code> table reference
      */
     public TypeEdition(Name alias) {
         this(alias, TYPE_EDITION);
@@ -115,7 +114,7 @@ public class TypeEdition extends TableImpl<TypeEditionRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -123,15 +122,7 @@ public class TypeEdition extends TableImpl<TypeEditionRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.TYPE_EDITION_PKEY);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<TypeEditionRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_TYPE_EDITION;
+        return Arrays.<Index>asList(Indexes.SYS_C005191);
     }
 
     /**
@@ -139,7 +130,7 @@ public class TypeEdition extends TableImpl<TypeEditionRecord> {
      */
     @Override
     public UniqueKey<TypeEditionRecord> getPrimaryKey() {
-        return Keys.TYPE_EDITION_PKEY;
+        return Keys.SYS_C005191;
     }
 
     /**
@@ -147,7 +138,7 @@ public class TypeEdition extends TableImpl<TypeEditionRecord> {
      */
     @Override
     public List<UniqueKey<TypeEditionRecord>> getKeys() {
-        return Arrays.<UniqueKey<TypeEditionRecord>>asList(Keys.TYPE_EDITION_PKEY);
+        return Arrays.<UniqueKey<TypeEditionRecord>>asList(Keys.SYS_C005191);
     }
 
     /**

@@ -4,6 +4,8 @@
 package com.sadb.generated.dest.oracle;
 
 
+import java.math.BigInteger;
+
 import javax.annotation.Generated;
 
 import org.jooq.Sequence;
@@ -11,7 +13,7 @@ import org.jooq.impl.SequenceImpl;
 
 
 /**
- * Convenience access to all sequences in public
+ * Convenience access to all sequences in SANDDB
  */
 @Generated(
     value = {
@@ -24,67 +26,67 @@ import org.jooq.impl.SequenceImpl;
 public class Sequences {
 
     /**
-     * The sequence <code>public.block_id_seq</code>
+     * The sequence <code>SANDDB.BLOCK_SEQ</code>
      */
-    public static final Sequence<Integer> BLOCK_ID_SEQ = new SequenceImpl<Integer>("block_id_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<BigInteger> BLOCK_SEQ = new SequenceImpl<BigInteger>("BLOCK_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
-     * The sequence <code>public.conference_seq</code>
+     * The sequence <code>SANDDB.CONFERENCE_SEQ</code>
      */
-    public static final Sequence<Long> CONFERENCE_SEQ = new SequenceImpl<Long>("conference_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
+    public static final Sequence<BigInteger> CONFERENCE_SEQ = new SequenceImpl<BigInteger>("CONFERENCE_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
-     * The sequence <code>public.dormitory_id_seq</code>
+     * The sequence <code>SANDDB.DORMITORY_SEQ</code>
      */
-    public static final Sequence<Integer> DORMITORY_ID_SEQ = new SequenceImpl<Integer>("dormitory_id_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<BigInteger> DORMITORY_SEQ = new SequenceImpl<BigInteger>("DORMITORY_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
-     * The sequence <code>public.event_type_id_seq</code>
+     * The sequence <code>SANDDB.EVENTS_SEQ</code>
      */
-    public static final Sequence<Integer> EVENT_TYPE_ID_SEQ = new SequenceImpl<Integer>("event_type_id_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<BigInteger> EVENTS_SEQ = new SequenceImpl<BigInteger>("EVENTS_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
-     * The sequence <code>public.events_id_seq</code>
+     * The sequence <code>SANDDB.EVENT_TYPE_SEQ</code>
      */
-    public static final Sequence<Integer> EVENTS_ID_SEQ = new SequenceImpl<Integer>("events_id_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<BigInteger> EVENT_TYPE_SEQ = new SequenceImpl<BigInteger>("EVENT_TYPE_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
-     * The sequence <code>public.form_education_id_seq</code>
+     * The sequence <code>SANDDB.FORM_EDUCATION_SEQ</code>
      */
-    public static final Sequence<Integer> FORM_EDUCATION_ID_SEQ = new SequenceImpl<Integer>("form_education_id_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<BigInteger> FORM_EDUCATION_SEQ = new SequenceImpl<BigInteger>("FORM_EDUCATION_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
-     * The sequence <code>public.publications_seq</code>
+     * The sequence <code>SANDDB.PUBLICATIONS_SEQ</code>
      */
-    public static final Sequence<Long> PUBLICATIONS_SEQ = new SequenceImpl<Long>("publications_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
+    public static final Sequence<BigInteger> PUBLICATIONS_SEQ = new SequenceImpl<BigInteger>("PUBLICATIONS_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
-     * The sequence <code>public.reader_sheet_seq</code>
+     * The sequence <code>SANDDB.READER_SHEET_SEQ</code>
      */
-    public static final Sequence<Long> READER_SHEET_SEQ = new SequenceImpl<Long>("reader_sheet_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
+    public static final Sequence<BigInteger> READER_SHEET_SEQ = new SequenceImpl<BigInteger>("READER_SHEET_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
-     * The sequence <code>public.room_id_seq</code>
+     * The sequence <code>SANDDB.ROOM_SEQ</code>
      */
-    public static final Sequence<Integer> ROOM_ID_SEQ = new SequenceImpl<Integer>("room_id_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+    public static final Sequence<BigInteger> ROOM_SEQ = new SequenceImpl<BigInteger>("ROOM_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
-     * The sequence <code>public.scientific_project_seq</code>
+     * The sequence <code>SANDDB.SCIENTIFIC_PROJECT_SEQ</code>
      */
-    public static final Sequence<Long> SCIENTIFIC_PROJECT_SEQ = new SequenceImpl<Long>("scientific_project_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
+    public static final Sequence<BigInteger> SCIENTIFIC_PROJECT_SEQ = new SequenceImpl<BigInteger>("SCIENTIFIC_PROJECT_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
-     * The sequence <code>public.type_edition_seq</code>
+     * The sequence <code>SANDDB.TYPE_EDITION_SEQ</code>
      */
-    public static final Sequence<Long> TYPE_EDITION_SEQ = new SequenceImpl<Long>("type_edition_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
+    public static final Sequence<BigInteger> TYPE_EDITION_SEQ = new SequenceImpl<BigInteger>("TYPE_EDITION_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
-     * The sequence <code>public.type_position_seq</code>
+     * The sequence <code>SANDDB.TYPE_POSITION_SEQ</code>
      */
-    public static final Sequence<Long> TYPE_POSITION_SEQ = new SequenceImpl<Long>("type_position_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
+    public static final Sequence<BigInteger> TYPE_POSITION_SEQ = new SequenceImpl<BigInteger>("TYPE_POSITION_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
-     * The sequence <code>public.type_publication_seq</code>
+     * The sequence <code>SANDDB.TYPE_PUBLICATION_SEQ</code>
      */
-    public static final Sequence<Long> TYPE_PUBLICATION_SEQ = new SequenceImpl<Long>("type_publication_seq", Public.PUBLIC, org.jooq.impl.SQLDataType.BIGINT.nullable(false));
+    public static final Sequence<BigInteger> TYPE_PUBLICATION_SEQ = new SequenceImpl<BigInteger>("TYPE_PUBLICATION_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 }

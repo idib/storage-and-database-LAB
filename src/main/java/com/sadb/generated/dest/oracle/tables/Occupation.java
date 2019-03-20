@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.OccupationRecord;
 
 import java.sql.Timestamp;
@@ -41,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Occupation extends TableImpl<OccupationRecord> {
 
-    private static final long serialVersionUID = -1734532107;
+    private static final long serialVersionUID = -1774345846;
 
     /**
-     * The reference instance of <code>public.occupation</code>
+     * The reference instance of <code>SANDDB.OCCUPATION</code>
      */
     public static final Occupation OCCUPATION = new Occupation();
 
@@ -57,51 +57,51 @@ public class Occupation extends TableImpl<OccupationRecord> {
     }
 
     /**
-     * The column <code>public.occupation.occupation_id</code>.
+     * The column <code>SANDDB.OCCUPATION.OCCUPATION_ID</code>.
      */
-    public final TableField<OccupationRecord, Integer> OCCUPATION_ID = createField("occupation_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<OccupationRecord, Long> OCCUPATION_ID = createField("OCCUPATION_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.occupation.occupaton_num</code>.
+     * The column <code>SANDDB.OCCUPATION.OCCUPATON_NUM</code>.
      */
-    public final TableField<OccupationRecord, Integer> OCCUPATON_NUM = createField("occupaton_num", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<OccupationRecord, Long> OCCUPATON_NUM = createField("OCCUPATON_NUM", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>public.occupation.occupation_time_from</code>.
+     * The column <code>SANDDB.OCCUPATION.OCCUPATION_TIME_FROM</code>.
      */
-    public final TableField<OccupationRecord, Timestamp> OCCUPATION_TIME_FROM = createField("occupation_time_from", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<OccupationRecord, Timestamp> OCCUPATION_TIME_FROM = createField("OCCUPATION_TIME_FROM", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.occupation.occupation_time_to</code>.
+     * The column <code>SANDDB.OCCUPATION.OCCUPATION_TIME_TO</code>.
      */
-    public final TableField<OccupationRecord, Timestamp> OCCUPATION_TIME_TO = createField("occupation_time_to", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<OccupationRecord, Timestamp> OCCUPATION_TIME_TO = createField("OCCUPATION_TIME_TO", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.occupation.creat_time</code>.
+     * The column <code>SANDDB.OCCUPATION.CREAT_TIME</code>.
      */
-    public final TableField<OccupationRecord, Timestamp> CREAT_TIME = createField("creat_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<OccupationRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.occupation.update_time</code>.
+     * The column <code>SANDDB.OCCUPATION.UPDATE_TIME</code>.
      */
-    public final TableField<OccupationRecord, Timestamp> UPDATE_TIME = createField("update_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<OccupationRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * Create a <code>public.occupation</code> table reference
+     * Create a <code>SANDDB.OCCUPATION</code> table reference
      */
     public Occupation() {
-        this(DSL.name("occupation"), null);
+        this(DSL.name("OCCUPATION"), null);
     }
 
     /**
-     * Create an aliased <code>public.occupation</code> table reference
+     * Create an aliased <code>SANDDB.OCCUPATION</code> table reference
      */
     public Occupation(String alias) {
         this(DSL.name(alias), OCCUPATION);
     }
 
     /**
-     * Create an aliased <code>public.occupation</code> table reference
+     * Create an aliased <code>SANDDB.OCCUPATION</code> table reference
      */
     public Occupation(Name alias) {
         this(alias, OCCUPATION);
@@ -124,7 +124,7 @@ public class Occupation extends TableImpl<OccupationRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**

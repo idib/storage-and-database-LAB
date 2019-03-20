@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.EventTypeRecord;
 
 import java.sql.Timestamp;
@@ -17,7 +17,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -42,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class EventType extends TableImpl<EventTypeRecord> {
 
-    private static final long serialVersionUID = -1629407587;
+    private static final long serialVersionUID = 1394277486;
 
     /**
-     * The reference instance of <code>public.event_type</code>
+     * The reference instance of <code>SANDDB.EVENT_TYPE</code>
      */
     public static final EventType EVENT_TYPE = new EventType();
 
@@ -58,41 +57,41 @@ public class EventType extends TableImpl<EventTypeRecord> {
     }
 
     /**
-     * The column <code>public.event_type.id</code>.
+     * The column <code>SANDDB.EVENT_TYPE.ID</code>.
      */
-    public final TableField<EventTypeRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('event_type_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<EventTypeRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.event_type.name</code>.
+     * The column <code>SANDDB.EVENT_TYPE.NAME</code>.
      */
-    public final TableField<EventTypeRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<EventTypeRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.event_type.date_update</code>.
+     * The column <code>SANDDB.EVENT_TYPE.DATE_UPDATE</code>.
      */
-    public final TableField<EventTypeRecord, Timestamp> DATE_UPDATE = createField("date_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<EventTypeRecord, Timestamp> DATE_UPDATE = createField("DATE_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
 
     /**
-     * The column <code>public.event_type.date_create</code>.
+     * The column <code>SANDDB.EVENT_TYPE.DATE_CREATE</code>.
      */
-    public final TableField<EventTypeRecord, Timestamp> DATE_CREATE = createField("date_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<EventTypeRecord, Timestamp> DATE_CREATE = createField("DATE_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
 
     /**
-     * Create a <code>public.event_type</code> table reference
+     * Create a <code>SANDDB.EVENT_TYPE</code> table reference
      */
     public EventType() {
-        this(DSL.name("event_type"), null);
+        this(DSL.name("EVENT_TYPE"), null);
     }
 
     /**
-     * Create an aliased <code>public.event_type</code> table reference
+     * Create an aliased <code>SANDDB.EVENT_TYPE</code> table reference
      */
     public EventType(String alias) {
         this(DSL.name(alias), EVENT_TYPE);
     }
 
     /**
-     * Create an aliased <code>public.event_type</code> table reference
+     * Create an aliased <code>SANDDB.EVENT_TYPE</code> table reference
      */
     public EventType(Name alias) {
         this(alias, EVENT_TYPE);
@@ -115,7 +114,7 @@ public class EventType extends TableImpl<EventTypeRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -124,14 +123,6 @@ public class EventType extends TableImpl<EventTypeRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.EVENT_TYPE_PK);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<EventTypeRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_EVENT_TYPE;
     }
 
     /**

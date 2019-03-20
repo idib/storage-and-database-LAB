@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.LecturerRecord;
 
 import java.sql.Timestamp;
@@ -41,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Lecturer extends TableImpl<LecturerRecord> {
 
-    private static final long serialVersionUID = 1761503771;
+    private static final long serialVersionUID = -952980102;
 
     /**
-     * The reference instance of <code>public.lecturer</code>
+     * The reference instance of <code>SANDDB.LECTURER</code>
      */
     public static final Lecturer LECTURER = new Lecturer();
 
@@ -57,76 +57,76 @@ public class Lecturer extends TableImpl<LecturerRecord> {
     }
 
     /**
-     * The column <code>public.lecturer.lec_id</code>.
+     * The column <code>SANDDB.LECTURER.LEC_ID</code>.
      */
-    public final TableField<LecturerRecord, Integer> LEC_ID = createField("LEC_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<LecturerRecord, Long> LEC_ID = createField("LEC_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.lecturer.second_name</code>.
+     * The column <code>SANDDB.LECTURER.SECOND_NAME</code>.
      */
     public final TableField<LecturerRecord, String> SECOND_NAME = createField("SECOND_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.lecturer.first_name</code>.
+     * The column <code>SANDDB.LECTURER.FIRST_NAME</code>.
      */
     public final TableField<LecturerRecord, String> FIRST_NAME = createField("FIRST_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.lecturer.patronymic_name</code>.
+     * The column <code>SANDDB.LECTURER.PATRONYMIC_NAME</code>.
      */
     public final TableField<LecturerRecord, String> PATRONYMIC_NAME = createField("PATRONYMIC_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.lecturer.birth_date</code>.
+     * The column <code>SANDDB.LECTURER.BIRTH_DATE</code>.
      */
-    public final TableField<LecturerRecord, Timestamp> BIRTH_DATE = createField("BIRTH_DATE", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<LecturerRecord, Timestamp> BIRTH_DATE = createField("BIRTH_DATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.lecturer.birth_place</code>.
+     * The column <code>SANDDB.LECTURER.BIRTH_PLACE</code>.
      */
     public final TableField<LecturerRecord, String> BIRTH_PLACE = createField("BIRTH_PLACE", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.lecturer.post</code>.
+     * The column <code>SANDDB.LECTURER.POST</code>.
      */
     public final TableField<LecturerRecord, String> POST = createField("POST", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.lecturer.work_period_from</code>.
+     * The column <code>SANDDB.LECTURER.WORK_PERIOD_FROM</code>.
      */
-    public final TableField<LecturerRecord, Timestamp> WORK_PERIOD_FROM = createField("WORK_PERIOD_FROM", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<LecturerRecord, Timestamp> WORK_PERIOD_FROM = createField("WORK_PERIOD_FROM", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.lecturer.work_period_to</code>.
+     * The column <code>SANDDB.LECTURER.WORK_PERIOD_TO</code>.
      */
-    public final TableField<LecturerRecord, Timestamp> WORK_PERIOD_TO = createField("WORK_PERIOD_TO", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<LecturerRecord, Timestamp> WORK_PERIOD_TO = createField("WORK_PERIOD_TO", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.lecturer.creat_time</code>.
+     * The column <code>SANDDB.LECTURER.CREAT_TIME</code>.
      */
-    public final TableField<LecturerRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<LecturerRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.lecturer.update_time</code>.
+     * The column <code>SANDDB.LECTURER.UPDATE_TIME</code>.
      */
-    public final TableField<LecturerRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<LecturerRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * Create a <code>public.lecturer</code> table reference
+     * Create a <code>SANDDB.LECTURER</code> table reference
      */
     public Lecturer() {
         this(DSL.name("LECTURER"), null);
     }
 
     /**
-     * Create an aliased <code>public.lecturer</code> table reference
+     * Create an aliased <code>SANDDB.LECTURER</code> table reference
      */
     public Lecturer(String alias) {
         this(DSL.name(alias), LECTURER);
     }
 
     /**
-     * Create an aliased <code>public.lecturer</code> table reference
+     * Create an aliased <code>SANDDB.LECTURER</code> table reference
      */
     public Lecturer(Name alias) {
         this(alias, LECTURER);
@@ -149,7 +149,7 @@ public class Lecturer extends TableImpl<LecturerRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**

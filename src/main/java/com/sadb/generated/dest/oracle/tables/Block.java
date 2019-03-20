@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.BlockRecord;
 
 import java.sql.Date;
@@ -18,7 +18,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -43,10 +42,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Block extends TableImpl<BlockRecord> {
 
-    private static final long serialVersionUID = 1779701114;
+    private static final long serialVersionUID = 1806237780;
 
     /**
-     * The reference instance of <code>public.block</code>
+     * The reference instance of <code>SANDDB.BLOCK</code>
      */
     public static final Block BLOCK = new Block();
 
@@ -59,51 +58,51 @@ public class Block extends TableImpl<BlockRecord> {
     }
 
     /**
-     * The column <code>public.block.id</code>.
+     * The column <code>SANDDB.BLOCK.ID</code>.
      */
-    public final TableField<BlockRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('block_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<BlockRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.block.floor</code>.
+     * The column <code>SANDDB.BLOCK.FLOOR</code>.
      */
-    public final TableField<BlockRecord, Integer> FLOOR = createField("floor", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<BlockRecord, Long> FLOOR = createField("FLOOR", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.block.date_disinsection</code>.
+     * The column <code>SANDDB.BLOCK.DATE_DISINSECTION</code>.
      */
-    public final TableField<BlockRecord, Date> DATE_DISINSECTION = createField("date_disinsection", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
+    public final TableField<BlockRecord, Date> DATE_DISINSECTION = createField("DATE_DISINSECTION", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
 
     /**
-     * The column <code>public.block.dorm_id</code>.
+     * The column <code>SANDDB.BLOCK.DORM_ID</code>.
      */
-    public final TableField<BlockRecord, Integer> DORM_ID = createField("dorm_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<BlockRecord, Long> DORM_ID = createField("DORM_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.block.date_update</code>.
+     * The column <code>SANDDB.BLOCK.DATE_UPDATE</code>.
      */
-    public final TableField<BlockRecord, Timestamp> DATE_UPDATE = createField("date_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<BlockRecord, Timestamp> DATE_UPDATE = createField("DATE_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
 
     /**
-     * The column <code>public.block.date_create</code>.
+     * The column <code>SANDDB.BLOCK.DATE_CREATE</code>.
      */
-    public final TableField<BlockRecord, Timestamp> DATE_CREATE = createField("date_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<BlockRecord, Timestamp> DATE_CREATE = createField("DATE_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
 
     /**
-     * Create a <code>public.block</code> table reference
+     * Create a <code>SANDDB.BLOCK</code> table reference
      */
     public Block() {
-        this(DSL.name("block"), null);
+        this(DSL.name("BLOCK"), null);
     }
 
     /**
-     * Create an aliased <code>public.block</code> table reference
+     * Create an aliased <code>SANDDB.BLOCK</code> table reference
      */
     public Block(String alias) {
         this(DSL.name(alias), BLOCK);
     }
 
     /**
-     * Create an aliased <code>public.block</code> table reference
+     * Create an aliased <code>SANDDB.BLOCK</code> table reference
      */
     public Block(Name alias) {
         this(alias, BLOCK);
@@ -126,7 +125,7 @@ public class Block extends TableImpl<BlockRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -135,14 +134,6 @@ public class Block extends TableImpl<BlockRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.BLOCK_PK);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<BlockRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_BLOCK;
     }
 
     /**
@@ -166,11 +157,11 @@ public class Block extends TableImpl<BlockRecord> {
      */
     @Override
     public List<ForeignKey<BlockRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<BlockRecord, ?>>asList(Keys.BLOCK__BLOCK_FK0);
+        return Arrays.<ForeignKey<BlockRecord, ?>>asList(Keys.BLOCK_FK0);
     }
 
     public Dormitory dormitory() {
-        return new Dormitory(this, Keys.BLOCK__BLOCK_FK0);
+        return new Dormitory(this, Keys.BLOCK_FK0);
     }
 
     /**

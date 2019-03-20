@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.TypePositionRecord;
 
 import java.sql.Timestamp;
@@ -17,7 +17,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -42,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TypePosition extends TableImpl<TypePositionRecord> {
 
-    private static final long serialVersionUID = -1511790133;
+    private static final long serialVersionUID = 1828431183;
 
     /**
-     * The reference instance of <code>public.type_position</code>
+     * The reference instance of <code>SANDDB.TYPE_POSITION</code>
      */
     public static final TypePosition TYPE_POSITION = new TypePosition();
 
@@ -58,41 +57,41 @@ public class TypePosition extends TableImpl<TypePositionRecord> {
     }
 
     /**
-     * The column <code>public.type_position.id</code>.
+     * The column <code>SANDDB.TYPE_POSITION.ID</code>.
      */
-    public final TableField<TypePositionRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('type_position_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<TypePositionRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.type_position.name</code>.
+     * The column <code>SANDDB.TYPE_POSITION.NAME</code>.
      */
-    public final TableField<TypePositionRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<TypePositionRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>public.type_position.data_update</code>.
+     * The column <code>SANDDB.TYPE_POSITION.DATA_UPDATE</code>.
      */
-    public final TableField<TypePositionRecord, Timestamp> DATA_UPDATE = createField("data_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<TypePositionRecord, Timestamp> DATA_UPDATE = createField("DATA_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * The column <code>public.type_position.data_create</code>.
+     * The column <code>SANDDB.TYPE_POSITION.DATA_CREATE</code>.
      */
-    public final TableField<TypePositionRecord, Timestamp> DATA_CREATE = createField("data_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<TypePositionRecord, Timestamp> DATA_CREATE = createField("DATA_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * Create a <code>public.type_position</code> table reference
+     * Create a <code>SANDDB.TYPE_POSITION</code> table reference
      */
     public TypePosition() {
-        this(DSL.name("type_position"), null);
+        this(DSL.name("TYPE_POSITION"), null);
     }
 
     /**
-     * Create an aliased <code>public.type_position</code> table reference
+     * Create an aliased <code>SANDDB.TYPE_POSITION</code> table reference
      */
     public TypePosition(String alias) {
         this(DSL.name(alias), TYPE_POSITION);
     }
 
     /**
-     * Create an aliased <code>public.type_position</code> table reference
+     * Create an aliased <code>SANDDB.TYPE_POSITION</code> table reference
      */
     public TypePosition(Name alias) {
         this(alias, TYPE_POSITION);
@@ -115,7 +114,7 @@ public class TypePosition extends TableImpl<TypePositionRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -123,15 +122,7 @@ public class TypePosition extends TableImpl<TypePositionRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.TYPE_POSITION_PKEY);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Identity<TypePositionRecord, Integer> getIdentity() {
-        return Keys.IDENTITY_TYPE_POSITION;
+        return Arrays.<Index>asList(Indexes.SYS_C005165);
     }
 
     /**
@@ -139,7 +130,7 @@ public class TypePosition extends TableImpl<TypePositionRecord> {
      */
     @Override
     public UniqueKey<TypePositionRecord> getPrimaryKey() {
-        return Keys.TYPE_POSITION_PKEY;
+        return Keys.SYS_C005165;
     }
 
     /**
@@ -147,7 +138,7 @@ public class TypePosition extends TableImpl<TypePositionRecord> {
      */
     @Override
     public List<UniqueKey<TypePositionRecord>> getKeys() {
-        return Arrays.<UniqueKey<TypePositionRecord>>asList(Keys.TYPE_POSITION_PKEY);
+        return Arrays.<UniqueKey<TypePositionRecord>>asList(Keys.SYS_C005165);
     }
 
     /**

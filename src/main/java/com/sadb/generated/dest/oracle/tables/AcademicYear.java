@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.AcademicYearRecord;
 
 import java.sql.Timestamp;
@@ -41,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class AcademicYear extends TableImpl<AcademicYearRecord> {
 
-    private static final long serialVersionUID = 710614862;
+    private static final long serialVersionUID = -755970222;
 
     /**
-     * The reference instance of <code>public.academic_year</code>
+     * The reference instance of <code>SANDDB.ACADEMIC_YEAR</code>
      */
     public static final AcademicYear ACADEMIC_YEAR = new AcademicYear();
 
@@ -57,41 +57,41 @@ public class AcademicYear extends TableImpl<AcademicYearRecord> {
     }
 
     /**
-     * The column <code>public.academic_year.academ_year</code>.
+     * The column <code>SANDDB.ACADEMIC_YEAR.ACADEM_YEAR</code>.
      */
-    public final TableField<AcademicYearRecord, String> ACADEM_YEAR = createField("academ_year", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<AcademicYearRecord, String> ACADEM_YEAR = createField("ACADEM_YEAR", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.academic_year.academ_year_id</code>.
+     * The column <code>SANDDB.ACADEMIC_YEAR.ACADEM_YEAR_ID</code>.
      */
-    public final TableField<AcademicYearRecord, Integer> ACADEM_YEAR_ID = createField("academ_year_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<AcademicYearRecord, Long> ACADEM_YEAR_ID = createField("ACADEM_YEAR_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.academic_year.creat_time</code>.
+     * The column <code>SANDDB.ACADEMIC_YEAR.CREAT_TIME</code>.
      */
-    public final TableField<AcademicYearRecord, Timestamp> CREAT_TIME = createField("creat_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<AcademicYearRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.academic_year.update_time</code>.
+     * The column <code>SANDDB.ACADEMIC_YEAR.UPDATE_TIME</code>.
      */
-    public final TableField<AcademicYearRecord, Timestamp> UPDATE_TIME = createField("update_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<AcademicYearRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * Create a <code>public.academic_year</code> table reference
+     * Create a <code>SANDDB.ACADEMIC_YEAR</code> table reference
      */
     public AcademicYear() {
-        this(DSL.name("academic_year"), null);
+        this(DSL.name("ACADEMIC_YEAR"), null);
     }
 
     /**
-     * Create an aliased <code>public.academic_year</code> table reference
+     * Create an aliased <code>SANDDB.ACADEMIC_YEAR</code> table reference
      */
     public AcademicYear(String alias) {
         this(DSL.name(alias), ACADEMIC_YEAR);
     }
 
     /**
-     * Create an aliased <code>public.academic_year</code> table reference
+     * Create an aliased <code>SANDDB.ACADEMIC_YEAR</code> table reference
      */
     public AcademicYear(Name alias) {
         this(alias, ACADEMIC_YEAR);
@@ -114,7 +114,7 @@ public class AcademicYear extends TableImpl<AcademicYearRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**

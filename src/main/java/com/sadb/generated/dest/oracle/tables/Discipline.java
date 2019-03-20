@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.DisciplineRecord;
 
 import java.math.BigDecimal;
@@ -42,10 +42,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Discipline extends TableImpl<DisciplineRecord> {
 
-    private static final long serialVersionUID = 42038737;
+    private static final long serialVersionUID = 1019186605;
 
     /**
-     * The reference instance of <code>public.discipline</code>
+     * The reference instance of <code>SANDDB.DISCIPLINE</code>
      */
     public static final Discipline DISCIPLINE = new Discipline();
 
@@ -58,61 +58,61 @@ public class Discipline extends TableImpl<DisciplineRecord> {
     }
 
     /**
-     * The column <code>public.discipline.discipline_id</code>.
+     * The column <code>SANDDB.DISCIPLINE.DISCIPLINE_ID</code>.
      */
-    public final TableField<DisciplineRecord, Integer> DISCIPLINE_ID = createField("DISCIPLINE_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<DisciplineRecord, Long> DISCIPLINE_ID = createField("DISCIPLINE_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.discipline.discipline_name</code>.
+     * The column <code>SANDDB.DISCIPLINE.DISCIPLINE_NAME</code>.
      */
     public final TableField<DisciplineRecord, String> DISCIPLINE_NAME = createField("DISCIPLINE_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.discipline.lections_hours</code>.
+     * The column <code>SANDDB.DISCIPLINE.LECTIONS_HOURS</code>.
      */
     public final TableField<DisciplineRecord, BigDecimal> LECTIONS_HOURS = createField("LECTIONS_HOURS", org.jooq.impl.SQLDataType.NUMERIC, this, "");
 
     /**
-     * The column <code>public.discipline.practicals_hours</code>.
+     * The column <code>SANDDB.DISCIPLINE.PRACTICALS_HOURS</code>.
      */
     public final TableField<DisciplineRecord, BigDecimal> PRACTICALS_HOURS = createField("PRACTICALS_HOURS", org.jooq.impl.SQLDataType.NUMERIC, this, "");
 
     /**
-     * The column <code>public.discipline.labs_houes</code>.
+     * The column <code>SANDDB.DISCIPLINE.LABS_HOUES</code>.
      */
     public final TableField<DisciplineRecord, BigDecimal> LABS_HOUES = createField("LABS_HOUES", org.jooq.impl.SQLDataType.NUMERIC, this, "");
 
     /**
-     * The column <code>public.discipline.education_standart_type</code>.
+     * The column <code>SANDDB.DISCIPLINE.EDUCATION_STANDART_TYPE</code>.
      */
     public final TableField<DisciplineRecord, String> EDUCATION_STANDART_TYPE = createField("EDUCATION_STANDART_TYPE", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
-     * The column <code>public.discipline.creat_time</code>.
+     * The column <code>SANDDB.DISCIPLINE.CREAT_TIME</code>.
      */
-    public final TableField<DisciplineRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<DisciplineRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.discipline.update_time</code>.
+     * The column <code>SANDDB.DISCIPLINE.UPDATE_TIME</code>.
      */
-    public final TableField<DisciplineRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<DisciplineRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * Create a <code>public.discipline</code> table reference
+     * Create a <code>SANDDB.DISCIPLINE</code> table reference
      */
     public Discipline() {
         this(DSL.name("DISCIPLINE"), null);
     }
 
     /**
-     * Create an aliased <code>public.discipline</code> table reference
+     * Create an aliased <code>SANDDB.DISCIPLINE</code> table reference
      */
     public Discipline(String alias) {
         this(DSL.name(alias), DISCIPLINE);
     }
 
     /**
-     * Create an aliased <code>public.discipline</code> table reference
+     * Create an aliased <code>SANDDB.DISCIPLINE</code> table reference
      */
     public Discipline(Name alias) {
         this(alias, DISCIPLINE);
@@ -135,7 +135,7 @@ public class Discipline extends TableImpl<DisciplineRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**

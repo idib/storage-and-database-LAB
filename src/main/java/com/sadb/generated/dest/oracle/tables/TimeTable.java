@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.TimeTableRecord;
 
 import java.util.Arrays;
@@ -40,10 +40,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TimeTable extends TableImpl<TimeTableRecord> {
 
-    private static final long serialVersionUID = -97051649;
+    private static final long serialVersionUID = 1917606042;
 
     /**
-     * The reference instance of <code>public.time_table</code>
+     * The reference instance of <code>SANDDB.TIME_TABLE</code>
      */
     public static final TimeTable TIME_TABLE = new TimeTable();
 
@@ -56,56 +56,56 @@ public class TimeTable extends TableImpl<TimeTableRecord> {
     }
 
     /**
-     * The column <code>public.time_table.week_day_id</code>.
+     * The column <code>SANDDB.TIME_TABLE.WEEK_DAY_ID</code>.
      */
-    public final TableField<TimeTableRecord, Integer> WEEK_DAY_ID = createField("week_day_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<TimeTableRecord, Long> WEEK_DAY_ID = createField("WEEK_DAY_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.time_table.occupation_id</code>.
+     * The column <code>SANDDB.TIME_TABLE.OCCUPATION_ID</code>.
      */
-    public final TableField<TimeTableRecord, Integer> OCCUPATION_ID = createField("occupation_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<TimeTableRecord, Long> OCCUPATION_ID = createField("OCCUPATION_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.time_table.odevity_id</code>.
+     * The column <code>SANDDB.TIME_TABLE.ODEVITY_ID</code>.
      */
-    public final TableField<TimeTableRecord, Integer> ODEVITY_ID = createField("odevity_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<TimeTableRecord, Long> ODEVITY_ID = createField("ODEVITY_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.time_table.variant_occupation_id</code>.
+     * The column <code>SANDDB.TIME_TABLE.VARIANT_OCCUPATION_ID</code>.
      */
-    public final TableField<TimeTableRecord, Integer> VARIANT_OCCUPATION_ID = createField("variant_occupation_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<TimeTableRecord, Long> VARIANT_OCCUPATION_ID = createField("VARIANT_OCCUPATION_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.time_table.class_id</code>.
+     * The column <code>SANDDB.TIME_TABLE.CLASS_ID</code>.
      */
-    public final TableField<TimeTableRecord, Integer> CLASS_ID = createField("class_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<TimeTableRecord, Long> CLASS_ID = createField("CLASS_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.time_table.group_id</code>.
+     * The column <code>SANDDB.TIME_TABLE.GROUP_ID</code>.
      */
-    public final TableField<TimeTableRecord, Integer> GROUP_ID = createField("group_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<TimeTableRecord, Long> GROUP_ID = createField("GROUP_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.time_table.discipline_id</code>.
+     * The column <code>SANDDB.TIME_TABLE.DISCIPLINE_ID</code>.
      */
-    public final TableField<TimeTableRecord, Integer> DISCIPLINE_ID = createField("discipline_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<TimeTableRecord, Long> DISCIPLINE_ID = createField("DISCIPLINE_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * Create a <code>public.time_table</code> table reference
+     * Create a <code>SANDDB.TIME_TABLE</code> table reference
      */
     public TimeTable() {
-        this(DSL.name("time_table"), null);
+        this(DSL.name("TIME_TABLE"), null);
     }
 
     /**
-     * Create an aliased <code>public.time_table</code> table reference
+     * Create an aliased <code>SANDDB.TIME_TABLE</code> table reference
      */
     public TimeTable(String alias) {
         this(DSL.name(alias), TIME_TABLE);
     }
 
     /**
-     * Create an aliased <code>public.time_table</code> table reference
+     * Create an aliased <code>SANDDB.TIME_TABLE</code> table reference
      */
     public TimeTable(Name alias) {
         this(alias, TIME_TABLE);
@@ -128,7 +128,7 @@ public class TimeTable extends TableImpl<TimeTableRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -160,35 +160,35 @@ public class TimeTable extends TableImpl<TimeTableRecord> {
      */
     @Override
     public List<ForeignKey<TimeTableRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<TimeTableRecord, ?>>asList(Keys.TIME_TABLE__R_19, Keys.TIME_TABLE__R_21, Keys.TIME_TABLE__R_20, Keys.TIME_TABLE__R_22, Keys.TIME_TABLE__R_23, Keys.TIME_TABLE__R_24, Keys.TIME_TABLE__R_25);
+        return Arrays.<ForeignKey<TimeTableRecord, ?>>asList(Keys.R_19, Keys.R_21, Keys.R_20, Keys.R_22, Keys.R_23, Keys.R_24, Keys.R_25);
     }
 
     public WeekDay weekDay() {
-        return new WeekDay(this, Keys.TIME_TABLE__R_19);
+        return new WeekDay(this, Keys.R_19);
     }
 
     public Occupation occupation() {
-        return new Occupation(this, Keys.TIME_TABLE__R_21);
+        return new Occupation(this, Keys.R_21);
     }
 
     public OdevityWeek odevityWeek() {
-        return new OdevityWeek(this, Keys.TIME_TABLE__R_20);
+        return new OdevityWeek(this, Keys.R_20);
     }
 
     public VariantOccupation variantOccupation() {
-        return new VariantOccupation(this, Keys.TIME_TABLE__R_22);
+        return new VariantOccupation(this, Keys.R_22);
     }
 
     public ClassRoom classRoom() {
-        return new ClassRoom(this, Keys.TIME_TABLE__R_23);
+        return new ClassRoom(this, Keys.R_23);
     }
 
     public Groups groups() {
-        return new Groups(this, Keys.TIME_TABLE__R_24);
+        return new Groups(this, Keys.R_24);
     }
 
     public Discipline discipline() {
-        return new Discipline(this, Keys.TIME_TABLE__R_25);
+        return new Discipline(this, Keys.R_25);
     }
 
     /**

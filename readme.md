@@ -2,7 +2,7 @@
 
 **generate entities**
 
-    mvn org.jooq:jooq-codegen-maven:3.11.9:generate
+    mvn org.jooq:jooq-codegen-maven:3.11.10:generate
 
 
 

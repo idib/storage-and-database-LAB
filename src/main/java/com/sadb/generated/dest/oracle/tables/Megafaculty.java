@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.MegafacultyRecord;
 
 import java.sql.Timestamp;
@@ -41,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Megafaculty extends TableImpl<MegafacultyRecord> {
 
-    private static final long serialVersionUID = 921937978;
+    private static final long serialVersionUID = 1218771518;
 
     /**
-     * The reference instance of <code>public.megafaculty</code>
+     * The reference instance of <code>SANDDB.MEGAFACULTY</code>
      */
     public static final Megafaculty MEGAFACULTY = new Megafaculty();
 
@@ -57,41 +57,41 @@ public class Megafaculty extends TableImpl<MegafacultyRecord> {
     }
 
     /**
-     * The column <code>public.megafaculty.megafac_id</code>.
+     * The column <code>SANDDB.MEGAFACULTY.MEGAFAC_ID</code>.
      */
-    public final TableField<MegafacultyRecord, Integer> MEGAFAC_ID = createField("megafac_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<MegafacultyRecord, Long> MEGAFAC_ID = createField("MEGAFAC_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.megafaculty.mfaculty_name</code>.
+     * The column <code>SANDDB.MEGAFACULTY.MFACULTY_NAME</code>.
      */
-    public final TableField<MegafacultyRecord, String> MFACULTY_NAME = createField("mfaculty_name", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<MegafacultyRecord, String> MFACULTY_NAME = createField("MFACULTY_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.megafaculty.creat_time</code>.
+     * The column <code>SANDDB.MEGAFACULTY.CREAT_TIME</code>.
      */
-    public final TableField<MegafacultyRecord, Timestamp> CREAT_TIME = createField("creat_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<MegafacultyRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.megafaculty.update_time</code>.
+     * The column <code>SANDDB.MEGAFACULTY.UPDATE_TIME</code>.
      */
-    public final TableField<MegafacultyRecord, Timestamp> UPDATE_TIME = createField("update_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<MegafacultyRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * Create a <code>public.megafaculty</code> table reference
+     * Create a <code>SANDDB.MEGAFACULTY</code> table reference
      */
     public Megafaculty() {
-        this(DSL.name("megafaculty"), null);
+        this(DSL.name("MEGAFACULTY"), null);
     }
 
     /**
-     * Create an aliased <code>public.megafaculty</code> table reference
+     * Create an aliased <code>SANDDB.MEGAFACULTY</code> table reference
      */
     public Megafaculty(String alias) {
         this(DSL.name(alias), MEGAFACULTY);
     }
 
     /**
-     * Create an aliased <code>public.megafaculty</code> table reference
+     * Create an aliased <code>SANDDB.MEGAFACULTY</code> table reference
      */
     public Megafaculty(Name alias) {
         this(alias, MEGAFACULTY);
@@ -114,7 +114,7 @@ public class Megafaculty extends TableImpl<MegafacultyRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**

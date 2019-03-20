@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.StudentRecord;
 
 import java.math.BigDecimal;
@@ -43,10 +43,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Student extends TableImpl<StudentRecord> {
 
-    private static final long serialVersionUID = -42443739;
+    private static final long serialVersionUID = -625087313;
 
     /**
-     * The reference instance of <code>public.student</code>
+     * The reference instance of <code>SANDDB.STUDENT</code>
      */
     public static final Student STUDENT = new Student();
 
@@ -59,116 +59,116 @@ public class Student extends TableImpl<StudentRecord> {
     }
 
     /**
-     * The column <code>public.student.id</code>.
+     * The column <code>SANDDB.STUDENT.ID</code>.
      */
     public final TableField<StudentRecord, BigDecimal> ID = createField("ID", org.jooq.impl.SQLDataType.NUMERIC.nullable(false), this, "");
 
     /**
-     * The column <code>public.student.name</code>.
+     * The column <code>SANDDB.STUDENT.NAME</code>.
      */
-    public final TableField<StudentRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<StudentRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR(255).defaultValue(org.jooq.impl.DSL.field("NULL ", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
-     * The column <code>public.student.surname</code>.
+     * The column <code>SANDDB.STUDENT.SURNAME</code>.
      */
-    public final TableField<StudentRecord, String> SURNAME = createField("SURNAME", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<StudentRecord, String> SURNAME = createField("SURNAME", org.jooq.impl.SQLDataType.VARCHAR(255).defaultValue(org.jooq.impl.DSL.field("NULL ", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
-     * The column <code>public.student.second_name</code>.
+     * The column <code>SANDDB.STUDENT.SECOND_NAME</code>.
      */
-    public final TableField<StudentRecord, String> SECOND_NAME = createField("SECOND_NAME", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<StudentRecord, String> SECOND_NAME = createField("SECOND_NAME", org.jooq.impl.SQLDataType.VARCHAR(255).defaultValue(org.jooq.impl.DSL.field("NULL ", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
-     * The column <code>public.student.university</code>.
+     * The column <code>SANDDB.STUDENT.UNIVERSITY</code>.
      */
-    public final TableField<StudentRecord, String> UNIVERSITY = createField("UNIVERSITY", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<StudentRecord, String> UNIVERSITY = createField("UNIVERSITY", org.jooq.impl.SQLDataType.VARCHAR(255).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
-     * The column <code>public.student.education_place</code>.
+     * The column <code>SANDDB.STUDENT.EDUCATION_PLACE</code>.
      */
-    public final TableField<StudentRecord, String> EDUCATION_PLACE = createField("EDUCATION_PLACE", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<StudentRecord, String> EDUCATION_PLACE = createField("EDUCATION_PLACE", org.jooq.impl.SQLDataType.VARCHAR(255).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
-     * The column <code>public.student.speciality</code>.
+     * The column <code>SANDDB.STUDENT.SPECIALITY</code>.
      */
-    public final TableField<StudentRecord, String> SPECIALITY = createField("SPECIALITY", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<StudentRecord, String> SPECIALITY = createField("SPECIALITY", org.jooq.impl.SQLDataType.VARCHAR(255).defaultValue(org.jooq.impl.DSL.field("null", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
-     * The column <code>public.student.semester</code>.
+     * The column <code>SANDDB.STUDENT.SEMESTER</code>.
      */
-    public final TableField<StudentRecord, BigDecimal> SEMESTER = createField("SEMESTER", org.jooq.impl.SQLDataType.NUMERIC, this, "");
+    public final TableField<StudentRecord, BigDecimal> SEMESTER = createField("SEMESTER", org.jooq.impl.SQLDataType.NUMERIC.defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.NUMERIC)), this, "");
 
     /**
-     * The column <code>public.student.creation_date</code>.
+     * The column <code>SANDDB.STUDENT.CREATION_DATE</code>.
      */
     public final TableField<StudentRecord, Timestamp> CREATION_DATE = createField("CREATION_DATE", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
-     * The column <code>public.student.updation_date</code>.
+     * The column <code>SANDDB.STUDENT.UPDATION_DATE</code>.
      */
     public final TableField<StudentRecord, Timestamp> UPDATION_DATE = createField("UPDATION_DATE", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
-     * The column <code>public.student.concession</code>.
+     * The column <code>SANDDB.STUDENT.CONCESSION</code>.
      */
-    public final TableField<StudentRecord, Boolean> CONCESSION = createField("CONCESSION", org.jooq.impl.SQLDataType.BOOLEAN.nullable(false), this, "");
+    public final TableField<StudentRecord, String> CONCESSION = createField("CONCESSION", org.jooq.impl.SQLDataType.CHAR(1).defaultValue(org.jooq.impl.DSL.field("NULL ", org.jooq.impl.SQLDataType.CHAR)), this, "");
 
     /**
-     * The column <code>public.student.room_id</code>.
+     * The column <code>SANDDB.STUDENT.ROOM_ID</code>.
      */
-    public final TableField<StudentRecord, Integer> ROOM_ID = createField("ROOM_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<StudentRecord, Long> ROOM_ID = createField("ROOM_ID", org.jooq.impl.SQLDataType.BIGINT.defaultValue(org.jooq.impl.DSL.field("NULL ", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
-     * The column <code>public.student.date_checkin</code>.
+     * The column <code>SANDDB.STUDENT.DATE_CHECKIN</code>.
      */
-    public final TableField<StudentRecord, Date> DATE_CHECKIN = createField("DATE_CHECKIN", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
+    public final TableField<StudentRecord, Date> DATE_CHECKIN = createField("DATE_CHECKIN", org.jooq.impl.SQLDataType.DATE.defaultValue(org.jooq.impl.DSL.field("NULL ", org.jooq.impl.SQLDataType.DATE)), this, "");
 
     /**
-     * The column <code>public.student.date_checkout</code>.
+     * The column <code>SANDDB.STUDENT.DATE_CHECKOUT</code>.
      */
-    public final TableField<StudentRecord, Date> DATE_CHECKOUT = createField("DATE_CHECKOUT", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
+    public final TableField<StudentRecord, Date> DATE_CHECKOUT = createField("DATE_CHECKOUT", org.jooq.impl.SQLDataType.DATE.defaultValue(org.jooq.impl.DSL.field("NULL ", org.jooq.impl.SQLDataType.DATE)), this, "");
 
     /**
-     * The column <code>public.student.form_education</code>.
+     * The column <code>SANDDB.STUDENT.FORM_EDUCATION</code>.
      */
-    public final TableField<StudentRecord, Integer> FORM_EDUCATION = createField("FORM_EDUCATION", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<StudentRecord, Long> FORM_EDUCATION = createField("FORM_EDUCATION", org.jooq.impl.SQLDataType.BIGINT.defaultValue(org.jooq.impl.DSL.field("NULL ", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
-     * The column <code>public.student.position_id</code>.
+     * The column <code>SANDDB.STUDENT.POSITION_ID</code>.
      */
-    public final TableField<StudentRecord, Integer> POSITION_ID = createField("POSITION_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<StudentRecord, Long> POSITION_ID = createField("POSITION_ID", org.jooq.impl.SQLDataType.BIGINT.defaultValue(org.jooq.impl.DSL.field("NULL ", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
-     * The column <code>public.student.group_id</code>.
+     * The column <code>SANDDB.STUDENT.GROUP_ID</code>.
      */
-    public final TableField<StudentRecord, Integer> GROUP_ID = createField("GROUP_ID", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<StudentRecord, Long> GROUP_ID = createField("GROUP_ID", org.jooq.impl.SQLDataType.BIGINT.defaultValue(org.jooq.impl.DSL.field("NULL ", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
-     * The column <code>public.student.birth_date</code>.
+     * The column <code>SANDDB.STUDENT.BIRTH_DATE</code>.
      */
-    public final TableField<StudentRecord, Timestamp> BIRTH_DATE = createField("BIRTH_DATE", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<StudentRecord, Timestamp> BIRTH_DATE = createField("BIRTH_DATE", org.jooq.impl.SQLDataType.TIMESTAMP.defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.TIMESTAMP)), this, "");
 
     /**
-     * The column <code>public.student.birth_place</code>.
+     * The column <code>SANDDB.STUDENT.BIRTH_PLACE</code>.
      */
-    public final TableField<StudentRecord, String> BIRTH_PLACE = createField("BIRTH_PLACE", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<StudentRecord, String> BIRTH_PLACE = createField("BIRTH_PLACE", org.jooq.impl.SQLDataType.VARCHAR(255).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
-     * Create a <code>public.student</code> table reference
+     * Create a <code>SANDDB.STUDENT</code> table reference
      */
     public Student() {
         this(DSL.name("STUDENT"), null);
     }
 
     /**
-     * Create an aliased <code>public.student</code> table reference
+     * Create an aliased <code>SANDDB.STUDENT</code> table reference
      */
     public Student(String alias) {
         this(DSL.name(alias), STUDENT);
     }
 
     /**
-     * Create an aliased <code>public.student</code> table reference
+     * Create an aliased <code>SANDDB.STUDENT</code> table reference
      */
     public Student(Name alias) {
         this(alias, STUDENT);
@@ -191,7 +191,7 @@ public class Student extends TableImpl<StudentRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -199,7 +199,7 @@ public class Student extends TableImpl<StudentRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.STUDENT_PKEY);
+        return Arrays.<Index>asList(Indexes.SYS_C005109);
     }
 
     /**
@@ -207,7 +207,7 @@ public class Student extends TableImpl<StudentRecord> {
      */
     @Override
     public UniqueKey<StudentRecord> getPrimaryKey() {
-        return Keys.STUDENT_PKEY;
+        return Keys.SYS_C005109;
     }
 
     /**
@@ -215,7 +215,7 @@ public class Student extends TableImpl<StudentRecord> {
      */
     @Override
     public List<UniqueKey<StudentRecord>> getKeys() {
-        return Arrays.<UniqueKey<StudentRecord>>asList(Keys.STUDENT_PKEY);
+        return Arrays.<UniqueKey<StudentRecord>>asList(Keys.SYS_C005109);
     }
 
     /**
@@ -223,23 +223,19 @@ public class Student extends TableImpl<StudentRecord> {
      */
     @Override
     public List<ForeignKey<StudentRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<StudentRecord, ?>>asList(Keys.STUDENT__STUDENT_FK0, Keys.STUDENT__STUDENT_FK1, Keys.STUDENT__PARTICIPANT_FK0, Keys.STUDENT__R_28);
+        return Arrays.<ForeignKey<StudentRecord, ?>>asList(Keys.STUDENT_FK0, Keys.STUDENT_FK1, Keys.PARTICIPANT_FK0);
     }
 
     public Room room() {
-        return new Room(this, Keys.STUDENT__STUDENT_FK0);
+        return new Room(this, Keys.STUDENT_FK0);
     }
 
     public FormEducation formEducation() {
-        return new FormEducation(this, Keys.STUDENT__STUDENT_FK1);
+        return new FormEducation(this, Keys.STUDENT_FK1);
     }
 
     public TypePosition typePosition() {
-        return new TypePosition(this, Keys.STUDENT__PARTICIPANT_FK0);
-    }
-
-    public Groups groups() {
-        return new Groups(this, Keys.STUDENT__R_28);
+        return new TypePosition(this, Keys.PARTICIPANT_FK0);
     }
 
     /**

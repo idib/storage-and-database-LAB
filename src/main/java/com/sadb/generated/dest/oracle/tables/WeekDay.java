@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.WeekDayRecord;
 
 import java.sql.Timestamp;
@@ -41,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class WeekDay extends TableImpl<WeekDayRecord> {
 
-    private static final long serialVersionUID = 1500634669;
+    private static final long serialVersionUID = 596211125;
 
     /**
-     * The reference instance of <code>public.week_day</code>
+     * The reference instance of <code>SANDDB.WEEK_DAY</code>
      */
     public static final WeekDay WEEK_DAY = new WeekDay();
 
@@ -57,41 +57,41 @@ public class WeekDay extends TableImpl<WeekDayRecord> {
     }
 
     /**
-     * The column <code>public.week_day.week_day_id</code>.
+     * The column <code>SANDDB.WEEK_DAY.WEEK_DAY_ID</code>.
      */
-    public final TableField<WeekDayRecord, Integer> WEEK_DAY_ID = createField("week_day_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<WeekDayRecord, Long> WEEK_DAY_ID = createField("WEEK_DAY_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.week_day.day</code>.
+     * The column <code>SANDDB.WEEK_DAY.DAY</code>.
      */
-    public final TableField<WeekDayRecord, String> DAY = createField("day", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<WeekDayRecord, String> DAY = createField("DAY", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
-     * The column <code>public.week_day.creat_time</code>.
+     * The column <code>SANDDB.WEEK_DAY.CREAT_TIME</code>.
      */
-    public final TableField<WeekDayRecord, Timestamp> CREAT_TIME = createField("creat_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<WeekDayRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.week_day.update_time</code>.
+     * The column <code>SANDDB.WEEK_DAY.UPDATE_TIME</code>.
      */
-    public final TableField<WeekDayRecord, Timestamp> UPDATE_TIME = createField("update_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<WeekDayRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * Create a <code>public.week_day</code> table reference
+     * Create a <code>SANDDB.WEEK_DAY</code> table reference
      */
     public WeekDay() {
-        this(DSL.name("week_day"), null);
+        this(DSL.name("WEEK_DAY"), null);
     }
 
     /**
-     * Create an aliased <code>public.week_day</code> table reference
+     * Create an aliased <code>SANDDB.WEEK_DAY</code> table reference
      */
     public WeekDay(String alias) {
         this(DSL.name(alias), WEEK_DAY);
     }
 
     /**
-     * Create an aliased <code>public.week_day</code> table reference
+     * Create an aliased <code>SANDDB.WEEK_DAY</code> table reference
      */
     public WeekDay(Name alias) {
         this(alias, WEEK_DAY);
@@ -114,7 +114,7 @@ public class WeekDay extends TableImpl<WeekDayRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**

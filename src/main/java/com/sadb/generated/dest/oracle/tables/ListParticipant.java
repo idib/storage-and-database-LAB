@@ -5,7 +5,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.ListParticipantRecord;
 
 import java.sql.Timestamp;
@@ -38,10 +38,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ListParticipant extends TableImpl<ListParticipantRecord> {
 
-    private static final long serialVersionUID = 1625060316;
+    private static final long serialVersionUID = -2111505877;
 
     /**
-     * The reference instance of <code>public.list_participant</code>
+     * The reference instance of <code>SANDDB.LIST_PARTICIPANT</code>
      */
     public static final ListParticipant LIST_PARTICIPANT = new ListParticipant();
 
@@ -54,41 +54,41 @@ public class ListParticipant extends TableImpl<ListParticipantRecord> {
     }
 
     /**
-     * The column <code>public.list_participant.participant_id</code>.
+     * The column <code>SANDDB.LIST_PARTICIPANT.PARTICIPANT_ID</code>.
      */
-    public final TableField<ListParticipantRecord, Integer> PARTICIPANT_ID = createField("participant_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ListParticipantRecord, Long> PARTICIPANT_ID = createField("PARTICIPANT_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.list_participant.conference_id</code>.
+     * The column <code>SANDDB.LIST_PARTICIPANT.CONFERENCE_ID</code>.
      */
-    public final TableField<ListParticipantRecord, Integer> CONFERENCE_ID = createField("conference_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ListParticipantRecord, Long> CONFERENCE_ID = createField("CONFERENCE_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.list_participant.data_update</code>.
+     * The column <code>SANDDB.LIST_PARTICIPANT.DATA_UPDATE</code>.
      */
-    public final TableField<ListParticipantRecord, Timestamp> DATA_UPDATE = createField("data_update", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ListParticipantRecord, Timestamp> DATA_UPDATE = createField("DATA_UPDATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * The column <code>public.list_participant.data_create</code>.
+     * The column <code>SANDDB.LIST_PARTICIPANT.DATA_CREATE</code>.
      */
-    public final TableField<ListParticipantRecord, Timestamp> DATA_CREATE = createField("data_create", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ListParticipantRecord, Timestamp> DATA_CREATE = createField("DATA_CREATE", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38).nullable(false), this, "");
 
     /**
-     * Create a <code>public.list_participant</code> table reference
+     * Create a <code>SANDDB.LIST_PARTICIPANT</code> table reference
      */
     public ListParticipant() {
-        this(DSL.name("list_participant"), null);
+        this(DSL.name("LIST_PARTICIPANT"), null);
     }
 
     /**
-     * Create an aliased <code>public.list_participant</code> table reference
+     * Create an aliased <code>SANDDB.LIST_PARTICIPANT</code> table reference
      */
     public ListParticipant(String alias) {
         this(DSL.name(alias), LIST_PARTICIPANT);
     }
 
     /**
-     * Create an aliased <code>public.list_participant</code> table reference
+     * Create an aliased <code>SANDDB.LIST_PARTICIPANT</code> table reference
      */
     public ListParticipant(Name alias) {
         this(alias, LIST_PARTICIPANT);
@@ -111,7 +111,7 @@ public class ListParticipant extends TableImpl<ListParticipantRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
@@ -119,15 +119,15 @@ public class ListParticipant extends TableImpl<ListParticipantRecord> {
      */
     @Override
     public List<ForeignKey<ListParticipantRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ListParticipantRecord, ?>>asList(Keys.LIST_PARTICIPANT__LIST_PARTICIPANT_FK0, Keys.LIST_PARTICIPANT__LIST_PARTICIPANT_FK1);
+        return Arrays.<ForeignKey<ListParticipantRecord, ?>>asList(Keys.LIST_PARTICIPANT_FK0, Keys.LIST_PARTICIPANT_FK1);
     }
 
     public Student student() {
-        return new Student(this, Keys.LIST_PARTICIPANT__LIST_PARTICIPANT_FK0);
+        return new Student(this, Keys.LIST_PARTICIPANT_FK0);
     }
 
     public Conference conference() {
-        return new Conference(this, Keys.LIST_PARTICIPANT__LIST_PARTICIPANT_FK1);
+        return new Conference(this, Keys.LIST_PARTICIPANT_FK1);
     }
 
     /**

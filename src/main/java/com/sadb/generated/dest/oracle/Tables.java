@@ -3,13 +3,45 @@
  */
 package com.sadb.generated.dest.oracle;
 
-import com.sadb.generated.dest.oracle.tables.*;
+
+import com.sadb.generated.dest.oracle.tables.AcademicYear;
+import com.sadb.generated.dest.oracle.tables.Block;
+import com.sadb.generated.dest.oracle.tables.ClassRoom;
+import com.sadb.generated.dest.oracle.tables.Conference;
+import com.sadb.generated.dest.oracle.tables.Discipline;
+import com.sadb.generated.dest.oracle.tables.Dormitory;
+import com.sadb.generated.dest.oracle.tables.EventType;
+import com.sadb.generated.dest.oracle.tables.Events;
+import com.sadb.generated.dest.oracle.tables.Faculty;
+import com.sadb.generated.dest.oracle.tables.FacultyLecturer;
+import com.sadb.generated.dest.oracle.tables.FormEducation;
+import com.sadb.generated.dest.oracle.tables.Groups;
+import com.sadb.generated.dest.oracle.tables.Lecturer;
+import com.sadb.generated.dest.oracle.tables.ListParticipant;
+import com.sadb.generated.dest.oracle.tables.ListParticipantProject;
+import com.sadb.generated.dest.oracle.tables.Megafaculty;
+import com.sadb.generated.dest.oracle.tables.Occupation;
+import com.sadb.generated.dest.oracle.tables.OdevityWeek;
+import com.sadb.generated.dest.oracle.tables.ProgramTrack;
+import com.sadb.generated.dest.oracle.tables.Publications;
+import com.sadb.generated.dest.oracle.tables.ReaderSheet;
+import com.sadb.generated.dest.oracle.tables.Results;
+import com.sadb.generated.dest.oracle.tables.Room;
+import com.sadb.generated.dest.oracle.tables.ScientificProject;
+import com.sadb.generated.dest.oracle.tables.Speciality;
+import com.sadb.generated.dest.oracle.tables.Student;
+import com.sadb.generated.dest.oracle.tables.TimeTable;
+import com.sadb.generated.dest.oracle.tables.TypeEdition;
+import com.sadb.generated.dest.oracle.tables.TypePosition;
+import com.sadb.generated.dest.oracle.tables.TypePublication;
+import com.sadb.generated.dest.oracle.tables.VariantOccupation;
+import com.sadb.generated.dest.oracle.tables.WeekDay;
 
 import javax.annotation.Generated;
 
 
 /**
- * Convenience access to all tables in public
+ * Convenience access to all tables in SANDDB
  */
 @Generated(
     value = {
@@ -22,162 +54,162 @@ import javax.annotation.Generated;
 public class Tables {
 
     /**
-     * The table <code>public.academic_year</code>.
+     * The table <code>SANDDB.ACADEMIC_YEAR</code>.
      */
     public static final AcademicYear ACADEMIC_YEAR = com.sadb.generated.dest.oracle.tables.AcademicYear.ACADEMIC_YEAR;
 
     /**
-     * The table <code>public.block</code>.
+     * The table <code>SANDDB.BLOCK</code>.
      */
     public static final Block BLOCK = com.sadb.generated.dest.oracle.tables.Block.BLOCK;
 
     /**
-     * The table <code>public.class_room</code>.
+     * The table <code>SANDDB.CLASS_ROOM</code>.
      */
     public static final ClassRoom CLASS_ROOM = com.sadb.generated.dest.oracle.tables.ClassRoom.CLASS_ROOM;
 
     /**
-     * The table <code>public.conference</code>.
+     * The table <code>SANDDB.CONFERENCE</code>.
      */
     public static final Conference CONFERENCE = com.sadb.generated.dest.oracle.tables.Conference.CONFERENCE;
 
     /**
-     * The table <code>public.discipline</code>.
+     * The table <code>SANDDB.DISCIPLINE</code>.
      */
     public static final Discipline DISCIPLINE = com.sadb.generated.dest.oracle.tables.Discipline.DISCIPLINE;
 
     /**
-     * The table <code>public.dormitory</code>.
+     * The table <code>SANDDB.DORMITORY</code>.
      */
     public static final Dormitory DORMITORY = com.sadb.generated.dest.oracle.tables.Dormitory.DORMITORY;
 
     /**
-     * The table <code>public.event_type</code>.
-     */
-    public static final EventType EVENT_TYPE = com.sadb.generated.dest.oracle.tables.EventType.EVENT_TYPE;
-
-    /**
-     * The table <code>public.events</code>.
+     * The table <code>SANDDB.EVENTS</code>.
      */
     public static final Events EVENTS = com.sadb.generated.dest.oracle.tables.Events.EVENTS;
 
     /**
-     * The table <code>public.faculty</code>.
+     * The table <code>SANDDB.EVENT_TYPE</code>.
+     */
+    public static final EventType EVENT_TYPE = com.sadb.generated.dest.oracle.tables.EventType.EVENT_TYPE;
+
+    /**
+     * The table <code>SANDDB.FACULTY</code>.
      */
     public static final Faculty FACULTY = com.sadb.generated.dest.oracle.tables.Faculty.FACULTY;
 
     /**
-     * The table <code>public.faculty_lecturer</code>.
+     * The table <code>SANDDB.FACULTY_LECTURER</code>.
      */
     public static final FacultyLecturer FACULTY_LECTURER = com.sadb.generated.dest.oracle.tables.FacultyLecturer.FACULTY_LECTURER;
 
     /**
-     * The table <code>public.form_education</code>.
+     * The table <code>SANDDB.FORM_EDUCATION</code>.
      */
     public static final FormEducation FORM_EDUCATION = com.sadb.generated.dest.oracle.tables.FormEducation.FORM_EDUCATION;
 
     /**
-     * The table <code>public.groups</code>.
+     * The table <code>SANDDB.GROUPS</code>.
      */
     public static final Groups GROUPS = com.sadb.generated.dest.oracle.tables.Groups.GROUPS;
 
     /**
-     * The table <code>public.lecturer</code>.
+     * The table <code>SANDDB.LECTURER</code>.
      */
     public static final Lecturer LECTURER = com.sadb.generated.dest.oracle.tables.Lecturer.LECTURER;
 
     /**
-     * The table <code>public.list_participant</code>.
+     * The table <code>SANDDB.LIST_PARTICIPANT</code>.
      */
     public static final ListParticipant LIST_PARTICIPANT = com.sadb.generated.dest.oracle.tables.ListParticipant.LIST_PARTICIPANT;
 
     /**
-     * The table <code>public.list_participant_project</code>.
+     * The table <code>SANDDB.LIST_PARTICIPANT_PROJECT</code>.
      */
     public static final ListParticipantProject LIST_PARTICIPANT_PROJECT = com.sadb.generated.dest.oracle.tables.ListParticipantProject.LIST_PARTICIPANT_PROJECT;
 
     /**
-     * The table <code>public.megafaculty</code>.
+     * The table <code>SANDDB.MEGAFACULTY</code>.
      */
     public static final Megafaculty MEGAFACULTY = com.sadb.generated.dest.oracle.tables.Megafaculty.MEGAFACULTY;
 
     /**
-     * The table <code>public.occupation</code>.
+     * The table <code>SANDDB.OCCUPATION</code>.
      */
     public static final Occupation OCCUPATION = com.sadb.generated.dest.oracle.tables.Occupation.OCCUPATION;
 
     /**
-     * The table <code>public.odevity_week</code>.
+     * The table <code>SANDDB.ODEVITY_WEEK</code>.
      */
     public static final OdevityWeek ODEVITY_WEEK = com.sadb.generated.dest.oracle.tables.OdevityWeek.ODEVITY_WEEK;
 
     /**
-     * The table <code>public.program_track</code>.
+     * The table <code>SANDDB.PROGRAM_TRACK</code>.
      */
     public static final ProgramTrack PROGRAM_TRACK = com.sadb.generated.dest.oracle.tables.ProgramTrack.PROGRAM_TRACK;
 
     /**
-     * The table <code>public.publications</code>.
+     * The table <code>SANDDB.PUBLICATIONS</code>.
      */
     public static final Publications PUBLICATIONS = com.sadb.generated.dest.oracle.tables.Publications.PUBLICATIONS;
 
     /**
-     * The table <code>public.reader_sheet</code>.
+     * The table <code>SANDDB.READER_SHEET</code>.
      */
     public static final ReaderSheet READER_SHEET = com.sadb.generated.dest.oracle.tables.ReaderSheet.READER_SHEET;
 
     /**
-     * The table <code>public.results</code>.
+     * The table <code>SANDDB.RESULTS</code>.
      */
     public static final Results RESULTS = com.sadb.generated.dest.oracle.tables.Results.RESULTS;
 
     /**
-     * The table <code>public.room</code>.
+     * The table <code>SANDDB.ROOM</code>.
      */
     public static final Room ROOM = com.sadb.generated.dest.oracle.tables.Room.ROOM;
 
     /**
-     * The table <code>public.scientific_project</code>.
+     * The table <code>SANDDB.SCIENTIFIC_PROJECT</code>.
      */
     public static final ScientificProject SCIENTIFIC_PROJECT = com.sadb.generated.dest.oracle.tables.ScientificProject.SCIENTIFIC_PROJECT;
 
     /**
-     * The table <code>public.speciality</code>.
+     * The table <code>SANDDB.SPECIALITY</code>.
      */
     public static final Speciality SPECIALITY = com.sadb.generated.dest.oracle.tables.Speciality.SPECIALITY;
 
     /**
-     * The table <code>public.student</code>.
+     * The table <code>SANDDB.STUDENT</code>.
      */
     public static final Student STUDENT = com.sadb.generated.dest.oracle.tables.Student.STUDENT;
 
     /**
-     * The table <code>public.time_table</code>.
+     * The table <code>SANDDB.TIME_TABLE</code>.
      */
     public static final TimeTable TIME_TABLE = com.sadb.generated.dest.oracle.tables.TimeTable.TIME_TABLE;
 
     /**
-     * The table <code>public.type_edition</code>.
+     * The table <code>SANDDB.TYPE_EDITION</code>.
      */
     public static final TypeEdition TYPE_EDITION = com.sadb.generated.dest.oracle.tables.TypeEdition.TYPE_EDITION;
 
     /**
-     * The table <code>public.type_position</code>.
+     * The table <code>SANDDB.TYPE_POSITION</code>.
      */
     public static final TypePosition TYPE_POSITION = com.sadb.generated.dest.oracle.tables.TypePosition.TYPE_POSITION;
 
     /**
-     * The table <code>public.type_publication</code>.
+     * The table <code>SANDDB.TYPE_PUBLICATION</code>.
      */
     public static final TypePublication TYPE_PUBLICATION = com.sadb.generated.dest.oracle.tables.TypePublication.TYPE_PUBLICATION;
 
     /**
-     * The table <code>public.variant_occupation</code>.
+     * The table <code>SANDDB.VARIANT_OCCUPATION</code>.
      */
     public static final VariantOccupation VARIANT_OCCUPATION = com.sadb.generated.dest.oracle.tables.VariantOccupation.VARIANT_OCCUPATION;
 
     /**
-     * The table <code>public.week_day</code>.
+     * The table <code>SANDDB.WEEK_DAY</code>.
      */
     public static final WeekDay WEEK_DAY = com.sadb.generated.dest.oracle.tables.WeekDay.WEEK_DAY;
 }

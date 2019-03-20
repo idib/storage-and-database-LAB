@@ -6,7 +6,7 @@ package com.sadb.generated.dest.oracle.tables;
 
 import com.sadb.generated.dest.oracle.Indexes;
 import com.sadb.generated.dest.oracle.Keys;
-import com.sadb.generated.dest.oracle.Public;
+import com.sadb.generated.dest.oracle.Sanddb;
 import com.sadb.generated.dest.oracle.tables.records.ClassRoomRecord;
 
 import java.sql.Timestamp;
@@ -41,10 +41,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ClassRoom extends TableImpl<ClassRoomRecord> {
 
-    private static final long serialVersionUID = -1121617532;
+    private static final long serialVersionUID = -738542259;
 
     /**
-     * The reference instance of <code>public.class_room</code>
+     * The reference instance of <code>SANDDB.CLASS_ROOM</code>
      */
     public static final ClassRoom CLASS_ROOM = new ClassRoom();
 
@@ -57,41 +57,41 @@ public class ClassRoom extends TableImpl<ClassRoomRecord> {
     }
 
     /**
-     * The column <code>public.class_room.class_id</code>.
+     * The column <code>SANDDB.CLASS_ROOM.CLASS_ID</code>.
      */
-    public final TableField<ClassRoomRecord, Integer> CLASS_ID = createField("class_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ClassRoomRecord, Long> CLASS_ID = createField("CLASS_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>public.class_room.class_number</code>.
+     * The column <code>SANDDB.CLASS_ROOM.CLASS_NUMBER</code>.
      */
-    public final TableField<ClassRoomRecord, Integer> CLASS_NUMBER = createField("class_number", org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<ClassRoomRecord, Long> CLASS_NUMBER = createField("CLASS_NUMBER", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>public.class_room.creat_time</code>.
+     * The column <code>SANDDB.CLASS_ROOM.CREAT_TIME</code>.
      */
-    public final TableField<ClassRoomRecord, Timestamp> CREAT_TIME = createField("creat_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<ClassRoomRecord, Timestamp> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * The column <code>public.class_room.update_time</code>.
+     * The column <code>SANDDB.CLASS_ROOM.UPDATE_TIME</code>.
      */
-    public final TableField<ClassRoomRecord, Timestamp> UPDATE_TIME = createField("update_time", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
+    public final TableField<ClassRoomRecord, Timestamp> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
 
     /**
-     * Create a <code>public.class_room</code> table reference
+     * Create a <code>SANDDB.CLASS_ROOM</code> table reference
      */
     public ClassRoom() {
-        this(DSL.name("class_room"), null);
+        this(DSL.name("CLASS_ROOM"), null);
     }
 
     /**
-     * Create an aliased <code>public.class_room</code> table reference
+     * Create an aliased <code>SANDDB.CLASS_ROOM</code> table reference
      */
     public ClassRoom(String alias) {
         this(DSL.name(alias), CLASS_ROOM);
     }
 
     /**
-     * Create an aliased <code>public.class_room</code> table reference
+     * Create an aliased <code>SANDDB.CLASS_ROOM</code> table reference
      */
     public ClassRoom(Name alias) {
         this(alias, CLASS_ROOM);
@@ -114,7 +114,7 @@ public class ClassRoom extends TableImpl<ClassRoomRecord> {
      */
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return Sanddb.SANDDB;
     }
 
     /**
