@@ -45,6 +45,13 @@
             <systemPath>${project.basedir}/libs/ojdbc8.jar</systemPath>
         </dependency>
 
+        <!-- Mongo -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>3.10.1</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

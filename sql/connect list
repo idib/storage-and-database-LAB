@@ -25,8 +25,13 @@ user: USER1
 pwd: KMuZgdy4gbTDPps
 bdName: ORCLDB
 
+Mongo   Mongo   Mongo   Mongo
+
+mongoDB:
+ip: idib.me
+port: 27017
+user: SandDB
+pwd: 0o9i
+
 postgres    postgres    postgres    postgres
 host: db-kr.cjppjzsibknt.eu-central-1.rds.amazonaws.com
-
-
-mvn install:install-file -Dfile=/Users/idib/Git/github/storage-and-database-LAB/libs/jooq-codegen-3.11.10.jar -DgroupId=org.jooq -DartifactId=jooq-codegen-maven -Dversion=3.11.10 -Dpackaging=jar -DgeneratePom=true
