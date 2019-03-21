@@ -31,7 +31,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ReaderSheetRecord extends UpdatableRecordImpl<ReaderSheetRecord> implements Record7<Long, Long, String, Date, Date, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = 16894573;
+    private static final long serialVersionUID = 1236700789;
 
     /**
      * Setter for <code>SANDDB.READER_SHEET.ID</code>.

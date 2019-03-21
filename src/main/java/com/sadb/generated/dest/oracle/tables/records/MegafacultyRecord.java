@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MegafacultyRecord extends UpdatableRecordImpl<MegafacultyRecord> implements Record4<Long, String, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = 844562563;
+    private static final long serialVersionUID = 1166168203;
 
     /**
      * Setter for <code>SANDDB.MEGAFACULTY.MEGAFAC_ID</code>.

@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class RoomRecord extends UpdatableRecordImpl<RoomRecord> implements Record6<Long, String, Long, Long, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = -1741441191;
+    private static final long serialVersionUID = -616357535;
 
     /**
      * Setter for <code>SANDDB.ROOM.ID</code>.

@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Conference extends TableImpl<ConferenceRecord> {
 
-    private static final long serialVersionUID = 1576846761;
+    private static final long serialVersionUID = 1425501901;
 
     /**
      * The reference instance of <code>SANDDB.CONFERENCE</code>

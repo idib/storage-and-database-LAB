@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ClassRoom extends TableImpl<ClassRoomRecord> {
 
-    private static final long serialVersionUID = -738542259;
+    private static final long serialVersionUID = -816418647;
 
     /**
      * The reference instance of <code>SANDDB.CLASS_ROOM</code>

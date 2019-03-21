@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class FormEducation extends TableImpl<FormEducationRecord> {
 
-    private static final long serialVersionUID = 673543434;
+    private static final long serialVersionUID = 1080289126;
 
     /**
      * The reference instance of <code>SANDDB.FORM_EDUCATION</code>

@@ -8,6 +8,7 @@ import com.sadb.generated.dest.oracle.tables.AcademicYear;
 import com.sadb.generated.dest.oracle.tables.Block;
 import com.sadb.generated.dest.oracle.tables.ClassRoom;
 import com.sadb.generated.dest.oracle.tables.Conference;
+import com.sadb.generated.dest.oracle.tables.Db;
 import com.sadb.generated.dest.oracle.tables.Discipline;
 import com.sadb.generated.dest.oracle.tables.Dormitory;
 import com.sadb.generated.dest.oracle.tables.EventType;
@@ -30,6 +31,7 @@ import com.sadb.generated.dest.oracle.tables.Room;
 import com.sadb.generated.dest.oracle.tables.ScientificProject;
 import com.sadb.generated.dest.oracle.tables.Speciality;
 import com.sadb.generated.dest.oracle.tables.Student;
+import com.sadb.generated.dest.oracle.tables.SyncLog;
 import com.sadb.generated.dest.oracle.tables.TimeTable;
 import com.sadb.generated.dest.oracle.tables.TypeEdition;
 import com.sadb.generated.dest.oracle.tables.TypePosition;
@@ -62,7 +64,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sanddb extends SchemaImpl {
 
-    private static final long serialVersionUID = 360282791;
+    private static final long serialVersionUID = -350067251;
 
     /**
      * The reference instance of <code>SANDDB</code>
@@ -88,6 +90,11 @@ public class Sanddb extends SchemaImpl {
      * The table <code>SANDDB.CONFERENCE</code>.
      */
     public final Conference CONFERENCE = com.sadb.generated.dest.oracle.tables.Conference.CONFERENCE;
+
+    /**
+     * The table <code>SANDDB.DB</code>.
+     */
+    public final Db DB = com.sadb.generated.dest.oracle.tables.Db.DB;
 
     /**
      * The table <code>SANDDB.DISCIPLINE</code>.
@@ -200,6 +207,11 @@ public class Sanddb extends SchemaImpl {
     public final Student STUDENT = com.sadb.generated.dest.oracle.tables.Student.STUDENT;
 
     /**
+     * The table <code>SANDDB.SYNC_LOG</code>.
+     */
+    public final SyncLog SYNC_LOG = com.sadb.generated.dest.oracle.tables.SyncLog.SYNC_LOG;
+
+    /**
      * The table <code>SANDDB.TIME_TABLE</code>.
      */
     public final TimeTable TIME_TABLE = com.sadb.generated.dest.oracle.tables.TimeTable.TIME_TABLE;
@@ -282,6 +294,7 @@ public class Sanddb extends SchemaImpl {
             Block.BLOCK,
             ClassRoom.CLASS_ROOM,
             Conference.CONFERENCE,
+            Db.DB,
             Discipline.DISCIPLINE,
             Dormitory.DORMITORY,
             Events.EVENTS,
@@ -304,6 +317,7 @@ public class Sanddb extends SchemaImpl {
             ScientificProject.SCIENTIFIC_PROJECT,
             Speciality.SPECIALITY,
             Student.STUDENT,
+            SyncLog.SYNC_LOG,
             TimeTable.TIME_TABLE,
             TypeEdition.TYPE_EDITION,
             TypePosition.TYPE_POSITION,

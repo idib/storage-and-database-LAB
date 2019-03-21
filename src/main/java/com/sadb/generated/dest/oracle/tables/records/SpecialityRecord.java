@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SpecialityRecord extends UpdatableRecordImpl<SpecialityRecord> implements Record10<Long, String, String, String, Long, Long, Long, Long, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = -381511571;
+    private static final long serialVersionUID = 445063285;
 
     /**
      * Setter for <code>SANDDB.SPECIALITY.SPEC_ID</code>.

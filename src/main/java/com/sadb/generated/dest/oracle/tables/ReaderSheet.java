@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ReaderSheet extends TableImpl<ReaderSheetRecord> {
 
-    private static final long serialVersionUID = 1026289143;
+    private static final long serialVersionUID = -683465645;
 
     /**
      * The reference instance of <code>SANDDB.READER_SHEET</code>

@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class GroupsRecord extends UpdatableRecordImpl<GroupsRecord> implements Record9<Long, Long, String, Long, Timestamp, Timestamp, Long, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = -165005489;
+    private static final long serialVersionUID = -2029143993;
 
     /**
      * Setter for <code>SANDDB.GROUPS.GROUP_ID</code>.

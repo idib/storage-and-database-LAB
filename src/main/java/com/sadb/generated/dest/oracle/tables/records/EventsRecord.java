@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class EventsRecord extends UpdatableRecordImpl<EventsRecord> implements Record6<Long, Long, Long, Timestamp, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = -111811958;
+    private static final long serialVersionUID = 609746306;
 
     /**
      * Setter for <code>SANDDB.EVENTS.ID</code>.

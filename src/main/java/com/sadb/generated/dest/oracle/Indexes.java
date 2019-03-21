@@ -8,6 +8,7 @@ import com.sadb.generated.dest.oracle.tables.AcademicYear;
 import com.sadb.generated.dest.oracle.tables.Block;
 import com.sadb.generated.dest.oracle.tables.ClassRoom;
 import com.sadb.generated.dest.oracle.tables.Conference;
+import com.sadb.generated.dest.oracle.tables.Db;
 import com.sadb.generated.dest.oracle.tables.Discipline;
 import com.sadb.generated.dest.oracle.tables.Dormitory;
 import com.sadb.generated.dest.oracle.tables.EventType;
@@ -28,6 +29,7 @@ import com.sadb.generated.dest.oracle.tables.Room;
 import com.sadb.generated.dest.oracle.tables.ScientificProject;
 import com.sadb.generated.dest.oracle.tables.Speciality;
 import com.sadb.generated.dest.oracle.tables.Student;
+import com.sadb.generated.dest.oracle.tables.SyncLog;
 import com.sadb.generated.dest.oracle.tables.TimeTable;
 import com.sadb.generated.dest.oracle.tables.TypeEdition;
 import com.sadb.generated.dest.oracle.tables.TypePosition;
@@ -63,6 +65,7 @@ public class Indexes {
     public static final Index BLOCK_PK = Indexes0.BLOCK_PK;
     public static final Index XPK_CLASS_ROOM = Indexes0.XPK_CLASS_ROOM;
     public static final Index SYS_C005172 = Indexes0.SYS_C005172;
+    public static final Index SYS_C005372 = Indexes0.SYS_C005372;
     public static final Index XPK_DISCIPLINE = Indexes0.XPK_DISCIPLINE;
     public static final Index DORMITORY_PK = Indexes0.DORMITORY_PK;
     public static final Index EVENTS_PK = Indexes0.EVENTS_PK;
@@ -83,6 +86,7 @@ public class Indexes {
     public static final Index SYS_C005202 = Indexes0.SYS_C005202;
     public static final Index XPK_PROGR_SPECIALITY = Indexes0.XPK_PROGR_SPECIALITY;
     public static final Index SYS_C005109 = Indexes0.SYS_C005109;
+    public static final Index SYS_C005369 = Indexes0.SYS_C005369;
     public static final Index XPK_TIME_TABLE = Indexes0.XPK_TIME_TABLE;
     public static final Index SYS_C005191 = Indexes0.SYS_C005191;
     public static final Index SYS_C005165 = Indexes0.SYS_C005165;
@@ -99,6 +103,7 @@ public class Indexes {
         public static Index BLOCK_PK = Internal.createIndex("BLOCK_PK", Block.BLOCK, new OrderField[] { Block.BLOCK.ID }, true);
         public static Index XPK_CLASS_ROOM = Internal.createIndex("XPK_CLASS_ROOM", ClassRoom.CLASS_ROOM, new OrderField[] { ClassRoom.CLASS_ROOM.CLASS_ID }, true);
         public static Index SYS_C005172 = Internal.createIndex("SYS_C005172", Conference.CONFERENCE, new OrderField[] { Conference.CONFERENCE.ID }, true);
+        public static Index SYS_C005372 = Internal.createIndex("SYS_C005372", Db.DB, new OrderField[] { Db.DB.ID }, true);
         public static Index XPK_DISCIPLINE = Internal.createIndex("XPK_DISCIPLINE", Discipline.DISCIPLINE, new OrderField[] { Discipline.DISCIPLINE.DISCIPLINE_ID }, true);
         public static Index DORMITORY_PK = Internal.createIndex("DORMITORY_PK", Dormitory.DORMITORY, new OrderField[] { Dormitory.DORMITORY.ID }, true);
         public static Index EVENTS_PK = Internal.createIndex("EVENTS_PK", Events.EVENTS, new OrderField[] { Events.EVENTS.ID }, true);
@@ -119,6 +124,7 @@ public class Indexes {
         public static Index SYS_C005202 = Internal.createIndex("SYS_C005202", ScientificProject.SCIENTIFIC_PROJECT, new OrderField[] { ScientificProject.SCIENTIFIC_PROJECT.ID }, true);
         public static Index XPK_PROGR_SPECIALITY = Internal.createIndex("XPK_PROGR_SPECIALITY", Speciality.SPECIALITY, new OrderField[] { Speciality.SPECIALITY.SPEC_ID }, true);
         public static Index SYS_C005109 = Internal.createIndex("SYS_C005109", Student.STUDENT, new OrderField[] { Student.STUDENT.ID }, true);
+        public static Index SYS_C005369 = Internal.createIndex("SYS_C005369", SyncLog.SYNC_LOG, new OrderField[] { SyncLog.SYNC_LOG.ID }, true);
         public static Index XPK_TIME_TABLE = Internal.createIndex("XPK_TIME_TABLE", TimeTable.TIME_TABLE, new OrderField[] { TimeTable.TIME_TABLE.OCCUPATION_ID, TimeTable.TIME_TABLE.WEEK_DAY_ID, TimeTable.TIME_TABLE.ODEVITY_ID, TimeTable.TIME_TABLE.VARIANT_OCCUPATION_ID, TimeTable.TIME_TABLE.CLASS_ID, TimeTable.TIME_TABLE.GROUP_ID, TimeTable.TIME_TABLE.DISCIPLINE_ID }, true);
         public static Index SYS_C005191 = Internal.createIndex("SYS_C005191", TypeEdition.TYPE_EDITION, new OrderField[] { TypeEdition.TYPE_EDITION.ID }, true);
         public static Index SYS_C005165 = Internal.createIndex("SYS_C005165", TypePosition.TYPE_POSITION, new OrderField[] { TypePosition.TYPE_POSITION.ID }, true);

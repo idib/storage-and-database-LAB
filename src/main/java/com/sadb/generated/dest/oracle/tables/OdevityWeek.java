@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class OdevityWeek extends TableImpl<OdevityWeekRecord> {
 
-    private static final long serialVersionUID = 2141607284;
+    private static final long serialVersionUID = -1624396648;
 
     /**
      * The reference instance of <code>SANDDB.ODEVITY_WEEK</code>

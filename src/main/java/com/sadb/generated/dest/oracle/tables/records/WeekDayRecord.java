@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class WeekDayRecord extends UpdatableRecordImpl<WeekDayRecord> implements Record4<Long, String, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = -2112459357;
+    private static final long serialVersionUID = 1453345195;
 
     /**
      * Setter for <code>SANDDB.WEEK_DAY.WEEK_DAY_ID</code>.

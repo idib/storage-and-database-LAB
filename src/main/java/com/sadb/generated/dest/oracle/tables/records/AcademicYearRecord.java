@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class AcademicYearRecord extends UpdatableRecordImpl<AcademicYearRecord> implements Record4<String, Long, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = -2069199026;
+    private static final long serialVersionUID = 441160262;
 
     /**
      * Setter for <code>SANDDB.ACADEMIC_YEAR.ACADEM_YEAR</code>.

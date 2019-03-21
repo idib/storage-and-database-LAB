@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Block extends TableImpl<BlockRecord> {
 
-    private static final long serialVersionUID = 1806237780;
+    private static final long serialVersionUID = 1548586104;
 
     /**
      * The reference instance of <code>SANDDB.BLOCK</code>

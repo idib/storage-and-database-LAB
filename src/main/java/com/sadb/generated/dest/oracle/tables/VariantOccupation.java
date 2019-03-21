@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class VariantOccupation extends TableImpl<VariantOccupationRecord> {
 
-    private static final long serialVersionUID = -1253619655;
+    private static final long serialVersionUID = -2063422827;
 
     /**
      * The reference instance of <code>SANDDB.VARIANT_OCCUPATION</code>

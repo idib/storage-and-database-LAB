@@ -29,7 +29,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ListParticipantRecord extends TableRecordImpl<ListParticipantRecord> implements Record4<Long, Long, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = 556075120;
+    private static final long serialVersionUID = 1137038456;
 
     /**
      * Setter for <code>SANDDB.LIST_PARTICIPANT.PARTICIPANT_ID</code>.

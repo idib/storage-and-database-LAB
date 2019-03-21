@@ -31,7 +31,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DisciplineRecord extends UpdatableRecordImpl<DisciplineRecord> implements Record8<Long, String, BigDecimal, BigDecimal, BigDecimal, String, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = -1405634985;
+    private static final long serialVersionUID = -36264865;
 
     /**
      * Setter for <code>SANDDB.DISCIPLINE.DISCIPLINE_ID</code>.

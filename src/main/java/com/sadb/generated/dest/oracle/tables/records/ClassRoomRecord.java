@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ClassRoomRecord extends UpdatableRecordImpl<ClassRoomRecord> implements Record4<Long, Long, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = -285904267;
+    private static final long serialVersionUID = -1472484739;
 
     /**
      * Setter for <code>SANDDB.CLASS_ROOM.CLASS_ID</code>.

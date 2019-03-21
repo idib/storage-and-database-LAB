@@ -8,6 +8,7 @@ import com.sadb.generated.dest.oracle.tables.AcademicYear;
 import com.sadb.generated.dest.oracle.tables.Block;
 import com.sadb.generated.dest.oracle.tables.ClassRoom;
 import com.sadb.generated.dest.oracle.tables.Conference;
+import com.sadb.generated.dest.oracle.tables.Db;
 import com.sadb.generated.dest.oracle.tables.Discipline;
 import com.sadb.generated.dest.oracle.tables.Dormitory;
 import com.sadb.generated.dest.oracle.tables.EventType;
@@ -30,6 +31,7 @@ import com.sadb.generated.dest.oracle.tables.Room;
 import com.sadb.generated.dest.oracle.tables.ScientificProject;
 import com.sadb.generated.dest.oracle.tables.Speciality;
 import com.sadb.generated.dest.oracle.tables.Student;
+import com.sadb.generated.dest.oracle.tables.SyncLog;
 import com.sadb.generated.dest.oracle.tables.TimeTable;
 import com.sadb.generated.dest.oracle.tables.TypeEdition;
 import com.sadb.generated.dest.oracle.tables.TypePosition;
@@ -72,6 +74,11 @@ public class Tables {
      * The table <code>SANDDB.CONFERENCE</code>.
      */
     public static final Conference CONFERENCE = com.sadb.generated.dest.oracle.tables.Conference.CONFERENCE;
+
+    /**
+     * The table <code>SANDDB.DB</code>.
+     */
+    public static final Db DB = com.sadb.generated.dest.oracle.tables.Db.DB;
 
     /**
      * The table <code>SANDDB.DISCIPLINE</code>.
@@ -182,6 +189,11 @@ public class Tables {
      * The table <code>SANDDB.STUDENT</code>.
      */
     public static final Student STUDENT = com.sadb.generated.dest.oracle.tables.Student.STUDENT;
+
+    /**
+     * The table <code>SANDDB.SYNC_LOG</code>.
+     */
+    public static final SyncLog SYNC_LOG = com.sadb.generated.dest.oracle.tables.SyncLog.SYNC_LOG;
 
     /**
      * The table <code>SANDDB.TIME_TABLE</code>.

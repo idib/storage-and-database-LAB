@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class OdevityWeekRecord extends UpdatableRecordImpl<OdevityWeekRecord> implements Record4<Long, String, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = 1366214402;
+    private static final long serialVersionUID = -659074566;
 
     /**
      * Setter for <code>SANDDB.ODEVITY_WEEK.ODEVITY_ID</code>.
