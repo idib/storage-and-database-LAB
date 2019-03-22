@@ -34,4 +34,7 @@ user: SandDB
 pwd: 0o9i
 
 postgres    postgres    postgres    postgres
-host: db-kr.cjppjzsibknt.eu-central-1.rds.amazonaws.com
+host: itmodbs.cjppjzsibknt.eu-central-1.rds.amazonaws.com 
+user: itmouser
+pwd: ff3451adzgf
+URL: itmodbs.cjppjzsibknt.eu-central-1.rds.amazonaws.com:5432/dbspgs
