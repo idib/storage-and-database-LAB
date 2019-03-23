@@ -1,6 +1,8 @@
 package com.sadb.transformation.oracle;
 
+import com.sadb.generated.source.oracle.tables.Lecturer;
 import com.sadb.generated.source.oracle.tables.Megafaculty;
+import com.sadb.generated.source.oracle.tables.records.LecturerRecord;
 import com.sadb.generated.source.oracle.tables.records.MegafacultyRecord;
 import com.sadb.transformation.ConnectionManager;
 import org.jooq.*;
@@ -44,19 +46,35 @@ public class OracleMigrationService {
         DSLContext contextSourceOracle = DSL.using(connectionSourceOracle, SQLDialect.ORACLE);
         DSLContext contextOracle = DSL.using(connectionOracle, SQLDialect.ORACLE);
 
-//        MEGAFACULTY MEGAFACULTY MEGAFACULTY
-        Result<MegafacultyRecord> oracleSourceMegafaculty =
-                contextSourceOracle.select().from(Megafaculty.MEGAFACULTY).fetch().into(Megafaculty.MEGAFACULTY);
+////        MEGAFACULTY MEGAFACULTY MEGAFACULTY
+//        Result<MegafacultyRecord> oracleSourceMegafaculty =
+//                contextSourceOracle.select().from(Megafaculty.MEGAFACULTY).fetch().into(Megafaculty.MEGAFACULTY);
+//
+//        Result<com.sadb.generated.dest.oracle.tables.records.MegafacultyRecord> oracleMegafaculty =
+//                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Megafaculty.MEGAFACULTY).fetch().into(com.sadb.generated.dest.oracle.tables.Megafaculty.MEGAFACULTY);
+//
+//        processMegafaculty(
+//                oracleSourceMegafaculty,
+//                oracleMegafaculty,
+//                toInsert,
+//                toUpdate
+//        );
 
-        Result<com.sadb.generated.dest.oracle.tables.records.MegafacultyRecord> oracleMegafaculty =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Megafaculty.MEGAFACULTY).fetch().into(com.sadb.generated.dest.oracle.tables.Megafaculty.MEGAFACULTY);
+        // LECTURER LECTURER LECTURER LECTURER LECTURER LECTURER LECTURER
+        Result<LecturerRecord> oracleSourceLecturer =
+                contextSourceOracle.select().from(Lecturer.LECTURER).fetch().into(Lecturer.LECTURER);
 
-        processMegafaculty(
-                oracleSourceMegafaculty,
-                oracleMegafaculty,
+        Result<com.sadb.generated.dest.oracle.tables.records.LecturerRecord> oracleLectures =
+                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Lecturer.LECTURER).fetch().into(com.sadb.generated.dest.oracle.tables.Lecturer.LECTURER);
+
+
+        processOracleLecturer(
+                oracleSourceLecturer,
+                oracleLectures,
                 toInsert,
                 toUpdate
         );
+
 
         if (!toInsert.isEmpty()) {
             contextOracle.batchInsert(toInsert).execute();
@@ -111,6 +129,66 @@ public class OracleMigrationService {
                     toInsert.add(megafacultyRecord);
                 } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
                     toUpdate.add(megafacultyRecord);
+                }
+            }
+
+        }
+
+    }
+
+    private void processOracleLecturer(
+            List<LecturerRecord> oracleSourceLecturers,
+            List<com.sadb.generated.dest.oracle.tables.records.LecturerRecord> oracleLectures,
+            List<TableRecord<?>> toInsert,
+            List<UpdatableRecord<?>> toUpdate) {
+
+        Map<Integer, Timestamp> lecturerIdToUpdatedDateMap = new HashMap<>();
+        Map<Integer, com.sadb.generated.dest.oracle.tables.records.LecturerRecord> lecturerIdToRecordMap = new HashMap<>();
+
+        oracleLectures.forEach(oracleLecture -> {
+            lecturerIdToUpdatedDateMap.put(oracleLecture.getLecId().intValue(), oracleLecture.getUpdateTime());
+            lecturerIdToRecordMap.put(oracleLecture.getLecId().intValue(), oracleLecture);
+        });
+
+        for (LecturerRecord oracleSourceLecturerRecord : oracleSourceLecturers) {
+
+            Timestamp oracleSourceRecordUpdateDate = new Timestamp(oracleSourceLecturerRecord.getUpdateTime().getTime());
+            Timestamp oracleRecordUpdateDate = lecturerIdToUpdatedDateMap.get(oracleSourceLecturerRecord.getLecId().intValue());
+
+            if (oracleRecordUpdateDate == null || oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+
+                com.sadb.generated.dest.oracle.tables.records.LecturerRecord oldRecord = lecturerIdToRecordMap.get(oracleSourceLecturerRecord.getLecId().intValue());
+
+                com.sadb.generated.dest.oracle.tables.records.LecturerRecord lecturerRecord;
+                if (oldRecord == null) {
+                    lecturerRecord = new com.sadb.generated.dest.oracle.tables.records.LecturerRecord();
+                } else {
+                    lecturerRecord = oldRecord;
+                    lecturerRecord.changed(true);
+                }
+
+                lecturerRecord.setLecId(oracleSourceLecturerRecord.getLecId().longValue());
+                lecturerRecord.setPatronymicName(oracleSourceLecturerRecord.getPatronymicName());
+                lecturerRecord.setFirstName(oracleSourceLecturerRecord.getFirstName());
+                lecturerRecord.setSecondName(oracleSourceLecturerRecord.getSecondName());
+                lecturerRecord.setPost(oracleSourceLecturerRecord.getPost());
+                lecturerRecord.setBirthPlace(oracleSourceLecturerRecord.getBirthPlace());
+                if (oracleSourceLecturerRecord.getBirthDate() != null) {
+                    lecturerRecord.setBirthDate(new Timestamp(oracleSourceLecturerRecord.getBirthDate().getTime()));
+                }
+                if (oracleSourceLecturerRecord.getWorkPeriodFrom() != null) {
+                    lecturerRecord.setWorkPeriodFrom(new Timestamp(oracleSourceLecturerRecord.getWorkPeriodFrom().getTime()));
+                }
+                if (oracleSourceLecturerRecord.getWorkPeriodTo() != null) {
+                    lecturerRecord.setWorkPeriodTo(new Timestamp(oracleSourceLecturerRecord.getWorkPeriodTo().getTime()));
+                }
+                lecturerRecord.setUpdateTime(new Timestamp(oracleSourceLecturerRecord.getUpdateTime().getTime()));
+                lecturerRecord.setCreatTime(new Timestamp(oracleSourceLecturerRecord.getCreatTime().getTime()));
+
+                if (oracleRecordUpdateDate == null) {
+                    toInsert.add(lecturerRecord);
+                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                    toUpdate.add(lecturerRecord);
                 }
             }
 
