@@ -3,9 +3,11 @@ package com.sadb.transformation.oracle;
 import com.sadb.generated.source.oracle.tables.Faculty;
 import com.sadb.generated.source.oracle.tables.Lecturer;
 import com.sadb.generated.source.oracle.tables.Megafaculty;
+import com.sadb.generated.source.oracle.tables.ProgramTrack;
 import com.sadb.generated.source.oracle.tables.records.FacultyRecord;
 import com.sadb.generated.source.oracle.tables.records.LecturerRecord;
 import com.sadb.generated.source.oracle.tables.records.MegafacultyRecord;
+import com.sadb.generated.source.oracle.tables.records.ProgramTrackRecord;
 import com.sadb.transformation.ConnectionManager;
 import org.jooq.*;
 import org.jooq.impl.DSL;
@@ -95,7 +97,7 @@ public class OracleMigrationService {
         );
 */
 
-        //  FACULTY FACULTY FACULTY FACULTY FACULTY
+/*        //  FACULTY FACULTY FACULTY FACULTY FACULTY
 
         Result<FacultyRecord> oracleSourseFaculty =
                 contextSourceOracle.select().from(Faculty.FACULTY).fetch().into(Faculty.FACULTY);
@@ -108,7 +110,21 @@ public class OracleMigrationService {
                 oracleFaculty,
                 toInsert,
                 toUpdate
+        );*/
+
+        Result<ProgramTrackRecord> oracleSourseProgramTrack =
+                contextSourceOracle.select().from(ProgramTrack.PROGRAM_TRACK).fetch().into(ProgramTrack.PROGRAM_TRACK);
+
+        Result<com.sadb.generated.dest.oracle.tables.records.ProgramTrackRecord> oracleProgramTrack =
+                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.ProgramTrack.PROGRAM_TRACK).fetch().into(com.sadb.generated.dest.oracle.tables.ProgramTrack.PROGRAM_TRACK);
+
+        processProgramTrack(
+                oracleSourseProgramTrack,
+                oracleProgramTrack,
+                toInsert,
+                toUpdate
         );
+
 
 
         if (!toInsert.isEmpty()) {
@@ -291,6 +307,59 @@ public class OracleMigrationService {
                     toInsert.add(facultyRecord);
                 } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
                     toUpdate.add(facultyRecord);
+                }
+            }
+
+        }
+
+    }
+
+    private void processProgramTrack(
+            List<ProgramTrackRecord> oracleSourceProgramTracks,
+            List<com.sadb.generated.dest.oracle.tables.records.ProgramTrackRecord> oracleProgramTracks,
+            List<TableRecord<?>> toInsert,
+            List<UpdatableRecord<?>> toUpdate) {
+
+        Map<Integer, Timestamp> programTrackIdToUpdatedDateMap = new HashMap<>();
+        Map<Integer, com.sadb.generated.dest.oracle.tables.records.ProgramTrackRecord> programTrackIdToRecordMap = new HashMap<>();
+
+        oracleProgramTracks.forEach(oracleProgramTrack -> {
+            programTrackIdToUpdatedDateMap.put(oracleProgramTrack.getProgId().intValue(), oracleProgramTrack.getUpdateTime());
+            programTrackIdToRecordMap.put(oracleProgramTrack.getProgId().intValue(), oracleProgramTrack);
+        });
+
+        for (ProgramTrackRecord oracleProgramTrackRecord : oracleSourceProgramTracks) {
+
+
+            Timestamp oracleSourceRecordUpdateDate = new Timestamp(oracleProgramTrackRecord.getUpdateTime().getTime());
+            Timestamp oracleRecordUpdateDate = programTrackIdToUpdatedDateMap.get(oracleProgramTrackRecord.getProgId().intValue());
+
+            if (oracleRecordUpdateDate == null || oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+
+                com.sadb.generated.dest.oracle.tables.records.ProgramTrackRecord oldRecord =
+                        programTrackIdToRecordMap.get(oracleProgramTrackRecord.getProgId().intValue());
+
+                com.sadb.generated.dest.oracle.tables.records.ProgramTrackRecord programTrackRecordRecord;
+
+                if (oldRecord == null) {
+                    programTrackRecordRecord = new com.sadb.generated.dest.oracle.tables.records.ProgramTrackRecord();
+                } else {
+                    programTrackRecordRecord = oldRecord;
+                    programTrackRecordRecord.changed(true);
+                }
+
+                programTrackRecordRecord.setProgId(oracleProgramTrackRecord.getProgId().longValue());
+                programTrackRecordRecord.setFacId(oracleProgramTrackRecord.getFacId().longValue());
+                programTrackRecordRecord.setProgmName(oracleProgramTrackRecord.getProgmName());
+                programTrackRecordRecord.setProgmType(oracleProgramTrackRecord.getProgmType());
+                programTrackRecordRecord.setProgramTrackNum(oracleProgramTrackRecord.getProgramTrackNum());
+                programTrackRecordRecord.setCreatTime(new Timestamp(oracleProgramTrackRecord.getCreatTime().getTime()));
+                programTrackRecordRecord.setUpdateTime(new Timestamp(oracleProgramTrackRecord.getUpdateTime().getTime()));
+
+                if (oracleRecordUpdateDate == null) {
+                    toInsert.add(programTrackRecordRecord);
+                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                    toUpdate.add(programTrackRecordRecord);
                 }
             }
 
