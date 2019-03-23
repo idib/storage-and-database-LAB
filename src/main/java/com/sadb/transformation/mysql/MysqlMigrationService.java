@@ -35,50 +35,52 @@ import java.sql.Statement;
 
 @Service
 public class MysqlMigrationService {
+	private static final String URL = "jdbc:mysql://conference.cakqhkplapqx.eu-central-1.rds.amazonaws.com:3306/conference";
+	private static final String USER = "db_itmo";
+	private static final String PASSWORD = "qwerty14";
+	private static Statement stmt;
+	private static ResultSet rs;
 
-    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	@Scheduled(fixedDelayString = "#{ 70 * 1000}")
+	public void process() throws SQLException {
 
-    private static final String URL = System.getenv("aws_mysql_url");
-    private static final String USER = System.getenv("aws_mysql_user");
-    private static final String PASSWORD = System.getenv("aws_mysql_password");
-   private static Statement stmt;
-    private static ResultSet rs;
+		List<TableRecord<?>> toInsert = new ArrayList<>();
+		List<UpdatableRecord<?>> toUpdate = new ArrayList<>();
+		String query = "select count(*) from Conference";
 
-    @Scheduled(fixedDelayString = "#{ 70 * 1000}")
-    public void process() throws ClassNotFoundException, SQLException {
-
-        List<TableRecord<?>> toInsert = new ArrayList<>();
-        List<UpdatableRecord<?>> toUpdate = new ArrayList<>();
-        String query = "select count(*) from books";
-
-        // Connect to Mysql
+		// Connect to Mysql
 //        Class.forName(JDBC_DRIVER);
 
-        Connection connectionMysql = getSourceMysqlConnection();
+		Connection connectionMysql = getSourceMysqlConnection();
 
-        // Connect to Oracle
-        Connection connectionOracle = ConnectionManager.getDestDBConnection();
+		// Connect to Oracle
+		Connection connectionOracle = ConnectionManager.getDestDBConnection();
 
-        // Create context
-        DSLContext contextPostgres = DSL.using(connectionMysql, SQLDialect.POSTGRES);
-        DSLContext contextOracle = DSL.using(connectionOracle, SQLDialect.ORACLE);
+		// Create context
+		DSLContext contextPostgres = DSL.using(connectionMysql, SQLDialect.POSTGRES);
+		DSLContext contextOracle = DSL.using(connectionOracle, SQLDialect.ORACLE);
 
 
-        // getting Statement object to execute query
-        stmt = connectionMysql.createStatement();
+		// getting Statement object to execute query
+		stmt = connectionMysql.createStatement();
 
-        // executing SELECT query
-        rs = stmt.executeQuery(query);
+		// executing SELECT query
+		rs = stmt.executeQuery(query);
 
-        while (rs.next()) {
-            int count = rs.getInt(1);
-            System.out.println("Total number of books in the table : " + count);
-        }
-    }
+		while (rs.next()) {
+			int count = rs.getInt(1);
+			System.out.println("Total number of books in the table : " + count);
+		}
+	}
 
-    private Connection getSourceMysqlConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
-    }
+	private Connection getSourceMysqlConnection() throws SQLException {
+		return DriverManager.getConnection(URL, USER, PASSWORD);
+	}
+
+	public static void main(String[] args) throws SQLException {
+		MysqlMigrationService m = new MysqlMigrationService();
+		m.process();
+	}
 }
 
 
