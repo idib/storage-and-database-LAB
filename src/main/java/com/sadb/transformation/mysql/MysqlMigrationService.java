@@ -36,12 +36,15 @@ import java.sql.Statement;
 @Service
 public class MysqlMigrationService {
 
-    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
-    private static final String URL = System.getenv("aws_mysql_url");
-    private static final String USER = System.getenv("aws_mysql_user");
-    private static final String PASSWORD = System.getenv("aws_mysql_password");
-   private static Statement stmt;
+//    private static final String URL = System.getenv("aws_mysql_url");
+//    private static final String USER = System.getenv("aws_mysql_user");
+//    private static final String PASSWORD = System.getenv("aws_mysql_password");
+    private static final String URL ="jdbc:mysql://conference.cakqhkplapqx.eu-central-1.rds.amazonaws.com:3306/conference";
+    private static final String USER = "db_itmo";
+    private static final String PASSWORD = "qwerty14";
+    private static Statement stmt;
     private static ResultSet rs;
 
     @Scheduled(fixedDelayString = "#{ 70 * 1000}")
@@ -49,10 +52,10 @@ public class MysqlMigrationService {
 
         List<TableRecord<?>> toInsert = new ArrayList<>();
         List<UpdatableRecord<?>> toUpdate = new ArrayList<>();
-        String query = "select count(*) from books";
+        String query = "select count(*) from Participant ";
 
         // Connect to Mysql
-//        Class.forName(JDBC_DRIVER);
+     //   Class.forName(JDBC_DRIVER);
 
         Connection connectionMysql = getSourceMysqlConnection();
 
