@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Lecturer extends TableImpl<LecturerRecord> {
 
-    private static final long serialVersionUID = 499042718;
+    private static final long serialVersionUID = -676620770;
 
     /**
      * The reference instance of <code>SANDDB.LECTURER</code>
@@ -64,17 +64,17 @@ public class Lecturer extends TableImpl<LecturerRecord> {
     /**
      * The column <code>SANDDB.LECTURER.SECOND_NAME</code>.
      */
-    public final TableField<LecturerRecord, String> SECOND_NAME = createField("SECOND_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<LecturerRecord, String> SECOND_NAME = createField("SECOND_NAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>SANDDB.LECTURER.FIRST_NAME</code>.
      */
-    public final TableField<LecturerRecord, String> FIRST_NAME = createField("FIRST_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<LecturerRecord, String> FIRST_NAME = createField("FIRST_NAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>SANDDB.LECTURER.PATRONYMIC_NAME</code>.
      */
-    public final TableField<LecturerRecord, String> PATRONYMIC_NAME = createField("PATRONYMIC_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<LecturerRecord, String> PATRONYMIC_NAME = createField("PATRONYMIC_NAME", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>SANDDB.LECTURER.BIRTH_DATE</code>.
@@ -84,12 +84,12 @@ public class Lecturer extends TableImpl<LecturerRecord> {
     /**
      * The column <code>SANDDB.LECTURER.BIRTH_PLACE</code>.
      */
-    public final TableField<LecturerRecord, String> BIRTH_PLACE = createField("BIRTH_PLACE", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<LecturerRecord, String> BIRTH_PLACE = createField("BIRTH_PLACE", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>SANDDB.LECTURER.POST</code>.
      */
-    public final TableField<LecturerRecord, String> POST = createField("POST", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<LecturerRecord, String> POST = createField("POST", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
      * The column <code>SANDDB.LECTURER.WORK_PERIOD_FROM</code>.

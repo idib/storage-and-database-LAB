@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Occupation extends TableImpl<OccupationRecord> {
 
-    private static final long serialVersionUID = -1220808018;
+    private static final long serialVersionUID = -816504732;
 
     /**
      * The reference instance of <code>SANDDB.OCCUPATION</code>
@@ -69,12 +69,12 @@ public class Occupation extends TableImpl<OccupationRecord> {
     /**
      * The column <code>SANDDB.OCCUPATION.OCCUPATION_TIME_FROM</code>.
      */
-    public final TableField<OccupationRecord, Timestamp> OCCUPATION_TIME_FROM = createField("OCCUPATION_TIME_FROM", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
+    public final TableField<OccupationRecord, String> OCCUPATION_TIME_FROM = createField("OCCUPATION_TIME_FROM", org.jooq.impl.SQLDataType.VARCHAR(25).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>SANDDB.OCCUPATION.OCCUPATION_TIME_TO</code>.
      */
-    public final TableField<OccupationRecord, Timestamp> OCCUPATION_TIME_TO = createField("OCCUPATION_TIME_TO", org.jooq.impl.SQLDataType.TIMESTAMP.precision(38), this, "");
+    public final TableField<OccupationRecord, String> OCCUPATION_TIME_TO = createField("OCCUPATION_TIME_TO", org.jooq.impl.SQLDataType.VARCHAR(25).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>SANDDB.OCCUPATION.CREAT_TIME</code>.

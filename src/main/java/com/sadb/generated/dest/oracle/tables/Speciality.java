@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Speciality extends TableImpl<SpecialityRecord> {
 
-    private static final long serialVersionUID = 1525427601;
+    private static final long serialVersionUID = 469971673;
 
     /**
      * The reference instance of <code>SANDDB.SPECIALITY</code>
@@ -64,7 +64,7 @@ public class Speciality extends TableImpl<SpecialityRecord> {
     /**
      * The column <code>SANDDB.SPECIALITY.SPEC_NAME</code>.
      */
-    public final TableField<SpecialityRecord, String> SPEC_NAME = createField("SPEC_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<SpecialityRecord, String> SPEC_NAME = createField("SPEC_NAME", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>SANDDB.SPECIALITY.SPEC_NUMBER</code>.
