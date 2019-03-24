@@ -43,7 +43,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Student extends TableImpl<StudentRecord> {
 
-    private static final long serialVersionUID = 1457606210;
+    private static final long serialVersionUID = 1583021682;
 
     /**
      * The reference instance of <code>SANDDB.STUDENT</code>
@@ -131,7 +131,7 @@ public class Student extends TableImpl<StudentRecord> {
     /**
      * The column <code>SANDDB.STUDENT.FORM_EDUCATION</code>.
      */
-    public final TableField<StudentRecord, Long> FORM_EDUCATION = createField("FORM_EDUCATION", org.jooq.impl.SQLDataType.BIGINT.defaultValue(org.jooq.impl.DSL.field("NULL ", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+    public final TableField<StudentRecord, String> FORM_EDUCATION = createField("FORM_EDUCATION", org.jooq.impl.SQLDataType.VARCHAR(255).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>SANDDB.STUDENT.POSITION_ID</code>.
@@ -228,15 +228,11 @@ public class Student extends TableImpl<StudentRecord> {
      */
     @Override
     public List<ForeignKey<StudentRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<StudentRecord, ?>>asList(Keys.STUDENT_FK0, Keys.STUDENT_FK1, Keys.PARTICIPANT_FK0);
+        return Arrays.<ForeignKey<StudentRecord, ?>>asList(Keys.STUDENT_FK0, Keys.PARTICIPANT_FK0);
     }
 
     public Room room() {
         return new Room(this, Keys.STUDENT_FK0);
-    }
-
-    public FormEducation formEducation() {
-        return new FormEducation(this, Keys.STUDENT_FK1);
     }
 
     public TypePosition typePosition() {

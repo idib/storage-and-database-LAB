@@ -15,7 +15,6 @@ import com.sadb.generated.dest.oracle.tables.EventType;
 import com.sadb.generated.dest.oracle.tables.Events;
 import com.sadb.generated.dest.oracle.tables.Faculty;
 import com.sadb.generated.dest.oracle.tables.FacultyLecturer;
-import com.sadb.generated.dest.oracle.tables.FormEducation;
 import com.sadb.generated.dest.oracle.tables.Groups;
 import com.sadb.generated.dest.oracle.tables.Lecturer;
 import com.sadb.generated.dest.oracle.tables.ListParticipant;
@@ -49,7 +48,6 @@ import com.sadb.generated.dest.oracle.tables.records.EventTypeRecord;
 import com.sadb.generated.dest.oracle.tables.records.EventsRecord;
 import com.sadb.generated.dest.oracle.tables.records.FacultyLecturerRecord;
 import com.sadb.generated.dest.oracle.tables.records.FacultyRecord;
-import com.sadb.generated.dest.oracle.tables.records.FormEducationRecord;
 import com.sadb.generated.dest.oracle.tables.records.GroupsRecord;
 import com.sadb.generated.dest.oracle.tables.records.LecturerRecord;
 import com.sadb.generated.dest.oracle.tables.records.ListParticipantProjectRecord;
@@ -114,7 +112,6 @@ public class Keys {
     public static final UniqueKey<EventTypeRecord> EVENT_TYPE_PK = UniqueKeys0.EVENT_TYPE_PK;
     public static final UniqueKey<FacultyRecord> XPK_FAC = UniqueKeys0.XPK_FAC;
     public static final UniqueKey<FacultyLecturerRecord> XPK_FAC_LECTUR = UniqueKeys0.XPK_FAC_LECTUR;
-    public static final UniqueKey<FormEducationRecord> FORM_EDUCATION_PK = UniqueKeys0.FORM_EDUCATION_PK;
     public static final UniqueKey<GroupsRecord> XPK_GROUP = UniqueKeys0.XPK_GROUP;
     public static final UniqueKey<LecturerRecord> XPK_LECTURER = UniqueKeys0.XPK_LECTURER;
     public static final UniqueKey<MegafacultyRecord> XPK_MFAC = UniqueKeys0.XPK_MFAC;
@@ -164,7 +161,6 @@ public class Keys {
     public static final ForeignKey<RoomRecord, BlockRecord> ROOM_FK0 = ForeignKeys0.ROOM_FK0;
     public static final ForeignKey<SpecialityRecord, ProgramTrackRecord> R_26 = ForeignKeys0.R_26;
     public static final ForeignKey<StudentRecord, RoomRecord> STUDENT_FK0 = ForeignKeys0.STUDENT_FK0;
-    public static final ForeignKey<StudentRecord, FormEducationRecord> STUDENT_FK1 = ForeignKeys0.STUDENT_FK1;
     public static final ForeignKey<StudentRecord, TypePositionRecord> PARTICIPANT_FK0 = ForeignKeys0.PARTICIPANT_FK0;
     public static final ForeignKey<SyncLogRecord, DbRecord> SYNC_LOG_DB_ID_FK = ForeignKeys0.SYNC_LOG_DB_ID_FK;
     public static final ForeignKey<TimeTableRecord, WeekDayRecord> R_19 = ForeignKeys0.R_19;
@@ -191,7 +187,6 @@ public class Keys {
         public static final UniqueKey<EventTypeRecord> EVENT_TYPE_PK = Internal.createUniqueKey(EventType.EVENT_TYPE, "EVENT_TYPE_PK", EventType.EVENT_TYPE.ID);
         public static final UniqueKey<FacultyRecord> XPK_FAC = Internal.createUniqueKey(Faculty.FACULTY, "XPK_FAC", Faculty.FACULTY.FAC_ID);
         public static final UniqueKey<FacultyLecturerRecord> XPK_FAC_LECTUR = Internal.createUniqueKey(FacultyLecturer.FACULTY_LECTURER, "XPK_FAC_LECTUR", FacultyLecturer.FACULTY_LECTURER.FAC_LECT_ID);
-        public static final UniqueKey<FormEducationRecord> FORM_EDUCATION_PK = Internal.createUniqueKey(FormEducation.FORM_EDUCATION, "FORM_EDUCATION_PK", FormEducation.FORM_EDUCATION.ID);
         public static final UniqueKey<GroupsRecord> XPK_GROUP = Internal.createUniqueKey(Groups.GROUPS, "XPK_GROUP", Groups.GROUPS.GROUP_ID);
         public static final UniqueKey<LecturerRecord> XPK_LECTURER = Internal.createUniqueKey(Lecturer.LECTURER, "XPK_LECTURER", Lecturer.LECTURER.LEC_ID);
         public static final UniqueKey<MegafacultyRecord> XPK_MFAC = Internal.createUniqueKey(Megafaculty.MEGAFACULTY, "XPK_MFAC", Megafaculty.MEGAFACULTY.MEGAFAC_ID);
@@ -239,7 +234,6 @@ public class Keys {
         public static final ForeignKey<RoomRecord, BlockRecord> ROOM_FK0 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.BLOCK_PK, Room.ROOM, "ROOM_FK0", Room.ROOM.BLOCK_ID);
         public static final ForeignKey<SpecialityRecord, ProgramTrackRecord> R_26 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.XPK_PROGRAM_TRACK, Speciality.SPECIALITY, "R_26", Speciality.SPECIALITY.PROG_ID);
         public static final ForeignKey<StudentRecord, RoomRecord> STUDENT_FK0 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.ROOM_PK, Student.STUDENT, "STUDENT_FK0", Student.STUDENT.ROOM_ID);
-        public static final ForeignKey<StudentRecord, FormEducationRecord> STUDENT_FK1 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.FORM_EDUCATION_PK, Student.STUDENT, "STUDENT_FK1", Student.STUDENT.FORM_EDUCATION);
         public static final ForeignKey<StudentRecord, TypePositionRecord> PARTICIPANT_FK0 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.SYS_C005165, Student.STUDENT, "PARTICIPANT_FK0", Student.STUDENT.POSITION_ID);
         public static final ForeignKey<SyncLogRecord, DbRecord> SYNC_LOG_DB_ID_FK = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.SYS_C005372, SyncLog.SYNC_LOG, "SYNC_LOG_DB_ID_FK", SyncLog.SYNC_LOG.DB_TYPE);
         public static final ForeignKey<TimeTableRecord, WeekDayRecord> R_19 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.XPK_WEEK_DAY, TimeTable.TIME_TABLE, "R_19", TimeTable.TIME_TABLE.WEEK_DAY_ID);

@@ -15,7 +15,6 @@ import com.sadb.generated.dest.oracle.tables.EventType;
 import com.sadb.generated.dest.oracle.tables.Events;
 import com.sadb.generated.dest.oracle.tables.Faculty;
 import com.sadb.generated.dest.oracle.tables.FacultyLecturer;
-import com.sadb.generated.dest.oracle.tables.FormEducation;
 import com.sadb.generated.dest.oracle.tables.Groups;
 import com.sadb.generated.dest.oracle.tables.Lecturer;
 import com.sadb.generated.dest.oracle.tables.ListParticipant;
@@ -64,7 +63,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sanddb extends SchemaImpl {
 
-    private static final long serialVersionUID = -350067251;
+    private static final long serialVersionUID = 1505315902;
 
     /**
      * The reference instance of <code>SANDDB</code>
@@ -125,11 +124,6 @@ public class Sanddb extends SchemaImpl {
      * The table <code>SANDDB.FACULTY_LECTURER</code>.
      */
     public final FacultyLecturer FACULTY_LECTURER = com.sadb.generated.dest.oracle.tables.FacultyLecturer.FACULTY_LECTURER;
-
-    /**
-     * The table <code>SANDDB.FORM_EDUCATION</code>.
-     */
-    public final FormEducation FORM_EDUCATION = com.sadb.generated.dest.oracle.tables.FormEducation.FORM_EDUCATION;
 
     /**
      * The table <code>SANDDB.GROUPS</code>.
@@ -301,7 +295,6 @@ public class Sanddb extends SchemaImpl {
             EventType.EVENT_TYPE,
             Faculty.FACULTY,
             FacultyLecturer.FACULTY_LECTURER,
-            FormEducation.FORM_EDUCATION,
             Groups.GROUPS,
             Lecturer.LECTURER,
             ListParticipant.LIST_PARTICIPANT,

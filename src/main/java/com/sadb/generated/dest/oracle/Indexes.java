@@ -15,7 +15,6 @@ import com.sadb.generated.dest.oracle.tables.EventType;
 import com.sadb.generated.dest.oracle.tables.Events;
 import com.sadb.generated.dest.oracle.tables.Faculty;
 import com.sadb.generated.dest.oracle.tables.FacultyLecturer;
-import com.sadb.generated.dest.oracle.tables.FormEducation;
 import com.sadb.generated.dest.oracle.tables.Groups;
 import com.sadb.generated.dest.oracle.tables.Lecturer;
 import com.sadb.generated.dest.oracle.tables.Megafaculty;
@@ -72,7 +71,6 @@ public class Indexes {
     public static final Index EVENT_TYPE_PK = Indexes0.EVENT_TYPE_PK;
     public static final Index XPK_FAC = Indexes0.XPK_FAC;
     public static final Index XPK_FAC_LECTUR = Indexes0.XPK_FAC_LECTUR;
-    public static final Index FORM_EDUCATION_PK = Indexes0.FORM_EDUCATION_PK;
     public static final Index XPK_GROUP = Indexes0.XPK_GROUP;
     public static final Index XPK_LECTURER = Indexes0.XPK_LECTURER;
     public static final Index XPK_MFAC = Indexes0.XPK_MFAC;
@@ -110,7 +108,6 @@ public class Indexes {
         public static Index EVENT_TYPE_PK = Internal.createIndex("EVENT_TYPE_PK", EventType.EVENT_TYPE, new OrderField[] { EventType.EVENT_TYPE.ID }, true);
         public static Index XPK_FAC = Internal.createIndex("XPK_FAC", Faculty.FACULTY, new OrderField[] { Faculty.FACULTY.FAC_ID }, true);
         public static Index XPK_FAC_LECTUR = Internal.createIndex("XPK_FAC_LECTUR", FacultyLecturer.FACULTY_LECTURER, new OrderField[] { FacultyLecturer.FACULTY_LECTURER.FAC_LECT_ID }, true);
-        public static Index FORM_EDUCATION_PK = Internal.createIndex("FORM_EDUCATION_PK", FormEducation.FORM_EDUCATION, new OrderField[] { FormEducation.FORM_EDUCATION.ID }, true);
         public static Index XPK_GROUP = Internal.createIndex("XPK_GROUP", Groups.GROUPS, new OrderField[] { Groups.GROUPS.GROUP_ID }, true);
         public static Index XPK_LECTURER = Internal.createIndex("XPK_LECTURER", Lecturer.LECTURER, new OrderField[] { Lecturer.LECTURER.LEC_ID }, true);
         public static Index XPK_MFAC = Internal.createIndex("XPK_MFAC", Megafaculty.MEGAFACULTY, new OrderField[] { Megafaculty.MEGAFACULTY.MEGAFAC_ID }, true);
