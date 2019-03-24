@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ProgramTrack extends TableImpl<ProgramTrackRecord> {
 
-    private static final long serialVersionUID = -2090606058;
+    private static final long serialVersionUID = -2007053086;
 
     /**
      * The reference instance of <code>SANDDB.PROGRAM_TRACK</code>
@@ -69,7 +69,7 @@ public class ProgramTrack extends TableImpl<ProgramTrackRecord> {
     /**
      * The column <code>SANDDB.PROGRAM_TRACK.PROGM_NAME</code>.
      */
-    public final TableField<ProgramTrackRecord, String> PROGM_NAME = createField("PROGM_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<ProgramTrackRecord, String> PROGM_NAME = createField("PROGM_NAME", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
 
     /**
      * The column <code>SANDDB.PROGRAM_TRACK.PROGRAM_TRACK_NUM</code>.

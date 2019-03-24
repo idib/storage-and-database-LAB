@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Megafaculty extends TableImpl<MegafacultyRecord> {
 
-    private static final long serialVersionUID = -1166791070;
+    private static final long serialVersionUID = -2042695270;
 
     /**
      * The reference instance of <code>SANDDB.MEGAFACULTY</code>
@@ -64,7 +64,7 @@ public class Megafaculty extends TableImpl<MegafacultyRecord> {
     /**
      * The column <code>SANDDB.MEGAFACULTY.MFACULTY_NAME</code>.
      */
-    public final TableField<MegafacultyRecord, String> MFACULTY_NAME = createField("MFACULTY_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<MegafacultyRecord, String> MFACULTY_NAME = createField("MFACULTY_NAME", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>SANDDB.MEGAFACULTY.CREAT_TIME</code>.

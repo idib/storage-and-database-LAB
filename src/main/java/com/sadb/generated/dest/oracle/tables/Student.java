@@ -43,7 +43,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Student extends TableImpl<StudentRecord> {
 
-    private static final long serialVersionUID = -648044333;
+    private static final long serialVersionUID = 1457606210;
 
     /**
      * The reference instance of <code>SANDDB.STUDENT</code>
@@ -152,6 +152,11 @@ public class Student extends TableImpl<StudentRecord> {
      * The column <code>SANDDB.STUDENT.BIRTH_PLACE</code>.
      */
     public final TableField<StudentRecord, String> BIRTH_PLACE = createField("BIRTH_PLACE", org.jooq.impl.SQLDataType.VARCHAR(255).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column <code>SANDDB.STUDENT.EDUCATION_TYPE</code>.
+     */
+    public final TableField<StudentRecord, String> EDUCATION_TYPE = createField("EDUCATION_TYPE", org.jooq.impl.SQLDataType.VARCHAR(255).defaultValue(org.jooq.impl.DSL.field("null  ", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * Create a <code>SANDDB.STUDENT</code> table reference
