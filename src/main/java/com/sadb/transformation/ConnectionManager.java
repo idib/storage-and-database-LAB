@@ -5,10 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManager {
-
-    private static final String URL = "jdbc:oracle:thin:@sanddb.ct7ose5lnvl9.eu-central-1.rds.amazonaws.com:1521:dbresult";
-    private static final String USER = "SandDB";
-    private static final String PASSWORD = "132$ndfT7";
+    private static final String URL = System.getenv("dest_oracle_url");
+    private static final String USER = System.getenv("dest_oracle_user");
+    private static final String PASSWORD = System.getenv("dest_oracle_password");
 
     private static Connection destOracleConnection;
 
