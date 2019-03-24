@@ -1,13 +1,7 @@
 package com.sadb.transformation.oracle;
 
-import com.sadb.generated.source.oracle.tables.Faculty;
-import com.sadb.generated.source.oracle.tables.Lecturer;
-import com.sadb.generated.source.oracle.tables.Megafaculty;
-import com.sadb.generated.source.oracle.tables.ProgramTrack;
-import com.sadb.generated.source.oracle.tables.records.FacultyRecord;
-import com.sadb.generated.source.oracle.tables.records.LecturerRecord;
-import com.sadb.generated.source.oracle.tables.records.MegafacultyRecord;
-import com.sadb.generated.source.oracle.tables.records.ProgramTrackRecord;
+import com.sadb.generated.source.oracle.tables.*;
+import com.sadb.generated.source.oracle.tables.records.*;
 import com.sadb.transformation.ConnectionManager;
 import org.jooq.*;
 import org.jooq.impl.DSL;
@@ -112,7 +106,7 @@ public class OracleMigrationService {
                 toUpdate
         );*/
 
-        Result<ProgramTrackRecord> oracleSourseProgramTrack =
+/*        Result<ProgramTrackRecord> oracleSourseProgramTrack =
                 contextSourceOracle.select().from(ProgramTrack.PROGRAM_TRACK).fetch().into(ProgramTrack.PROGRAM_TRACK);
 
         Result<com.sadb.generated.dest.oracle.tables.records.ProgramTrackRecord> oracleProgramTrack =
@@ -123,8 +117,20 @@ public class OracleMigrationService {
                 oracleProgramTrack,
                 toInsert,
                 toUpdate
-        );
+        );*/
 
+        Result<SpecialityRecord> oracleSourseSpeciality =
+                contextSourceOracle.select().from(Speciality.SPECIALITY).fetch().into(Speciality.SPECIALITY);
+
+        Result<com.sadb.generated.dest.oracle.tables.records.SpecialityRecord> oracleSpeciality =
+                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Speciality.SPECIALITY).fetch().into(com.sadb.generated.dest.oracle.tables.Speciality.SPECIALITY);
+
+        processSpeciality(
+                oracleSourseSpeciality,
+                oracleSpeciality,
+                toInsert,
+                toUpdate
+        );
 
 
         if (!toInsert.isEmpty()) {
@@ -360,6 +366,67 @@ public class OracleMigrationService {
                     toInsert.add(programTrackRecordRecord);
                 } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
                     toUpdate.add(programTrackRecordRecord);
+                }
+            }
+
+        }
+
+    }
+
+    private void processSpeciality(
+            List<SpecialityRecord> oracleSourceSpecialitys,
+            List<com.sadb.generated.dest.oracle.tables.records.SpecialityRecord> oracleSpecialitys,
+            List<TableRecord<?>> toInsert,
+            List<UpdatableRecord<?>> toUpdate) {
+
+        Map<Integer, Timestamp> specialityIdToUpdatedDateMap = new HashMap<>();
+        Map<Integer, com.sadb.generated.dest.oracle.tables.records.SpecialityRecord> specialityIdToRecordMap = new HashMap<>();
+
+        oracleSpecialitys.forEach(oracleSpeciality -> {
+            specialityIdToUpdatedDateMap.put(oracleSpeciality.getSpecId().intValue(), oracleSpeciality.getUpdateTime());
+            specialityIdToRecordMap.put(oracleSpeciality.getSpecId().intValue(), oracleSpeciality);
+        });
+
+        for (SpecialityRecord oracleSpecialityRecord : oracleSourceSpecialitys) {
+
+
+            Timestamp oracleSourceRecordUpdateDate = new Timestamp(oracleSpecialityRecord.getUpdateTime().getTime());
+            Timestamp oracleRecordUpdateDate = specialityIdToUpdatedDateMap.get(oracleSpecialityRecord.getSpecId().intValue());
+
+            if (oracleRecordUpdateDate == null || oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+
+                com.sadb.generated.dest.oracle.tables.records.SpecialityRecord oldRecord =
+                        specialityIdToRecordMap.get(oracleSpecialityRecord.getSpecId().intValue());
+
+                com.sadb.generated.dest.oracle.tables.records.SpecialityRecord specialityRecord;
+
+                if (oldRecord == null) {
+                    specialityRecord = new com.sadb.generated.dest.oracle.tables.records.SpecialityRecord();
+                } else {
+                    specialityRecord = oldRecord;
+                    specialityRecord.changed(true);
+                }
+
+                specialityRecord.setSpecId(oracleSpecialityRecord.getSpecId().longValue());
+                specialityRecord.setProgId(oracleSpecialityRecord.getProgId().longValue());
+                specialityRecord.setSpecName(oracleSpecialityRecord.getSpecName());
+                if (oracleSpecialityRecord.getFreeEducCount() != null) {
+                    specialityRecord.setFreeEducCount(oracleSpecialityRecord.getFreeEducCount().longValue());
+                }
+                if (oracleSpecialityRecord.getPaidEducCount() != null) {
+                    specialityRecord.setPaidEducCount(oracleSpecialityRecord.getPaidEducCount().longValue());
+                }
+                if (oracleSpecialityRecord.getSponsoredEducCount() != null) {
+                    specialityRecord.setSponsoredEducCount(oracleSpecialityRecord.getSponsoredEducCount().longValue());
+                }
+                specialityRecord.setSpecDegree(oracleSpecialityRecord.getSpecDegree());
+                specialityRecord.setCreatTime(new Timestamp(oracleSpecialityRecord.getCreatTime().getTime()));
+                specialityRecord.setUpdateTime(new Timestamp(oracleSpecialityRecord.getUpdateTime().getTime()));
+
+                if (oracleRecordUpdateDate == null) {
+                    toInsert.add(specialityRecord);
+                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                    toUpdate.add(specialityRecord);
                 }
             }
 
