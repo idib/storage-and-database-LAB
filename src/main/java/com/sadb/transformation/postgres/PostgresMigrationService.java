@@ -100,13 +100,9 @@ public class PostgresMigrationService {
         Result<StudentRecord> oracleStudents =
                 contextOracle.select().from(STUDENT).fetch().into(STUDENT);
 
-        Result<FormEducationRecord> oracleEducationForms =
-                contextOracle.select().from(FORM_EDUCATION).fetch().into(FORM_EDUCATION);
-
         processStudents(
                 postgresStudents,
                 oracleStudents,
-                oracleEducationForms,
                 toInsert,
                 toUpdate
         );
@@ -262,26 +258,15 @@ public class PostgresMigrationService {
     private void processStudents(
             List<SrcPgsSudentRecord> postgresStudents,
             List<StudentRecord> oracleStudents,
-            List<FormEducationRecord> educationForms,
             List<TableRecord<?>> toInsert,
             List<UpdatableRecord<?>> toUpdate) {
 
         Map<Integer, Timestamp> studentIdToUpdatedDateMap = new HashMap<>();
         Map<Integer, StudentRecord> studentIdToRecordMap = new HashMap<>();
 
-        AtomicReference<Integer> maxId = new AtomicReference<>(1);
-        Map<String, Integer> educationFormNameToIdMap = new HashMap<>();
-
         oracleStudents.forEach(oracleStudent -> {
             studentIdToUpdatedDateMap.put(oracleStudent.getId().intValue(), oracleStudent.getUpdationDate());
             studentIdToRecordMap.put(oracleStudent.getId().intValue(), oracleStudent);
-        });
-
-        educationForms.forEach(educationForm -> {
-            educationFormNameToIdMap.put(educationForm.getName(), educationForm.getId().intValue());
-            if (educationForm.getId() > maxId.get()) {
-                maxId.set(educationForm.getId().intValue() + 1);
-            }
         });
 
 
@@ -317,21 +302,7 @@ public class PostgresMigrationService {
                 studentRecord.setEducationPlace(postgresStudentRecord.getEducationPlace());
                 studentRecord.setUpdationDate(Timestamp.valueOf(postgresStudentRecord.getUpdatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
                 studentRecord.setCreationDate(Timestamp.valueOf(postgresStudentRecord.getCreatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
-
-                Integer formId = educationFormNameToIdMap.get(postgresStudentRecord.getEducationForm());
-                if (formId == null) {
-                    FormEducationRecord record = new FormEducationRecord();
-                    record.setId(maxId.get().longValue());
-                    record.setName(postgresStudentRecord.getEducationForm());
-                    // TODO set dates
-                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                    record.setDateCreate(timestamp);
-                    record.setDateUpdate(timestamp);
-
-                    toInsert.add(record);
-                }
-
-                studentRecord.setFormEducation(formId.longValue());
+                studentRecord.setFormEducation(postgresStudentRecord.getEducationForm());
 
 
                 studentRecord.setSemester(postgresStudentRecord.getSemester());
