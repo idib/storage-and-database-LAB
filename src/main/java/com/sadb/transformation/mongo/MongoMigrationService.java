@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -44,14 +45,8 @@ public class MongoMigrationService {
 	private static final String _date = "date";
 	private static final String _event_type = "event_type";
 
-	private static final String URL = "idib.me";
-	private static final String USER = "SandDB";
-	private static final String PASSWORD = "0o9i";
-	private static final String PORT = "27017";
 	private static final String DBNAME = "labs";
-
-
-	private static final String mongoClientURI = "mongodb://" + USER + ":" + PASSWORD + "@" + URL + ":" + PORT + "/?authSource=" + DBNAME;
+	private static final String mongoClientURI = System.getenv("source_mongo_uri");
 
 	public static void main(String[] args) throws ParseException {
 		Connection connectionOracle = ConnectionManager.getDestDBConnection();
