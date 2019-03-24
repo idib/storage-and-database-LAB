@@ -1,6 +1,7 @@
 package com.sadb.transformation.oracle;
 
 import com.sadb.generated.source.oracle.tables.*;
+import com.sadb.generated.source.oracle.tables.Results;
 import com.sadb.generated.source.oracle.tables.records.*;
 import com.sadb.transformation.ConnectionManager;
 import org.jooq.*;
@@ -8,6 +9,7 @@ import org.jooq.impl.DSL;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -72,7 +74,6 @@ public class OracleMigrationService {
                 toInsert,
                 toUpdate
         );*/
-/*
 
         // STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS
 
@@ -89,7 +90,6 @@ public class OracleMigrationService {
                 toInsert,
                 toUpdate
         );
-*/
 
 /*        //  FACULTY FACULTY FACULTY FACULTY FACULTY
 
@@ -184,7 +184,7 @@ public class OracleMigrationService {
                 toUpdate
         );*/
 
-        Result<OccupationRecord> oracleSourseOccupation =
+/*        Result<OccupationRecord> oracleSourseOccupation =
                 contextSourceOracle.select().from(Occupation.OCCUPATION).fetch().into(Occupation.OCCUPATION);
 
         Result<com.sadb.generated.dest.oracle.tables.records.OccupationRecord> oracleOccupation =
@@ -195,7 +195,7 @@ public class OracleMigrationService {
                 oracleOccupation,
                 toInsert,
                 toUpdate
-        );
+        );*/
 
 /*        Result<OdevityWeekRecord> oracleSourseOdevityWeek =
                 contextSourceOracle.select().from(OdevityWeek.ODEVITY_WEEK).fetch().into(OdevityWeek.ODEVITY_WEEK);
@@ -251,6 +251,31 @@ public class OracleMigrationService {
         );
 */
 
+/*        Result<DisciplineRecord> oracleSourseDiscipline =
+                contextSourceOracle.select().from(Discipline.DISCIPLINE).fetch().into(Discipline.DISCIPLINE);
+
+        Result<com.sadb.generated.dest.oracle.tables.records.DisciplineRecord> oracleDiscipline =
+                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Discipline.DISCIPLINE).fetch().into(com.sadb.generated.dest.oracle.tables.Discipline.DISCIPLINE);
+
+        processOracleDiscipline(
+                oracleSourseDiscipline,
+                oracleDiscipline,
+                toInsert,
+                toUpdate
+        );*/
+
+/*        Result<ResultsRecord> oracleSourseResults =
+                contextSourceOracle.select().from(Results.RESULTS).fetch().into(Results.RESULTS);
+
+        Result<com.sadb.generated.dest.oracle.tables.records.ResultsRecord> oracleResults =
+                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Results.RESULTS).fetch().into(com.sadb.generated.dest.oracle.tables.Results.RESULTS);
+
+        processOracleResults(
+                oracleSourseResults,
+                oracleResults,
+                toInsert,
+                toUpdate
+        );*/
 
         if (!toInsert.isEmpty()) {
             contextOracle.batchInsert(toInsert).execute();
@@ -372,11 +397,11 @@ public class OracleMigrationService {
 
     }
 
-/*    private void processOracleStudents(
+    private void processOracleStudents(
             List<StudentRecord> oracleSourceStudents,
             List<com.sadb.generated.dest.oracle.tables.records.StudentRecord> oracleStudents,
             List<TableRecord<?>> toInsert,
-            List<UpdatableRecord<?>> toUpdate) {
+            List<UpdatableRecord<?>> toUpdate) {/*
 
         Map<Integer, Timestamp> studentIdToUpdatedDateMap = new HashMap<>();
         Map<Integer, com.sadb.generated.dest.oracle.tables.records.StudentRecord> studentIdToRecordMap = new HashMap<>();
@@ -386,7 +411,58 @@ public class OracleMigrationService {
             studentIdToRecordMap.put(oracleStudent.getId().intValue(), oracleStudent);
         });
 
-    }*/
+        for (StudentRecord oracleSourceStudentRecord : oracleSourceStudents) {
+
+            Timestamp oracleSourceRecordUpdateDate = new Timestamp(oracleSourceStudentRecord.getUpdateTime().getTime());
+            Timestamp oracleRecordUpdateDate = studentIdToUpdatedDateMap.get(oracleSourceStudentRecord.getStudentId().intValue());
+
+            if (oracleRecordUpdateDate == null || oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+
+                com.sadb.generated.dest.oracle.tables.records.StudentRecord oldRecord =
+                        studentIdToRecordMap.get(oracleSourceStudentRecord.getStudentId().intValue());
+
+                com.sadb.generated.dest.oracle.tables.records.StudentRecord studentRecord;
+                if (oldRecord == null) {
+                    studentRecord = new com.sadb.generated.dest.oracle.tables.records.StudentRecord();
+                } else {
+                    studentRecord = oldRecord;
+                    studentRecord.changed(true);
+                }
+
+                studentRecord.setId(BigDecimal.valueOf(oracleSourceStudentRecord.getStudentId().longValue()));
+                if (oracleSourceStudentRecord.getSecondName() != null) {
+                    studentRecord.setSurname(oracleSourceStudentRecord.getSecondName());
+                }
+                if (oracleSourceStudentRecord.getFirstName() != null) {
+                    studentRecord.setName(oracleSourceStudentRecord.getFirstName());
+                }
+                if (oracleSourceStudentRecord.getPatronymicName() != null) {
+                    studentRecord.setSecondName(oracleSourceStudentRecord.getPatronymicName());
+                }
+                if (oracleSourceStudentRecord.getBirthDate() != null) {
+                    studentRecord.setBirthDate(new Timestamp(oracleSourceStudentRecord.getBirthDate().getTime()));
+                }
+                if (oracleSourceStudentRecord.getBirthPlace() != null) {
+                    studentRecord.setBirthPlace(oracleSourceStudentRecord.getBirthPlace());
+                }
+                if (oracleSourceStudentRecord.getGroupId() != null){
+                    studentRecord.setGroupId(oracleSourceStudentRecord.getGroupId().longValue());
+                }
+
+                studentRecord.setUpdationDate(new Timestamp(oracleSourceStudentRecord.getUpdateTime().getTime()));
+                studentRecord.setCreationDate(new Timestamp(oracleSourceStudentRecord.getCreatTime().getTime()));
+
+                if (oracleRecordUpdateDate == null) {
+                    toInsert.add(studentRecord);
+                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                    toUpdate.add(studentRecord);
+                }
+            }
+
+        }
+*/
+    }
+
 
     private void processFaculty(
             List<FacultyRecord> oracleSourceFacultys,
@@ -747,10 +823,10 @@ public class OracleMigrationService {
                 if (oracleGroupsRecord.getCourse() != null) {
                     groupsRecord.setCourse(oracleGroupsRecord.getCourse().longValue());
                 }
-                if (oracleGroupsRecord.getEducationTimeFrom() != null){
+                if (oracleGroupsRecord.getEducationTimeFrom() != null) {
                     groupsRecord.setEducationTimeFrom(new Timestamp(oracleGroupsRecord.getEducationTimeFrom().getTime()));
                 }
-                if (oracleGroupsRecord.getEducationTimeTo() != null){
+                if (oracleGroupsRecord.getEducationTimeTo() != null) {
                     groupsRecord.setEducationTimeTo(new Timestamp(oracleGroupsRecord.getEducationTimeTo().getTime()));
                 }
                 groupsRecord.setCreatTime(new Timestamp(oracleGroupsRecord.getCreatTime().getTime()));
@@ -974,9 +1050,121 @@ public class OracleMigrationService {
 
     }
 
+    private void processOracleDiscipline(
+            List<DisciplineRecord> oracleSourceDisciplines,
+            List<com.sadb.generated.dest.oracle.tables.records.DisciplineRecord> oracleDisciplines,
+            List<TableRecord<?>> toInsert,
+            List<UpdatableRecord<?>> toUpdate) {
+
+        Map<Integer, Timestamp> DisciplineIdToUpdatedDateMap = new HashMap<>();
+        Map<Integer, com.sadb.generated.dest.oracle.tables.records.DisciplineRecord> DisciplineIdToRecordMap = new HashMap<>();
+
+        oracleDisciplines.forEach(oracleDiscipline -> {
+            DisciplineIdToUpdatedDateMap.put(oracleDiscipline.getDisciplineId().intValue(), oracleDiscipline.getUpdateTime());
+            DisciplineIdToRecordMap.put(oracleDiscipline.getDisciplineId().intValue(), oracleDiscipline);
+        });
+
+        for (DisciplineRecord oracleDisciplineRecord : oracleSourceDisciplines) {
 
 
+            Timestamp oracleSourceRecordUpdateDate = new Timestamp(oracleDisciplineRecord.getUpdateTime().getTime());
+            Timestamp oracleRecordUpdateDate = DisciplineIdToUpdatedDateMap.get(oracleDisciplineRecord.getDisciplineId().intValue());
 
+            if (oracleRecordUpdateDate == null || oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+
+                com.sadb.generated.dest.oracle.tables.records.DisciplineRecord oldRecord =
+                        DisciplineIdToRecordMap.get(oracleDisciplineRecord.getDisciplineId().intValue());
+
+                com.sadb.generated.dest.oracle.tables.records.DisciplineRecord disciplineRecord;
+
+                if (oldRecord == null) {
+                    disciplineRecord = new com.sadb.generated.dest.oracle.tables.records.DisciplineRecord();
+                } else {
+                    disciplineRecord = oldRecord;
+                    disciplineRecord.changed(true);
+                }
+
+                disciplineRecord.setDisciplineId(oracleDisciplineRecord.getDisciplineId().longValue());
+                if (oracleDisciplineRecord.getDisciplineName() != null) {
+                    disciplineRecord.setDisciplineName(oracleDisciplineRecord.getDisciplineName());
+                }
+                disciplineRecord.setCreatTime(new Timestamp(oracleDisciplineRecord.getCreatTime().getTime()));
+                disciplineRecord.setUpdateTime(new Timestamp(oracleDisciplineRecord.getUpdateTime().getTime()));
+
+                if (oracleRecordUpdateDate == null) {
+                    toInsert.add(disciplineRecord);
+                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                    toUpdate.add(disciplineRecord);
+                }
+            }
+
+        }
+
+    }
+
+    private void processOracleResults(
+            List<ResultsRecord> oracleSourceResults,
+            List<com.sadb.generated.dest.oracle.tables.records.ResultsRecord> oracleResults,
+            List<TableRecord<?>> toInsert,
+            List<UpdatableRecord<?>> toUpdate) {
+
+        Map<Integer, Timestamp> ResultsIdToUpdatedDateMap = new HashMap<>();
+        Map<Integer, com.sadb.generated.dest.oracle.tables.records.ResultsRecord> ResultsIdToRecordMap = new HashMap<>();
+
+        oracleResults.forEach(oracleResult -> {
+            ResultsIdToUpdatedDateMap.put(oracleResult.getResultId().intValue(), oracleResult.getUpdateTime());
+            ResultsIdToRecordMap.put(oracleResult.getResultId().intValue(), oracleResult);
+        });
+
+        for (ResultsRecord oracleResultsRecord : oracleSourceResults) {
+
+
+            Timestamp oracleSourceRecordUpdateDate = new Timestamp(oracleResultsRecord.getUpdateTime().getTime());
+            Timestamp oracleRecordUpdateDate = ResultsIdToUpdatedDateMap.get(oracleResultsRecord.getResultId().intValue());
+
+            if (oracleRecordUpdateDate == null || oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+
+                com.sadb.generated.dest.oracle.tables.records.ResultsRecord oldRecord =
+                        ResultsIdToRecordMap.get(oracleResultsRecord.getResultId().intValue());
+
+                com.sadb.generated.dest.oracle.tables.records.ResultsRecord resultsRecord;
+
+                if (oldRecord == null) {
+                    resultsRecord = new com.sadb.generated.dest.oracle.tables.records.ResultsRecord();
+                } else {
+                    resultsRecord = oldRecord;
+                    resultsRecord.changed(true);
+                }
+
+                resultsRecord.setResultId(oracleResultsRecord.getResultId().longValue());
+                resultsRecord.setDisciplineId(oracleResultsRecord.getDisciplineId().longValue());
+                resultsRecord.setAcademYearId(oracleResultsRecord.getAcademYearId().longValue());
+                resultsRecord.setStudentId(oracleResultsRecord.getStudentId().longValue());
+                if (oracleResultsRecord.getResult() != null) {
+                    resultsRecord.setResult(oracleResultsRecord.getResult());
+                }
+                if (oracleResultsRecord.getExType() != null) {
+                    resultsRecord.setExType(oracleResultsRecord.getExType());
+                }
+                if (oracleResultsRecord.getResultDate() != null) {
+                    resultsRecord.setResultDate(new Timestamp(oracleResultsRecord.getResultDate().getTime()));
+                }
+                if (oracleResultsRecord.getResultEu() != null) {
+                    resultsRecord.setResultEu(oracleResultsRecord.getResultEu());
+                }
+                resultsRecord.setCreatTime(new Timestamp(oracleResultsRecord.getCreatTime().getTime()));
+                resultsRecord.setUpdateTime(new Timestamp(oracleResultsRecord.getUpdateTime().getTime()));
+
+                if (oracleRecordUpdateDate == null) {
+                    toInsert.add(resultsRecord);
+                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                    toUpdate.add(resultsRecord);
+                }
+            }
+
+        }
+
+    }
 
     private Connection getSourceOracleConnection() throws SQLException {
         return ConnectionManager.getConnection(URL, USER, PASSWORD);
