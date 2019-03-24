@@ -44,6 +44,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<SrcPgsDisciplineRecord> SRC_PGS_DISCIPLINE_PKEY = UniqueKeys0.SRC_PGS_DISCIPLINE_PKEY;
+    public static final UniqueKey<SrcPgsResultsRecord> SRC_PGS_RESULTS_PKEY = UniqueKeys0.SRC_PGS_RESULTS_PKEY;
     public static final UniqueKey<SrcPgsSudentRecord> SRC_PGS_SUDENT_PKEY = UniqueKeys0.SRC_PGS_SUDENT_PKEY;
     public static final UniqueKey<SrcPgsTeacherRecord> SRC_PGS_TEACHER_PKEY = UniqueKeys0.SRC_PGS_TEACHER_PKEY;
 
@@ -61,6 +62,7 @@ public class Keys {
 
     private static class UniqueKeys0 {
         public static final UniqueKey<SrcPgsDisciplineRecord> SRC_PGS_DISCIPLINE_PKEY = Internal.createUniqueKey(SrcPgsDiscipline.SRC_PGS_DISCIPLINE, "src_pgs_discipline_pkey", SrcPgsDiscipline.SRC_PGS_DISCIPLINE.DISCIPLINE_ID);
+        public static final UniqueKey<SrcPgsResultsRecord> SRC_PGS_RESULTS_PKEY = Internal.createUniqueKey(SrcPgsResults.SRC_PGS_RESULTS, "src_pgs_results_pkey", SrcPgsResults.SRC_PGS_RESULTS.RESULT_ID);
         public static final UniqueKey<SrcPgsSudentRecord> SRC_PGS_SUDENT_PKEY = Internal.createUniqueKey(SrcPgsSudent.SRC_PGS_SUDENT, "src_pgs_sudent_pkey", SrcPgsSudent.SRC_PGS_SUDENT.ID);
         public static final UniqueKey<SrcPgsTeacherRecord> SRC_PGS_TEACHER_PKEY = Internal.createUniqueKey(SrcPgsTeacher.SRC_PGS_TEACHER, "src_pgs_teacher_pkey", SrcPgsTeacher.SRC_PGS_TEACHER.ID);
     }

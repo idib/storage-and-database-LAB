@@ -16,10 +16,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.sadb.generated.dest.oracle.Tables.*;
@@ -33,6 +30,8 @@ import static com.sadb.generated.source.postgres.tables.SrcPgsDiscipline.SRC_PGS
 @Service
 public class PostgresMigrationService {
 
+    private static final Integer POSTGRES_DB_ID = 2;
+
     private static final String JDBC_DRIVER = "org.postgresql.Driver";
 
     private static final String URL = System.getenv("aws_postgres_url");
@@ -45,6 +44,8 @@ public class PostgresMigrationService {
         List<TableRecord<?>> toInsert = new ArrayList<>();
         List<UpdatableRecord<?>> toUpdate = new ArrayList<>();
 
+
+
         // Connect to Postgres
         Class.forName(JDBC_DRIVER);
         Connection connectionPostgres = getSourcePostgresConnection();
@@ -55,6 +56,10 @@ public class PostgresMigrationService {
         // Create context
         DSLContext contextPostgres = DSL.using(connectionPostgres, SQLDialect.POSTGRES);
         DSLContext contextOracle = DSL.using(connectionOracle, SQLDialect.ORACLE);
+
+
+        //Timestamp lastPostgresSync = contextOracle.select().from(SYNC_LOG).fetch().into(SYNC_LOG);
+        Timestamp DBSyncDate = new Timestamp(new Date().getTime());
 
 
         // DISCIPLINES DISCIPLINES DISCIPLINES DISCIPLINES DISCIPLINES
@@ -352,55 +357,55 @@ public class PostgresMigrationService {
             List<TableRecord<?>> toInsert,
             List<UpdatableRecord<?>> toUpdate) {
 
-        /*Map<Integer, Timestamp> resultIdToUpdatedDateMap = new HashMap<>();
-        Map<Integer, LecturerRecord> resultIdToRecordMap = new HashMap<>();
+        Map<Integer, Timestamp> resultIdToUpdatedDateMap = new HashMap<>();
+        Map<Integer, ResultsRecord> resultIdToRecordMap = new HashMap<>();
 
-        oracleResults.forEach(oracleLecture -> {
-            resultIdToUpdatedDateMap.put(oracleLecture.getLecId(), oracleLecture.getUpdateTime());
-            resultIdToRecordMap.put(oracleLecture.getLecId(), oracleLecture);
+        oracleResults.forEach(oracleResult -> {
+            resultIdToUpdatedDateMap.put(oracleResult.getResultId().intValue(), oracleResult.getUpdateTime());
+            resultIdToRecordMap.put(oracleResult.getResultId().intValue(), oracleResult);
         });
 
 
-        for (SrcPgsTeacherRecord postgresTeacherRecord : postgresResults) {
+        for (SrcPgsResultsRecord postgresResultRecord : postgresResults) {
 
-            Timestamp postgresRecordUpdateDate = Timestamp.valueOf(postgresTeacherRecord.getUpdatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime());
-            Timestamp oracleRecordUpdateDate = resultIdToUpdatedDateMap.get(postgresTeacherRecord.getId().intValue());
+            Timestamp postgresRecordUpdateDate = Timestamp.valueOf(postgresResultRecord.getUpdatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime());
+            Timestamp oracleRecordUpdateDate = resultIdToUpdatedDateMap.get(postgresResultRecord.getResultId().intValue());
 
             // if oracleRecordUpdateDate == null -> insert new record
             // if oracleUpdateTime after postgresUpdateTime -> Ignore
             // if oracleUpdateTime before postgresUpdateTime -> Update current record
             if (oracleRecordUpdateDate == null || postgresRecordUpdateDate.after(oracleRecordUpdateDate)) {
 
-                LecturerRecord oldRecord = resultIdToRecordMap.get(postgresTeacherRecord.getId().intValue());
+                ResultsRecord oldRecord = resultIdToRecordMap.get(postgresResultRecord.getResultId().intValue());
 
-                LecturerRecord lecturerRecord;
+                ResultsRecord resultRecord;
                 if (oldRecord == null) {
-                    lecturerRecord = new LecturerRecord();
+                    resultRecord = new ResultsRecord();
                 } else {
-                    lecturerRecord = oldRecord;
-                    lecturerRecord.changed(true);
+                    resultRecord = oldRecord;
+                    resultRecord.changed(true);
                 }
 
+                resultRecord.setResultId(postgresResultRecord.getResultId().longValue());
+                resultRecord.setStudentId(postgresResultRecord.getStudentId().longValue());
+                resultRecord.setDisciplineId(postgresResultRecord.getDisciplineId().longValue());
+                //TODO control form
+                resultRecord.setResult(postgresResultRecord.getResult().toString());
+                resultRecord.setResultDate(new Timestamp(postgresResultRecord.getResultDate().getTime()));
+                resultRecord.setTeacherId(postgresResultRecord.getTeacherId().longValue());
 
-                String FIO = postgresTeacherRecord.getFio();
-                String[] fioArray = FIO.split(" ");
-
-                lecturerRecord.setLecId(postgresTeacherRecord.getId().intValue());
-                lecturerRecord.setPatronymicName(fioArray[0]);
-                lecturerRecord.setFirstName(fioArray[1]);
-                lecturerRecord.setSecondName(fioArray[2]);
-                lecturerRecord.setUpdateTime(Timestamp.valueOf(postgresTeacherRecord.getUpdatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
-                lecturerRecord.setCreatTime(Timestamp.valueOf(postgresTeacherRecord.getCreatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
+                resultRecord.setUpdateTime(Timestamp.valueOf(postgresResultRecord.getUpdatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
+                resultRecord.setCreatTime(Timestamp.valueOf(postgresResultRecord.getCreatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
 
 
                 if (oracleRecordUpdateDate == null) {
-                    toInsert.add(lecturerRecord);
+                    toInsert.add(resultRecord);
                 } else if (postgresRecordUpdateDate.after(oracleRecordUpdateDate)) {
-                    toUpdate.add(lecturerRecord);
+                    toUpdate.add(resultRecord);
                 }
             }
 
-        }*/
+        }
 
 
     }

@@ -31,7 +31,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SrcPgsDisciplineRecord extends UpdatableRecordImpl<SrcPgsDisciplineRecord> implements Record8<BigDecimal, String, BigDecimal, BigDecimal, BigDecimal, String, OffsetDateTime, OffsetDateTime> {
 
-    private static final long serialVersionUID = -1531207809;
+    private static final long serialVersionUID = -974560647;
 
     /**
      * Setter for <code>public.src_pgs_discipline.discipline_id</code>.

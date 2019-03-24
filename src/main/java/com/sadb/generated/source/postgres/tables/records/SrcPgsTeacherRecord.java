@@ -31,7 +31,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SrcPgsTeacherRecord extends UpdatableRecordImpl<SrcPgsTeacherRecord> implements Record4<BigDecimal, String, OffsetDateTime, OffsetDateTime> {
 
-    private static final long serialVersionUID = -1569942126;
+    private static final long serialVersionUID = 346011352;
 
     /**
      * Setter for <code>public.src_pgs_teacher.id</code>.
