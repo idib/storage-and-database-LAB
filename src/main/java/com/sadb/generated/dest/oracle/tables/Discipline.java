@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Discipline extends TableImpl<DisciplineRecord> {
 
-    private static final long serialVersionUID = -375469103;
+    private static final long serialVersionUID = 1338384843;
 
     /**
      * The reference instance of <code>SANDDB.DISCIPLINE</code>
@@ -65,7 +65,7 @@ public class Discipline extends TableImpl<DisciplineRecord> {
     /**
      * The column <code>SANDDB.DISCIPLINE.DISCIPLINE_NAME</code>.
      */
-    public final TableField<DisciplineRecord, String> DISCIPLINE_NAME = createField("DISCIPLINE_NAME", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<DisciplineRecord, String> DISCIPLINE_NAME = createField("DISCIPLINE_NAME", org.jooq.impl.SQLDataType.VARCHAR(150), this, "");
 
     /**
      * The column <code>SANDDB.DISCIPLINE.LECTIONS_HOURS</code>.
