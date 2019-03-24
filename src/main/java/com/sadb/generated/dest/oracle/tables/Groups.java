@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Groups extends TableImpl<GroupsRecord> {
 
-    private static final long serialVersionUID = 1241556908;
+    private static final long serialVersionUID = -833443376;
 
     /**
      * The reference instance of <code>SANDDB.GROUPS</code>

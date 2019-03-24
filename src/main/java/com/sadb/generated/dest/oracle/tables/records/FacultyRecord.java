@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class FacultyRecord extends UpdatableRecordImpl<FacultyRecord> implements Record5<Long, String, Long, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = -31046597;
+    private static final long serialVersionUID = 1377262659;
 
     /**
      * Setter for <code>SANDDB.FACULTY.FAC_ID</code>.

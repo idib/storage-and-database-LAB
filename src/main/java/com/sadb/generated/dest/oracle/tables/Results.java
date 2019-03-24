@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Results extends TableImpl<ResultsRecord> {
 
-    private static final long serialVersionUID = 644883041;
+    private static final long serialVersionUID = -530701691;
 
     /**
      * The reference instance of <code>SANDDB.RESULTS</code>

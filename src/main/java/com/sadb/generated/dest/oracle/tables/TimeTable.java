@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TimeTable extends TableImpl<TimeTableRecord> {
 
-    private static final long serialVersionUID = 1917606042;
+    private static final long serialVersionUID = -573658890;
 
     /**
      * The reference instance of <code>SANDDB.TIME_TABLE</code>

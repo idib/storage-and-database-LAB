@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TypePosition extends TableImpl<TypePositionRecord> {
 
-    private static final long serialVersionUID = 1828431183;
+    private static final long serialVersionUID = -1014534485;
 
     /**
      * The reference instance of <code>SANDDB.TYPE_POSITION</code>

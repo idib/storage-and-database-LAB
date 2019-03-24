@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class WeekDay extends TableImpl<WeekDayRecord> {
 
-    private static final long serialVersionUID = 596211125;
+    private static final long serialVersionUID = -4588839;
 
     /**
      * The reference instance of <code>SANDDB.WEEK_DAY</code>

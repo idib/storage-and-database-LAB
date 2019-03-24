@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Megafaculty extends TableImpl<MegafacultyRecord> {
 
-    private static final long serialVersionUID = 1218771518;
+    private static final long serialVersionUID = -1166791070;
 
     /**
      * The reference instance of <code>SANDDB.MEGAFACULTY</code>

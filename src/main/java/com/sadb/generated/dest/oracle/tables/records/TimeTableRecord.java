@@ -27,7 +27,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TimeTableRecord extends UpdatableRecordImpl<TimeTableRecord> implements Record7<Long, Long, Long, Long, Long, Long, Long> {
 
-    private static final long serialVersionUID = -1472432564;
+    private static final long serialVersionUID = -1867028908;
 
     /**
      * Setter for <code>SANDDB.TIME_TABLE.WEEK_DAY_ID</code>.

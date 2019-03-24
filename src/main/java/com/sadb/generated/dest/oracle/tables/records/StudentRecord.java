@@ -32,7 +32,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class StudentRecord extends UpdatableRecordImpl<StudentRecord> implements Record19<BigDecimal, String, String, String, String, String, String, BigDecimal, Timestamp, Timestamp, String, Long, Date, Date, Long, Long, Long, Timestamp, String> {
 
-    private static final long serialVersionUID = -95209822;
+    private static final long serialVersionUID = 702982554;
 
     /**
      * Setter for <code>SANDDB.STUDENT.ID</code>.

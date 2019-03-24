@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DormitoryRecord extends UpdatableRecordImpl<DormitoryRecord> implements Record5<Long, String, String, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = 1256107301;
+    private static final long serialVersionUID = 1349863453;
 
     /**
      * Setter for <code>SANDDB.DORMITORY.ID</code>.

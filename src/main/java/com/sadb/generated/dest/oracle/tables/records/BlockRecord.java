@@ -31,7 +31,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BlockRecord extends UpdatableRecordImpl<BlockRecord> implements Record6<Long, Long, Date, Long, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = 1711241143;
+    private static final long serialVersionUID = -455198273;
 
     /**
      * Setter for <code>SANDDB.BLOCK.ID</code>.

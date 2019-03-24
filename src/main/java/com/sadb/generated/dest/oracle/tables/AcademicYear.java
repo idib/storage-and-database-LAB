@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class AcademicYear extends TableImpl<AcademicYearRecord> {
 
-    private static final long serialVersionUID = -755970222;
+    private static final long serialVersionUID = 432160374;
 
     /**
      * The reference instance of <code>SANDDB.ACADEMIC_YEAR</code>

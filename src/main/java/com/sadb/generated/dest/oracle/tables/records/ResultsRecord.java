@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ResultsRecord extends UpdatableRecordImpl<ResultsRecord> implements Record11<String, String, Long, Timestamp, String, Long, Long, Long, Timestamp, Timestamp, Long> {
 
-    private static final long serialVersionUID = 1675019200;
+    private static final long serialVersionUID = 549351096;
 
     /**
      * Setter for <code>SANDDB.RESULTS.RESULT</code>.

@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ScientificProjectRecord extends UpdatableRecordImpl<ScientificProjectRecord> implements Record5<Long, String, String, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = 330820318;
+    private static final long serialVersionUID = -1875183146;
 
     /**
      * Setter for <code>SANDDB.SCIENTIFIC_PROJECT.ID</code>.

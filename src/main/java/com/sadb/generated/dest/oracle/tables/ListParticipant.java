@@ -38,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ListParticipant extends TableImpl<ListParticipantRecord> {
 
-    private static final long serialVersionUID = -2111505877;
+    private static final long serialVersionUID = 1026220923;
 
     /**
      * The reference instance of <code>SANDDB.LIST_PARTICIPANT</code>

@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Lecturer extends TableImpl<LecturerRecord> {
 
-    private static final long serialVersionUID = -952980102;
+    private static final long serialVersionUID = 499042718;
 
     /**
      * The reference instance of <code>SANDDB.LECTURER</code>

@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ProgramTrackRecord extends UpdatableRecordImpl<ProgramTrackRecord> implements Record7<Long, Long, String, String, String, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = 1262891338;
+    private static final long serialVersionUID = -2027699134;
 
     /**
      * Setter for <code>SANDDB.PROGRAM_TRACK.PROG_ID</code>.

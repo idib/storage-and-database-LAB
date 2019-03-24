@@ -31,7 +31,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PublicationsRecord extends UpdatableRecordImpl<PublicationsRecord> implements Record13<Long, String, String, String, String, Long, String, Double, Date, Long, Long, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = 372889371;
+    private static final long serialVersionUID = 1357670691;
 
     /**
      * Setter for <code>SANDDB.PUBLICATIONS.ID</code>.

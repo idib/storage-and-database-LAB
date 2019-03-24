@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Discipline extends TableImpl<DisciplineRecord> {
 
-    private static final long serialVersionUID = 1019186605;
+    private static final long serialVersionUID = -375469103;
 
     /**
      * The reference instance of <code>SANDDB.DISCIPLINE</code>

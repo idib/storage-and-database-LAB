@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class OccupationRecord extends UpdatableRecordImpl<OccupationRecord> implements Record6<Long, Long, Timestamp, Timestamp, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = -122999129;
+    private static final long serialVersionUID = -1099949905;
 
     /**
      * Setter for <code>SANDDB.OCCUPATION.OCCUPATION_ID</code>.

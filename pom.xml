@@ -17,7 +17,7 @@
 
         <!--Version db connectors-->
         <postgresql-version>42.2.2</postgresql-version>
-        <mysql-version>6.0.3</mysql-version>
+        <mysql-version>8.0.13</mysql-version>
         <oracle-version>12.2.0.1</oracle-version>
     </properties>
 
@@ -30,11 +30,11 @@
         </dependency>
 
         <!--MySQL-->
-        <!--<dependency>-->
-        <!--<groupId>mysql</groupId>-->
-        <!--<artifactId>mysql-connector-java</artifactId>-->
-        <!--<version>${mysql-version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-version}</version>
+        </dependency>
 
         <!-- Orcale -->
         <dependency>
@@ -43,6 +43,13 @@
             <version>${oracle-version}</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/ojdbc8.jar</systemPath>
+        </dependency>
+
+        <!-- Mongo -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>3.10.1</version>
         </dependency>
 
 
@@ -159,7 +166,8 @@
                         <!-- JDBC adapterDB parameters -->
                         <jdbc>
                             <driver>oracle.jdbc.OracleDriver</driver>
-                            <url>jdbc:oracle:thin:@sanddb.ct7ose5lnvl9.eu-central-1.rds.amazonaws.com:1521:dbresult</url>
+                            <url>jdbc:oracle:thin:@sanddb.ct7ose5lnvl9.eu-central-1.rds.amazonaws.com:1521:dbresult
+                            </url>
                             <user>SandDB</user>
                             <password>132$ndfT7</password>
                         </jdbc>
@@ -170,10 +178,10 @@
                                 <name>org.jooq.meta.oracle.OracleDatabase</name>
                                 <includes>.*</includes>
                                 <excludes>
-                                    UNUSED_TABLE                # This table (unqualified name) should not be generated
-                                    | PREFIX_.*                   # Objects with a given prefix should not be generated
+                                    UNUSED_TABLE # This table (unqualified name) should not be generated
+                                    | PREFIX_.* # Objects with a given prefix should not be generated
                                     | SECRET_SCHEMA\.SECRET_TABLE # This table (qualified name) should not be generated
-                                    | SECRET_ROUTINE              # This routine (unqualified name) ...
+                                    | SECRET_ROUTINE # This routine (unqualified name) ...
                                 </excludes>
                                 <!-- In case your database supports catalogs, e.g. SQL Server:
                                 <inputCatalog>public</inputCatalog>

@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Events extends TableImpl<EventsRecord> {
 
-    private static final long serialVersionUID = -1347809246;
+    private static final long serialVersionUID = -1312731778;
 
     /**
      * The reference instance of <code>SANDDB.EVENTS</code>
