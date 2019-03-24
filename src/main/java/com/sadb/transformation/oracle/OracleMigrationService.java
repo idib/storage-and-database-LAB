@@ -401,7 +401,7 @@ public class OracleMigrationService {
             List<StudentRecord> oracleSourceStudents,
             List<com.sadb.generated.dest.oracle.tables.records.StudentRecord> oracleStudents,
             List<TableRecord<?>> toInsert,
-            List<UpdatableRecord<?>> toUpdate) {/*
+            List<UpdatableRecord<?>> toUpdate) {
 
         Map<Integer, Timestamp> studentIdToUpdatedDateMap = new HashMap<>();
         Map<Integer, com.sadb.generated.dest.oracle.tables.records.StudentRecord> studentIdToRecordMap = new HashMap<>();
@@ -445,10 +445,12 @@ public class OracleMigrationService {
                 if (oracleSourceStudentRecord.getBirthPlace() != null) {
                     studentRecord.setBirthPlace(oracleSourceStudentRecord.getBirthPlace());
                 }
-                if (oracleSourceStudentRecord.getGroupId() != null){
+                if (oracleSourceStudentRecord.getGroupId() != null) {
                     studentRecord.setGroupId(oracleSourceStudentRecord.getGroupId().longValue());
                 }
-
+                if (oracleSourceStudentRecord.getEducationType() != null) {
+                    studentRecord.setEducationType(oracleSourceStudentRecord.getEducationType());
+                }
                 studentRecord.setUpdationDate(new Timestamp(oracleSourceStudentRecord.getUpdateTime().getTime()));
                 studentRecord.setCreationDate(new Timestamp(oracleSourceStudentRecord.getCreatTime().getTime()));
 
@@ -460,7 +462,7 @@ public class OracleMigrationService {
             }
 
         }
-*/
+
     }
 
 
