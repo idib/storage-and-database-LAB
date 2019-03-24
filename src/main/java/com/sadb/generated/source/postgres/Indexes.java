@@ -5,6 +5,7 @@ package com.sadb.generated.source.postgres;
 
 
 import com.sadb.generated.source.postgres.tables.SrcPgsDiscipline;
+import com.sadb.generated.source.postgres.tables.SrcPgsResults;
 import com.sadb.generated.source.postgres.tables.SrcPgsSudent;
 import com.sadb.generated.source.postgres.tables.SrcPgsTeacher;
 
@@ -33,6 +34,7 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     public static final Index SRC_PGS_DISCIPLINE_PKEY = Indexes0.SRC_PGS_DISCIPLINE_PKEY;
+    public static final Index SRC_PGS_RESULTS_PKEY = Indexes0.SRC_PGS_RESULTS_PKEY;
     public static final Index SRC_PGS_SUDENT_PKEY = Indexes0.SRC_PGS_SUDENT_PKEY;
     public static final Index SRC_PGS_TEACHER_PKEY = Indexes0.SRC_PGS_TEACHER_PKEY;
 
@@ -42,6 +44,7 @@ public class Indexes {
 
     private static class Indexes0 {
         public static Index SRC_PGS_DISCIPLINE_PKEY = Internal.createIndex("src_pgs_discipline_pkey", SrcPgsDiscipline.SRC_PGS_DISCIPLINE, new OrderField[] { SrcPgsDiscipline.SRC_PGS_DISCIPLINE.DISCIPLINE_ID }, true);
+        public static Index SRC_PGS_RESULTS_PKEY = Internal.createIndex("src_pgs_results_pkey", SrcPgsResults.SRC_PGS_RESULTS, new OrderField[] { SrcPgsResults.SRC_PGS_RESULTS.RESULT_ID }, true);
         public static Index SRC_PGS_SUDENT_PKEY = Internal.createIndex("src_pgs_sudent_pkey", SrcPgsSudent.SRC_PGS_SUDENT, new OrderField[] { SrcPgsSudent.SRC_PGS_SUDENT.ID }, true);
         public static Index SRC_PGS_TEACHER_PKEY = Internal.createIndex("src_pgs_teacher_pkey", SrcPgsTeacher.SRC_PGS_TEACHER, new OrderField[] { SrcPgsTeacher.SRC_PGS_TEACHER.ID }, true);
     }

@@ -35,6 +35,7 @@ CREATE TABLE SRC_PGS_DISCIPLINE (
 	updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW());
 
 CREATE TABLE SRC_PGS_RESULTS (
+  result_id numeric PRIMARY KEY,
 	student_id numeric REFERENCES SRC_PGS_SUDENT(id),
 	discipline_id numeric REFERENCES SRC_PGS_DISCIPLINE(discipline_id),
 	control_form varchar(255),

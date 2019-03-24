@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SrcPgsDiscipline extends TableImpl<SrcPgsDisciplineRecord> {
 
-    private static final long serialVersionUID = -71186828;
+    private static final long serialVersionUID = 1541583811;
 
     /**
      * The reference instance of <code>public.src_pgs_discipline</code>
