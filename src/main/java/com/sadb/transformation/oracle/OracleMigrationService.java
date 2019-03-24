@@ -184,7 +184,7 @@ public class OracleMigrationService {
                 toUpdate
         );*/
 
-/*        Result<OccupationRecord> oracleSourseOccupation =
+        Result<OccupationRecord> oracleSourseOccupation =
                 contextSourceOracle.select().from(Occupation.OCCUPATION).fetch().into(Occupation.OCCUPATION);
 
         Result<com.sadb.generated.dest.oracle.tables.records.OccupationRecord> oracleOccupation =
@@ -195,7 +195,7 @@ public class OracleMigrationService {
                 oracleOccupation,
                 toInsert,
                 toUpdate
-        );*/
+        );
 
 /*        Result<OdevityWeekRecord> oracleSourseOdevityWeek =
                 contextSourceOracle.select().from(OdevityWeek.ODEVITY_WEEK).fetch().into(OdevityWeek.ODEVITY_WEEK);
@@ -210,7 +210,7 @@ public class OracleMigrationService {
                 toUpdate
         );*/
 
-        Result<VariantOccupationRecord> oracleSourseVariantOccupation =
+/*        Result<VariantOccupationRecord> oracleSourseVariantOccupation =
                 contextSourceOracle.select().from(VariantOccupation.VARIANT_OCCUPATION).fetch().into(VariantOccupation.VARIANT_OCCUPATION);
 
         Result<com.sadb.generated.dest.oracle.tables.records.VariantOccupationRecord> oracleVariantOccupation =
@@ -234,7 +234,7 @@ public class OracleMigrationService {
                 oracleWeekDay,
                 toInsert,
                 toUpdate
-        );
+        );*/
 
 /*
         Result<TimeTableRecord> oracleSourseTimeTable =
@@ -767,12 +767,11 @@ public class OracleMigrationService {
 
     }
 
-    //Есть проблема в getOccupationTimeFrom и To (String -> TimeStamp)
     private void processOccupation(
             List<OccupationRecord> oracleSourceOccupations,
             List<com.sadb.generated.dest.oracle.tables.records.OccupationRecord> oracleOccupations,
             List<TableRecord<?>> toInsert,
-            List<UpdatableRecord<?>> toUpdate) {/*
+            List<UpdatableRecord<?>> toUpdate) {
 
         Map<Integer, Timestamp> OccupationIdToUpdatedDateMap = new HashMap<>();
         Map<Integer, com.sadb.generated.dest.oracle.tables.records.OccupationRecord> OccupationIdToRecordMap = new HashMap<>();
@@ -807,10 +806,10 @@ public class OracleMigrationService {
                     occupationRecord.setOccupatonNum(oracleOccupationRecord.getOccupatonNum().longValue());
                 }
                 if (oracleOccupationRecord.getOccupationTimeFrom() != null) {
-                    occupationRecord.setOccupationTimeFrom(new Timestamp(oracleOccupationRecord.getOccupationTimeFrom()));
+                    occupationRecord.setOccupationTimeFrom(oracleOccupationRecord.getOccupationTimeFrom());
                 }
                 if (oracleOccupationRecord.getOccupationTimeTo() != null) {
-                    occupationRecord.setOccupationTimeTo(Timestamp.valueOf(oracleOccupationRecord.getOccupationTimeTo()));
+                    occupationRecord.setOccupationTimeTo(oracleOccupationRecord.getOccupationTimeTo());
                 }
                 occupationRecord.setCreatTime(new Timestamp(oracleOccupationRecord.getCreatTime().getTime()));
                 occupationRecord.setUpdateTime(new Timestamp(oracleOccupationRecord.getUpdateTime().getTime()));
@@ -822,8 +821,7 @@ public class OracleMigrationService {
                 }
             }
 
-        }*/
-
+        }
     }
 
     private void processOdevityWeek(
