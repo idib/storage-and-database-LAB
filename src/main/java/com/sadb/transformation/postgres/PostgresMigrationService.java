@@ -12,18 +12,16 @@ import org.jooq.impl.DSL;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.ZoneOffset;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static com.sadb.generated.dest.oracle.Tables.*;
 import static com.sadb.generated.dest.oracle.tables.Discipline.DISCIPLINE;
-import static com.sadb.generated.source.postgres.Tables.SRC_PGS_RESULTS;
-import static com.sadb.generated.source.postgres.Tables.SRC_PGS_SUDENT;
-import static com.sadb.generated.source.postgres.Tables.SRC_PGS_TEACHER;
+import static com.sadb.generated.source.postgres.Tables.*;
 import static com.sadb.generated.source.postgres.tables.SrcPgsDiscipline.SRC_PGS_DISCIPLINE;
 
 
@@ -31,40 +29,62 @@ import static com.sadb.generated.source.postgres.tables.SrcPgsDiscipline.SRC_PGS
 public class PostgresMigrationService {
 
     private static final Integer POSTGRES_DB_ID = 2;
-
     private static final String JDBC_DRIVER = "org.postgresql.Driver";
-
-    private static final String URL = System.getenv("aws_postgres_url");
+    /*private static final String URL = System.getenv("aws_postgres_url");
     private static final String USER = System.getenv("aws_postgres_user");
     private static final String PASSWORD = System.getenv("aws_postgres_password");
+*/
+    private static final String URL = "jdbc:postgresql://localhost:5432/dmmi";
+    private static final String USER = "dmmi";
+    private static final String PASSWORD = "";
 
-    @Scheduled(fixedDelayString = "#{ 60 * 1000}")
+    @Scheduled(fixedDelayString = "#{ 180 * 1000}")
     public void process() throws ClassNotFoundException, SQLException {
+
+
+        Timestamp syncStartTime = new Timestamp(new Date().getTime());
+
 
         List<TableRecord<?>> toInsert = new ArrayList<>();
         List<UpdatableRecord<?>> toUpdate = new ArrayList<>();
-
 
 
         // Connect to Postgres
         Class.forName(JDBC_DRIVER);
         Connection connectionPostgres = getSourcePostgresConnection();
 
+
         // Connect to Oracle
         Connection connectionOracle = ConnectionManager.getDestDBConnection();
+
 
         // Create context
         DSLContext contextPostgres = DSL.using(connectionPostgres, SQLDialect.POSTGRES);
         DSLContext contextOracle = DSL.using(connectionOracle, SQLDialect.ORACLE);
 
 
-        //Timestamp lastPostgresSync = contextOracle.select().from(SYNC_LOG).fetch().into(SYNC_LOG);
-        Timestamp DBSyncDate = new Timestamp(new Date().getTime());
+        // Get last sync time
+
+        Result<SyncLogRecord> logRecords = contextOracle
+                .select()
+                .from(SYNC_LOG)
+                .where(SYNC_LOG.DB_TYPE.eq(BigInteger.valueOf(POSTGRES_DB_ID)))
+                .orderBy(SYNC_LOG.TIMESTAMP.asc())
+                .fetch().into(SYNC_LOG);
+
+        Timestamp lastPostgresSync = logRecords.get(0).getTimestamp();
+
+
+        // PROCESSING
 
 
         // DISCIPLINES DISCIPLINES DISCIPLINES DISCIPLINES DISCIPLINES
         Result<SrcPgsDisciplineRecord> postgresDisciplines =
-                contextPostgres.select().from(SRC_PGS_DISCIPLINE).fetch().into(SRC_PGS_DISCIPLINE);
+                contextPostgres
+                        .select()
+                        .from(SRC_PGS_DISCIPLINE)
+                        .where(SRC_PGS_DISCIPLINE.UPDATED_AT.ge(lastPostgresSync.toInstant().atOffset(ZoneOffset.UTC)))
+                        .fetch().into(SRC_PGS_DISCIPLINE);
 
         Result<DisciplineRecord> oracleDisciplines =
                 contextOracle.select().from(DISCIPLINE).fetch().into(DISCIPLINE);
@@ -79,7 +99,12 @@ public class PostgresMigrationService {
 
         // LECTURER LECTURER LECTURER LECTURER LECTURER LECTURER LECTURER
         Result<SrcPgsTeacherRecord> postgresTeachers =
-                contextPostgres.select().from(SRC_PGS_TEACHER).fetch().into(SRC_PGS_TEACHER);
+                contextPostgres
+                        .select()
+                        .from(SRC_PGS_TEACHER)
+                        .where(SRC_PGS_TEACHER.UPDATED_AT.ge(lastPostgresSync.toInstant().atOffset(ZoneOffset.UTC)))
+                        .fetch()
+                        .into(SRC_PGS_TEACHER);
 
         Result<LecturerRecord> oracleLectures =
                 contextOracle.select().from(LECTURER).fetch().into(LECTURER);
@@ -95,7 +120,11 @@ public class PostgresMigrationService {
         // STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS
 
         Result<SrcPgsSudentRecord> postgresStudents =
-                contextPostgres.select().from(SRC_PGS_SUDENT).fetch().into(SRC_PGS_SUDENT);
+                contextPostgres
+                        .select()
+                        .from(SRC_PGS_SUDENT)
+                        .where(SRC_PGS_SUDENT.UPDATED_AT.ge(lastPostgresSync.toInstant().atOffset(ZoneOffset.UTC)))
+                        .fetch().into(SRC_PGS_SUDENT);
 
         Result<StudentRecord> oracleStudents =
                 contextOracle.select().from(STUDENT).fetch().into(STUDENT);
@@ -109,7 +138,11 @@ public class PostgresMigrationService {
 
         // RESULTS RESULTS RESULTS RESULTS RESULTS RESULTS RESULTS RESULTS RESULTS
         Result<SrcPgsResultsRecord> postgresResults =
-                contextPostgres.select().from(SRC_PGS_RESULTS).fetch().into(SRC_PGS_RESULTS);
+                contextPostgres
+                        .select()
+                        .from(SRC_PGS_RESULTS)
+                        .where(SRC_PGS_RESULTS.UPDATED_AT.ge(lastPostgresSync.toInstant().atOffset(ZoneOffset.UTC)))
+                        .fetch().into(SRC_PGS_RESULTS);
 
         Result<ResultsRecord> oracleResults =
                 contextOracle.select().from(RESULTS).fetch().into(RESULTS);
@@ -123,6 +156,11 @@ public class PostgresMigrationService {
         );
 
 
+        SyncLogRecord syncLogRecord = new SyncLogRecord();
+        syncLogRecord.setDbType(BigInteger.valueOf(POSTGRES_DB_ID));
+        syncLogRecord.setTimestamp(syncStartTime);
+
+        toInsert.add(syncLogRecord);
 
 
         if (!toInsert.isEmpty()) {
@@ -134,7 +172,6 @@ public class PostgresMigrationService {
 
 
     }
-
 
     private void processDisciplines(
             List<SrcPgsDisciplineRecord> postgresDisciplines,
@@ -166,17 +203,22 @@ public class PostgresMigrationService {
                 DisciplineRecord oldRecord = disciplineIdToRecordMap.get(postgresDisciplineRecord.getDisciplineId().intValue());
 
                 DisciplineRecord disciplineRecord;
+                Mode mode;
                 if (oldRecord == null) {
                     disciplineRecord = new DisciplineRecord();
+                    disciplineRecord.setDisciplineId(postgresDisciplineRecord.getDisciplineId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     disciplineRecord = oldRecord;
                     disciplineRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
 
+                if (mode == Mode.INSERT) {
+                    disciplineRecord.setDisciplineName(postgresDisciplineRecord.getDisciplineName());
+                }
 
-                disciplineRecord.setDisciplineId(postgresDisciplineRecord.getDisciplineId().longValue());
-                disciplineRecord.setDisciplineName(postgresDisciplineRecord.getDisciplineName());
                 disciplineRecord.setEducationStandartType(postgresDisciplineRecord.getEducationStandartType());
                 disciplineRecord.setLabsHoues(postgresDisciplineRecord.getLabsHoues());
                 disciplineRecord.setLectionsHours(postgresDisciplineRecord.getLectionsHours());
@@ -184,9 +226,9 @@ public class PostgresMigrationService {
                 disciplineRecord.setCreatTime(Timestamp.valueOf(postgresDisciplineRecord.getCreatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
                 disciplineRecord.setUpdateTime(postgresRecordUpdateDate);
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(disciplineRecord);
-                } else if (postgresRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(disciplineRecord);
                 }
             }
@@ -194,7 +236,6 @@ public class PostgresMigrationService {
         }
 
     }
-
 
     private void processTeachers(
             List<SrcPgsTeacherRecord> postgresTeachers,
@@ -223,36 +264,39 @@ public class PostgresMigrationService {
 
                 LecturerRecord oldRecord = lecturerIdToRecordMap.get(postgresTeacherRecord.getId().intValue());
 
+                Mode mode;
                 LecturerRecord lecturerRecord;
                 if (oldRecord == null) {
                     lecturerRecord = new LecturerRecord();
+                    lecturerRecord.setLecId(postgresTeacherRecord.getId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     lecturerRecord = oldRecord;
                     lecturerRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
 
-                String FIO = postgresTeacherRecord.getFio();
-                String[] fioArray = FIO.split(" ");
+                if (mode == Mode.INSERT) {
+                    String FIO = postgresTeacherRecord.getFio();
+                    String[] fioArray = FIO.split(" ");
+                    lecturerRecord.setPatronymicName(fioArray[0]);
+                    lecturerRecord.setFirstName(fioArray[1]);
+                    lecturerRecord.setSecondName(fioArray[2]);
+                }
 
-                lecturerRecord.setLecId(postgresTeacherRecord.getId().longValue());
-                lecturerRecord.setPatronymicName(fioArray[0]);
-                lecturerRecord.setFirstName(fioArray[1]);
-                lecturerRecord.setSecondName(fioArray[2]);
+
                 lecturerRecord.setUpdateTime(Timestamp.valueOf(postgresTeacherRecord.getUpdatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
                 lecturerRecord.setCreatTime(Timestamp.valueOf(postgresTeacherRecord.getCreatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
 
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(lecturerRecord);
-                } else if (postgresRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(lecturerRecord);
                 }
             }
-
         }
-
-
     }
 
     private void processStudents(
@@ -280,38 +324,44 @@ public class PostgresMigrationService {
             // if oracleUpdateTime before postgresUpdateTime -> Update current record
             if (oracleRecordUpdateDate == null || postgresRecordUpdateDate.after(oracleRecordUpdateDate)) {
 
+
                 StudentRecord oldRecord = studentIdToRecordMap.get(postgresStudentRecord.getId().intValue());
 
                 StudentRecord studentRecord;
+                Mode mode;
                 if (oldRecord == null) {
                     studentRecord = new StudentRecord();
+                    studentRecord.setId(postgresStudentRecord.getId());
+                    mode = Mode.INSERT;
                 } else {
                     studentRecord = oldRecord;
                     studentRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
 
                 String FIO = postgresStudentRecord.getFio();
                 String[] fioArray = FIO.split(" ");
 
-                studentRecord.setId(postgresStudentRecord.getId());
                 studentRecord.setSurname(fioArray[0]);
                 studentRecord.setName(fioArray[1]);
                 studentRecord.setSecondName(fioArray[2]);
                 studentRecord.setUniversity(postgresStudentRecord.getUniversity());
                 studentRecord.setEducationPlace(postgresStudentRecord.getEducationPlace());
-                studentRecord.setUpdationDate(Timestamp.valueOf(postgresStudentRecord.getUpdatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
-                studentRecord.setCreationDate(Timestamp.valueOf(postgresStudentRecord.getCreatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
-                studentRecord.setFormEducation(postgresStudentRecord.getEducationForm());
-
-
                 studentRecord.setSemester(postgresStudentRecord.getSemester());
                 studentRecord.setSpeciality(postgresStudentRecord.getSpeciality());
 
+                if (mode == Mode.UPDATE) {
+                    studentRecord.setFormEducation(postgresStudentRecord.getEducationForm());
+                }
 
-                if (oracleRecordUpdateDate == null) {
+                studentRecord.setUpdationDate(Timestamp.valueOf(postgresStudentRecord.getUpdatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
+                studentRecord.setCreationDate(Timestamp.valueOf(postgresStudentRecord.getCreatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
+
+
+                if (mode == Mode.INSERT) {
                     toInsert.add(studentRecord);
-                } else if (postgresRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(studentRecord);
                 }
             }
@@ -320,7 +370,6 @@ public class PostgresMigrationService {
 
 
     }
-
 
     private void processResults(
             List<SrcPgsResultsRecord> postgresResults,
@@ -350,17 +399,24 @@ public class PostgresMigrationService {
                 ResultsRecord oldRecord = resultIdToRecordMap.get(postgresResultRecord.getResultId().intValue());
 
                 ResultsRecord resultRecord;
+                Mode mode;
                 if (oldRecord == null) {
                     resultRecord = new ResultsRecord();
+                    resultRecord.setResultId(postgresResultRecord.getResultId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     resultRecord = oldRecord;
                     resultRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                resultRecord.setResultId(postgresResultRecord.getResultId().longValue());
                 resultRecord.setStudentId(postgresResultRecord.getStudentId().longValue());
                 resultRecord.setDisciplineId(postgresResultRecord.getDisciplineId().longValue());
-                //TODO control form
+                if (postgresResultRecord.getResult() != null && postgresResultRecord.getResult() >= 60) {
+                    resultRecord.setExType("EXAM");
+                } else {
+                    resultRecord.setExType("PASS_FAIL_EXAM");
+                }
                 resultRecord.setResult(postgresResultRecord.getResult().toString());
                 resultRecord.setResultDate(new Timestamp(postgresResultRecord.getResultDate().getTime()));
                 resultRecord.setTeacherId(postgresResultRecord.getTeacherId().longValue());
@@ -369,19 +425,20 @@ public class PostgresMigrationService {
                 resultRecord.setCreatTime(Timestamp.valueOf(postgresResultRecord.getCreatedAt().atZoneSameInstant(ZoneOffset.UTC).toLocalDateTime()));
 
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(resultRecord);
-                } else if (postgresRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(resultRecord);
                 }
             }
-
         }
-
-
     }
 
     private Connection getSourcePostgresConnection() throws SQLException {
         return ConnectionManager.getConnection(URL, USER, PASSWORD);
+    }
+
+    private static enum Mode {
+        INSERT, UPDATE
     }
 }
