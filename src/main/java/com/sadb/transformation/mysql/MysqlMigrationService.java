@@ -55,7 +55,7 @@ public class MysqlMigrationService {
 	private static Statement stmt;
 	private static ResultSet rs;
 
-	@Scheduled(fixedDelayString = "#{ 70 * 1000}")
+	//@Scheduled(fixedDelayString = "#{ 70 * 1000}")
 	public void process() throws SQLException {
 
 		List<TableRecord<?>> toInsert = new ArrayList<>();

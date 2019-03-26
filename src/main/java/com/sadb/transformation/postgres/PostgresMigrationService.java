@@ -38,7 +38,7 @@ public class PostgresMigrationService {
     private static final String USER = "dmmi";
     private static final String PASSWORD = "";
 
-    @Scheduled(fixedDelayString = "#{ 180 * 1000}")
+    @Scheduled(fixedDelayString = "#{ 60 * 1000}")
     public void process() throws ClassNotFoundException, SQLException {
 
 

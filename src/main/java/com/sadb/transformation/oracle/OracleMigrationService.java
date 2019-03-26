@@ -30,7 +30,7 @@ public class OracleMigrationService {
     private static final String USER = "USER1";
     private static final String PASSWORD = "KMuZgdy4gbTDPps";
 
-    @Scheduled(fixedDelayString = "#{ 60 * 1000}")
+    //@Scheduled(fixedDelayString = "#{ 60 * 1000}")
     public void process() throws ClassNotFoundException, SQLException {
         List<TableRecord<?>> toInsert = new ArrayList<>();
         List<UpdatableRecord<?>> toUpdate = new ArrayList<>();
