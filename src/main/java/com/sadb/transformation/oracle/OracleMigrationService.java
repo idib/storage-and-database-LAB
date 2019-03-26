@@ -33,7 +33,7 @@ public class OracleMigrationService {
     private static final String USER = "USER1";
     private static final String PASSWORD = "KMuZgdy4gbTDPps";
 
-    @Scheduled(fixedDelayString = "#{ 60 * 1000}")
+    @Scheduled(fixedDelayString = "#{ 120 * 1000}", initialDelayString = "#{ 40 * 1000}")
     public void process() throws ClassNotFoundException, SQLException {
 
         Timestamp syncStartTime = new Timestamp(new Date().getTime());
@@ -1434,7 +1434,7 @@ public class OracleMigrationService {
         Map<Integer, com.sadb.generated.dest.oracle.tables.records.TimeTableRecord> TimeTableIdToRecordMap = new HashMap<>();
 
         oracleTimeTables.forEach(oracleTimeTable -> {
-            TimeTableIdToUpdatedDateMap.put(oracleTimeTable.getTimeTableId().intValue(), oracleTimeTable.getUpdateTime());
+            TimeTableIdToUpdatedDateMap.put(oracleTimeTable.getTimeTableId().intValue(), new Timestamp(oracleTimeTable.getUpdateTime().getTime()));
             TimeTableIdToRecordMap.put(oracleTimeTable.getTimeTableId().intValue(), oracleTimeTable);
         });
 
@@ -1454,7 +1454,7 @@ public class OracleMigrationService {
                 Mode mode;
                 if (oldRecord == null) {
                     timeTableRecord = new com.sadb.generated.dest.oracle.tables.records.TimeTableRecord();
-                    timeTableRecord.setTimeTableId(oracleTimeTableRecord.getTimeTableId().longValue());
+                    timeTableRecord.setTimeTableId(oracleTimeTableRecord.getTimeTableId());
                     mode = Mode.INSERT;
                 } else {
                     timeTableRecord = oldRecord;
@@ -1462,16 +1462,16 @@ public class OracleMigrationService {
                     mode = Mode.UPDATE;
                 }
 
-                timeTableRecord.setDisciplineId(oracleTimeTableRecord.getDisciplineId().longValue());
-                timeTableRecord.setClassId(oracleTimeTableRecord.getClassId().longValue());
-                timeTableRecord.setGroupId(oracleTimeTableRecord.getGroupId().longValue());
-                timeTableRecord.setOccupationId(oracleTimeTableRecord.getOccupationId().longValue());
-                timeTableRecord.setWeekDayId(oracleTimeTableRecord.getWeekDayId().longValue());
-                timeTableRecord.setOdevityId(oracleTimeTableRecord.getDisciplineId().longValue());
-                timeTableRecord.setVariantOccupationId(oracleTimeTableRecord.getVariantOccupationId().longValue());
+                timeTableRecord.setDisciplineId(oracleTimeTableRecord.getDisciplineId());
+                timeTableRecord.setClassId(oracleTimeTableRecord.getClassId());
+                timeTableRecord.setGroupId(oracleTimeTableRecord.getGroupId());
+                timeTableRecord.setOccupationId(oracleTimeTableRecord.getOccupationId());
+                timeTableRecord.setWeekDayId(oracleTimeTableRecord.getWeekDayId());
+                timeTableRecord.setOdevityId(oracleTimeTableRecord.getDisciplineId());
+                timeTableRecord.setVariantOccupationId(oracleTimeTableRecord.getVariantOccupationId());
 
-                timeTableRecord.setCreatTime(new Timestamp(oracleTimeTableRecord.getCreatTime().getTime()));
-                timeTableRecord.setUpdateTime(new Timestamp(oracleTimeTableRecord.getUpdateTime().getTime()));
+                timeTableRecord.setCreatTime(oracleTimeTableRecord.getCreatTime());
+                timeTableRecord.setUpdateTime(oracleTimeTableRecord.getUpdateTime());
 
                 if (mode == Mode.INSERT) {
                     toInsert.add(timeTableRecord);
