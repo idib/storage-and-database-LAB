@@ -102,13 +102,6 @@ public class Keys {
     public static final ForeignKey<ResultsRecord, StudentRecord> R_17 = ForeignKeys0.R_17;
     public static final ForeignKey<SpecialityRecord, ProgramTrackRecord> R_26 = ForeignKeys0.R_26;
     public static final ForeignKey<StudentRecord, GroupsRecord> R_28 = ForeignKeys0.R_28;
-    public static final ForeignKey<TimeTableRecord, WeekDayRecord> R_19 = ForeignKeys0.R_19;
-    public static final ForeignKey<TimeTableRecord, OccupationRecord> R_21 = ForeignKeys0.R_21;
-    public static final ForeignKey<TimeTableRecord, OdevityWeekRecord> R_20 = ForeignKeys0.R_20;
-    public static final ForeignKey<TimeTableRecord, VariantOccupationRecord> R_22 = ForeignKeys0.R_22;
-    public static final ForeignKey<TimeTableRecord, ClassRoomRecord> R_23 = ForeignKeys0.R_23;
-    public static final ForeignKey<TimeTableRecord, GroupsRecord> R_24 = ForeignKeys0.R_24;
-    public static final ForeignKey<TimeTableRecord, DisciplineRecord> R_25 = ForeignKeys0.R_25;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -129,7 +122,7 @@ public class Keys {
         public static final UniqueKey<ResultsRecord> XPK_RESULTS = Internal.createUniqueKey(Results.RESULTS, "XPK_RESULTS", Results.RESULTS.RESULT_ID);
         public static final UniqueKey<SpecialityRecord> XPK_PROGR_SPECIALITY = Internal.createUniqueKey(Speciality.SPECIALITY, "XPK_PROGR_SPECIALITY", Speciality.SPECIALITY.SPEC_ID);
         public static final UniqueKey<StudentRecord> XPK_STUDENT = Internal.createUniqueKey(Student.STUDENT, "XPK_STUDENT", Student.STUDENT.STUDENT_ID);
-        public static final UniqueKey<TimeTableRecord> XPK_TIME_TABLE = Internal.createUniqueKey(TimeTable.TIME_TABLE, "XPK_TIME_TABLE", TimeTable.TIME_TABLE.OCCUPATION_ID, TimeTable.TIME_TABLE.WEEK_DAY_ID, TimeTable.TIME_TABLE.ODEVITY_ID, TimeTable.TIME_TABLE.VARIANT_OCCUPATION_ID, TimeTable.TIME_TABLE.CLASS_ID, TimeTable.TIME_TABLE.GROUP_ID, TimeTable.TIME_TABLE.DISCIPLINE_ID);
+        public static final UniqueKey<TimeTableRecord> XPK_TIME_TABLE = Internal.createUniqueKey(TimeTable.TIME_TABLE, "XPK_TIME_TABLE", TimeTable.TIME_TABLE.TIME_TABLE_ID);
         public static final UniqueKey<VariantOccupationRecord> XPK_ARIANT_OCC = Internal.createUniqueKey(VariantOccupation.VARIANT_OCCUPATION, "XPK_ARIANT_OCC", VariantOccupation.VARIANT_OCCUPATION.VARIANT_OCCUPATION_ID);
         public static final UniqueKey<WeekDayRecord> XPK_WEEK_DAY = Internal.createUniqueKey(WeekDay.WEEK_DAY, "XPK_WEEK_DAY", WeekDay.WEEK_DAY.WEEK_DAY_ID);
     }
@@ -146,12 +139,5 @@ public class Keys {
         public static final ForeignKey<ResultsRecord, StudentRecord> R_17 = Internal.createForeignKey(com.sadb.generated.source.oracle.Keys.XPK_STUDENT, Results.RESULTS, "R_17", Results.RESULTS.STUDENT_ID);
         public static final ForeignKey<SpecialityRecord, ProgramTrackRecord> R_26 = Internal.createForeignKey(com.sadb.generated.source.oracle.Keys.XPK_PROGRAM_TRACK, Speciality.SPECIALITY, "R_26", Speciality.SPECIALITY.PROG_ID);
         public static final ForeignKey<StudentRecord, GroupsRecord> R_28 = Internal.createForeignKey(com.sadb.generated.source.oracle.Keys.XPK_GROUP, Student.STUDENT, "R_28", Student.STUDENT.GROUP_ID);
-        public static final ForeignKey<TimeTableRecord, WeekDayRecord> R_19 = Internal.createForeignKey(com.sadb.generated.source.oracle.Keys.XPK_WEEK_DAY, TimeTable.TIME_TABLE, "R_19", TimeTable.TIME_TABLE.WEEK_DAY_ID);
-        public static final ForeignKey<TimeTableRecord, OccupationRecord> R_21 = Internal.createForeignKey(com.sadb.generated.source.oracle.Keys.XPK_OCCUPATION, TimeTable.TIME_TABLE, "R_21", TimeTable.TIME_TABLE.OCCUPATION_ID);
-        public static final ForeignKey<TimeTableRecord, OdevityWeekRecord> R_20 = Internal.createForeignKey(com.sadb.generated.source.oracle.Keys.XPK_ODEVITY_WEEK, TimeTable.TIME_TABLE, "R_20", TimeTable.TIME_TABLE.ODEVITY_ID);
-        public static final ForeignKey<TimeTableRecord, VariantOccupationRecord> R_22 = Internal.createForeignKey(com.sadb.generated.source.oracle.Keys.XPK_ARIANT_OCC, TimeTable.TIME_TABLE, "R_22", TimeTable.TIME_TABLE.VARIANT_OCCUPATION_ID);
-        public static final ForeignKey<TimeTableRecord, ClassRoomRecord> R_23 = Internal.createForeignKey(com.sadb.generated.source.oracle.Keys.XPK_CLASS_ROOM, TimeTable.TIME_TABLE, "R_23", TimeTable.TIME_TABLE.CLASS_ID);
-        public static final ForeignKey<TimeTableRecord, GroupsRecord> R_24 = Internal.createForeignKey(com.sadb.generated.source.oracle.Keys.XPK_GROUP, TimeTable.TIME_TABLE, "R_24", TimeTable.TIME_TABLE.GROUP_ID);
-        public static final ForeignKey<TimeTableRecord, DisciplineRecord> R_25 = Internal.createForeignKey(com.sadb.generated.source.oracle.Keys.XPK_DISCIPLINE, TimeTable.TIME_TABLE, "R_25", TimeTable.TIME_TABLE.DISCIPLINE_ID);
     }
 }

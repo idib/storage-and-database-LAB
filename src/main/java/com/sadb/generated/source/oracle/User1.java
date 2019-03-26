@@ -47,7 +47,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User1 extends SchemaImpl {
 
-    private static final long serialVersionUID = -781826843;
+    private static final long serialVersionUID = 621575739;
 
     /**
      * The reference instance of <code>USER1</code>
@@ -178,6 +178,7 @@ public class User1 extends SchemaImpl {
             Sequences.SEQ_RESULTS,
             Sequences.SEQ_SPECIALITY,
             Sequences.SEQ_STUDENT,
+            Sequences.SEQ_TIME_TABLE,
             Sequences.SEQ_VARIANT_OCCUPATION,
             Sequences.SEQ_WEEK_DAY);
     }

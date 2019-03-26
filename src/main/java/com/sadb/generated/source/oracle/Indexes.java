@@ -83,7 +83,7 @@ public class Indexes {
         public static Index XPK_RESULTS = Internal.createIndex("XPK_RESULTS", Results.RESULTS, new OrderField[] { Results.RESULTS.RESULT_ID }, true);
         public static Index XPK_PROGR_SPECIALITY = Internal.createIndex("XPK_PROGR_SPECIALITY", Speciality.SPECIALITY, new OrderField[] { Speciality.SPECIALITY.SPEC_ID }, true);
         public static Index XPK_STUDENT = Internal.createIndex("XPK_STUDENT", Student.STUDENT, new OrderField[] { Student.STUDENT.STUDENT_ID }, true);
-        public static Index XPK_TIME_TABLE = Internal.createIndex("XPK_TIME_TABLE", TimeTable.TIME_TABLE, new OrderField[] { TimeTable.TIME_TABLE.OCCUPATION_ID, TimeTable.TIME_TABLE.WEEK_DAY_ID, TimeTable.TIME_TABLE.ODEVITY_ID, TimeTable.TIME_TABLE.VARIANT_OCCUPATION_ID, TimeTable.TIME_TABLE.CLASS_ID, TimeTable.TIME_TABLE.GROUP_ID, TimeTable.TIME_TABLE.DISCIPLINE_ID }, true);
+        public static Index XPK_TIME_TABLE = Internal.createIndex("XPK_TIME_TABLE", TimeTable.TIME_TABLE, new OrderField[] { TimeTable.TIME_TABLE.TIME_TABLE_ID }, true);
         public static Index XPK_ARIANT_OCC = Internal.createIndex("XPK_ARIANT_OCC", VariantOccupation.VARIANT_OCCUPATION, new OrderField[] { VariantOccupation.VARIANT_OCCUPATION.VARIANT_OCCUPATION_ID }, true);
         public static Index XPK_WEEK_DAY = Internal.createIndex("XPK_WEEK_DAY", WeekDay.WEEK_DAY, new OrderField[] { WeekDay.WEEK_DAY.WEEK_DAY_ID }, true);
     }

@@ -10,6 +10,7 @@ import com.sadb.generated.source.oracle.User1;
 import com.sadb.generated.source.oracle.tables.records.TimeTableRecord;
 
 import java.math.BigInteger;
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TimeTable extends TableImpl<TimeTableRecord> {
 
-    private static final long serialVersionUID = -1908197982;
+    private static final long serialVersionUID = -1760433519;
 
     /**
      * The reference instance of <code>USER1.TIME_TABLE</code>
@@ -90,6 +91,21 @@ public class TimeTable extends TableImpl<TimeTableRecord> {
      * The column <code>USER1.TIME_TABLE.DISCIPLINE_ID</code>.
      */
     public final TableField<TimeTableRecord, BigInteger> DISCIPLINE_ID = createField("DISCIPLINE_ID", org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false), this, "");
+
+    /**
+     * The column <code>USER1.TIME_TABLE.CREAT_TIME</code>.
+     */
+    public final TableField<TimeTableRecord, Date> CREAT_TIME = createField("CREAT_TIME", org.jooq.impl.SQLDataType.DATE, this, "");
+
+    /**
+     * The column <code>USER1.TIME_TABLE.UPDATE_TIME</code>.
+     */
+    public final TableField<TimeTableRecord, Date> UPDATE_TIME = createField("UPDATE_TIME", org.jooq.impl.SQLDataType.DATE, this, "");
+
+    /**
+     * The column <code>USER1.TIME_TABLE.TIME_TABLE_ID</code>.
+     */
+    public final TableField<TimeTableRecord, BigInteger> TIME_TABLE_ID = createField("TIME_TABLE_ID", org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false), this, "");
 
     /**
      * Create a <code>USER1.TIME_TABLE</code> table reference
@@ -154,42 +170,6 @@ public class TimeTable extends TableImpl<TimeTableRecord> {
     @Override
     public List<UniqueKey<TimeTableRecord>> getKeys() {
         return Arrays.<UniqueKey<TimeTableRecord>>asList(Keys.XPK_TIME_TABLE);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<ForeignKey<TimeTableRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<TimeTableRecord, ?>>asList(Keys.R_19, Keys.R_21, Keys.R_20, Keys.R_22, Keys.R_23, Keys.R_24, Keys.R_25);
-    }
-
-    public WeekDay weekDay() {
-        return new WeekDay(this, Keys.R_19);
-    }
-
-    public Occupation occupation() {
-        return new Occupation(this, Keys.R_21);
-    }
-
-    public OdevityWeek odevityWeek() {
-        return new OdevityWeek(this, Keys.R_20);
-    }
-
-    public VariantOccupation variantOccupation() {
-        return new VariantOccupation(this, Keys.R_22);
-    }
-
-    public ClassRoom classRoom() {
-        return new ClassRoom(this, Keys.R_23);
-    }
-
-    public Groups groups() {
-        return new Groups(this, Keys.R_24);
-    }
-
-    public Discipline discipline() {
-        return new Discipline(this, Keys.R_25);
     }
 
     /**

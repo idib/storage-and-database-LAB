@@ -96,6 +96,11 @@ public class Sequences {
     public static final Sequence<BigInteger> SEQ_STUDENT = new SequenceImpl<BigInteger>("SEQ_STUDENT", User1.USER1, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
+     * The sequence <code>USER1.SEQ_TIME_TABLE</code>
+     */
+    public static final Sequence<BigInteger> SEQ_TIME_TABLE = new SequenceImpl<BigInteger>("SEQ_TIME_TABLE", User1.USER1, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
+
+    /**
      * The sequence <code>USER1.SEQ_VARIANT_OCCUPATION</code>
      */
     public static final Sequence<BigInteger> SEQ_VARIANT_OCCUPATION = new SequenceImpl<BigInteger>("SEQ_VARIANT_OCCUPATION", User1.USER1, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
