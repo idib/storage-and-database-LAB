@@ -76,6 +76,11 @@ public class Sequences {
     public static final Sequence<BigInteger> SCIENTIFIC_PROJECT_SEQ = new SequenceImpl<BigInteger>("SCIENTIFIC_PROJECT_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
 
     /**
+     * The sequence <code>SANDDB.SYNC_LOG_SEQ</code>
+     */
+    public static final Sequence<BigInteger> SYNC_LOG_SEQ = new SequenceImpl<BigInteger>("SYNC_LOG_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));
+
+    /**
      * The sequence <code>SANDDB.TYPE_EDITION_SEQ</code>
      */
     public static final Sequence<BigInteger> TYPE_EDITION_SEQ = new SequenceImpl<BigInteger>("TYPE_EDITION_SEQ", Sanddb.SANDDB, org.jooq.impl.SQLDataType.DECIMAL_INTEGER.precision(38).nullable(false));

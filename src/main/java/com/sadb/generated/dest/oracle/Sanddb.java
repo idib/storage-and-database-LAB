@@ -63,7 +63,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sanddb extends SchemaImpl {
 
-    private static final long serialVersionUID = 1505315902;
+    private static final long serialVersionUID = -588054428;
 
     /**
      * The reference instance of <code>SANDDB</code>
@@ -270,6 +270,7 @@ public class Sanddb extends SchemaImpl {
             Sequences.READER_SHEET_SEQ,
             Sequences.ROOM_SEQ,
             Sequences.SCIENTIFIC_PROJECT_SEQ,
+            Sequences.SYNC_LOG_SEQ,
             Sequences.TYPE_EDITION_SEQ,
             Sequences.TYPE_POSITION_SEQ,
             Sequences.TYPE_PUBLICATION_SEQ);

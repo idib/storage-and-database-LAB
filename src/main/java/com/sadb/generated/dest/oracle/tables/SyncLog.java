@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SyncLog extends TableImpl<SyncLogRecord> {
 
-    private static final long serialVersionUID = 17621569;
+    private static final long serialVersionUID = -1532568663;
 
     /**
      * The reference instance of <code>SANDDB.SYNC_LOG</code>
@@ -118,7 +118,7 @@ public class SyncLog extends TableImpl<SyncLogRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.SYS_C005369);
+        return Arrays.<Index>asList(Indexes.SYNC_LOG_ID_UINDEX);
     }
 
     /**
@@ -126,7 +126,7 @@ public class SyncLog extends TableImpl<SyncLogRecord> {
      */
     @Override
     public UniqueKey<SyncLogRecord> getPrimaryKey() {
-        return Keys.SYS_C005369;
+        return Keys.SYNC_LOG_PK;
     }
 
     /**
@@ -134,7 +134,7 @@ public class SyncLog extends TableImpl<SyncLogRecord> {
      */
     @Override
     public List<UniqueKey<SyncLogRecord>> getKeys() {
-        return Arrays.<UniqueKey<SyncLogRecord>>asList(Keys.SYS_C005369);
+        return Arrays.<UniqueKey<SyncLogRecord>>asList(Keys.SYNC_LOG_PK);
     }
 
     /**

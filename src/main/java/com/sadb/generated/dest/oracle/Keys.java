@@ -125,7 +125,7 @@ public class Keys {
     public static final UniqueKey<ScientificProjectRecord> SYS_C005202 = UniqueKeys0.SYS_C005202;
     public static final UniqueKey<SpecialityRecord> XPK_PROGR_SPECIALITY = UniqueKeys0.XPK_PROGR_SPECIALITY;
     public static final UniqueKey<StudentRecord> SYS_C005109 = UniqueKeys0.SYS_C005109;
-    public static final UniqueKey<SyncLogRecord> SYS_C005369 = UniqueKeys0.SYS_C005369;
+    public static final UniqueKey<SyncLogRecord> SYNC_LOG_PK = UniqueKeys0.SYNC_LOG_PK;
     public static final UniqueKey<TimeTableRecord> XPK_TIME_TABLE = UniqueKeys0.XPK_TIME_TABLE;
     public static final UniqueKey<TypeEditionRecord> SYS_C005191 = UniqueKeys0.SYS_C005191;
     public static final UniqueKey<TypePositionRecord> SYS_C005165 = UniqueKeys0.SYS_C005165;
@@ -163,13 +163,6 @@ public class Keys {
     public static final ForeignKey<StudentRecord, RoomRecord> STUDENT_FK0 = ForeignKeys0.STUDENT_FK0;
     public static final ForeignKey<StudentRecord, TypePositionRecord> PARTICIPANT_FK0 = ForeignKeys0.PARTICIPANT_FK0;
     public static final ForeignKey<SyncLogRecord, DbRecord> SYNC_LOG_DB_ID_FK = ForeignKeys0.SYNC_LOG_DB_ID_FK;
-    public static final ForeignKey<TimeTableRecord, WeekDayRecord> R_19 = ForeignKeys0.R_19;
-    public static final ForeignKey<TimeTableRecord, OccupationRecord> R_21 = ForeignKeys0.R_21;
-    public static final ForeignKey<TimeTableRecord, OdevityWeekRecord> R_20 = ForeignKeys0.R_20;
-    public static final ForeignKey<TimeTableRecord, VariantOccupationRecord> R_22 = ForeignKeys0.R_22;
-    public static final ForeignKey<TimeTableRecord, ClassRoomRecord> R_23 = ForeignKeys0.R_23;
-    public static final ForeignKey<TimeTableRecord, GroupsRecord> R_24 = ForeignKeys0.R_24;
-    public static final ForeignKey<TimeTableRecord, DisciplineRecord> R_25 = ForeignKeys0.R_25;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -200,8 +193,8 @@ public class Keys {
         public static final UniqueKey<ScientificProjectRecord> SYS_C005202 = Internal.createUniqueKey(ScientificProject.SCIENTIFIC_PROJECT, "SYS_C005202", ScientificProject.SCIENTIFIC_PROJECT.ID);
         public static final UniqueKey<SpecialityRecord> XPK_PROGR_SPECIALITY = Internal.createUniqueKey(Speciality.SPECIALITY, "XPK_PROGR_SPECIALITY", Speciality.SPECIALITY.SPEC_ID);
         public static final UniqueKey<StudentRecord> SYS_C005109 = Internal.createUniqueKey(Student.STUDENT, "SYS_C005109", Student.STUDENT.ID);
-        public static final UniqueKey<SyncLogRecord> SYS_C005369 = Internal.createUniqueKey(SyncLog.SYNC_LOG, "SYS_C005369", SyncLog.SYNC_LOG.ID);
-        public static final UniqueKey<TimeTableRecord> XPK_TIME_TABLE = Internal.createUniqueKey(TimeTable.TIME_TABLE, "XPK_TIME_TABLE", TimeTable.TIME_TABLE.OCCUPATION_ID, TimeTable.TIME_TABLE.WEEK_DAY_ID, TimeTable.TIME_TABLE.ODEVITY_ID, TimeTable.TIME_TABLE.VARIANT_OCCUPATION_ID, TimeTable.TIME_TABLE.CLASS_ID, TimeTable.TIME_TABLE.GROUP_ID, TimeTable.TIME_TABLE.DISCIPLINE_ID);
+        public static final UniqueKey<SyncLogRecord> SYNC_LOG_PK = Internal.createUniqueKey(SyncLog.SYNC_LOG, "SYNC_LOG_PK", SyncLog.SYNC_LOG.ID);
+        public static final UniqueKey<TimeTableRecord> XPK_TIME_TABLE = Internal.createUniqueKey(TimeTable.TIME_TABLE, "XPK_TIME_TABLE", TimeTable.TIME_TABLE.TIME_TABLE_ID);
         public static final UniqueKey<TypeEditionRecord> SYS_C005191 = Internal.createUniqueKey(TypeEdition.TYPE_EDITION, "SYS_C005191", TypeEdition.TYPE_EDITION.ID);
         public static final UniqueKey<TypePositionRecord> SYS_C005165 = Internal.createUniqueKey(TypePosition.TYPE_POSITION, "SYS_C005165", TypePosition.TYPE_POSITION.ID);
         public static final UniqueKey<TypePublicationRecord> SYS_C005196 = Internal.createUniqueKey(TypePublication.TYPE_PUBLICATION, "SYS_C005196", TypePublication.TYPE_PUBLICATION.ID);
@@ -236,12 +229,5 @@ public class Keys {
         public static final ForeignKey<StudentRecord, RoomRecord> STUDENT_FK0 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.ROOM_PK, Student.STUDENT, "STUDENT_FK0", Student.STUDENT.ROOM_ID);
         public static final ForeignKey<StudentRecord, TypePositionRecord> PARTICIPANT_FK0 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.SYS_C005165, Student.STUDENT, "PARTICIPANT_FK0", Student.STUDENT.POSITION_ID);
         public static final ForeignKey<SyncLogRecord, DbRecord> SYNC_LOG_DB_ID_FK = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.SYS_C005372, SyncLog.SYNC_LOG, "SYNC_LOG_DB_ID_FK", SyncLog.SYNC_LOG.DB_TYPE);
-        public static final ForeignKey<TimeTableRecord, WeekDayRecord> R_19 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.XPK_WEEK_DAY, TimeTable.TIME_TABLE, "R_19", TimeTable.TIME_TABLE.WEEK_DAY_ID);
-        public static final ForeignKey<TimeTableRecord, OccupationRecord> R_21 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.XPK_OCCUPATION, TimeTable.TIME_TABLE, "R_21", TimeTable.TIME_TABLE.OCCUPATION_ID);
-        public static final ForeignKey<TimeTableRecord, OdevityWeekRecord> R_20 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.XPK_ODEVITY_WEEK, TimeTable.TIME_TABLE, "R_20", TimeTable.TIME_TABLE.ODEVITY_ID);
-        public static final ForeignKey<TimeTableRecord, VariantOccupationRecord> R_22 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.XPK_ARIANT_OCC, TimeTable.TIME_TABLE, "R_22", TimeTable.TIME_TABLE.VARIANT_OCCUPATION_ID);
-        public static final ForeignKey<TimeTableRecord, ClassRoomRecord> R_23 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.XPK_CLASS_ROOM, TimeTable.TIME_TABLE, "R_23", TimeTable.TIME_TABLE.CLASS_ID);
-        public static final ForeignKey<TimeTableRecord, GroupsRecord> R_24 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.XPK_GROUP, TimeTable.TIME_TABLE, "R_24", TimeTable.TIME_TABLE.GROUP_ID);
-        public static final ForeignKey<TimeTableRecord, DisciplineRecord> R_25 = Internal.createForeignKey(com.sadb.generated.dest.oracle.Keys.XPK_DISCIPLINE, TimeTable.TIME_TABLE, "R_25", TimeTable.TIME_TABLE.DISCIPLINE_ID);
     }
 }

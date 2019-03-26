@@ -84,7 +84,7 @@ public class Indexes {
     public static final Index SYS_C005202 = Indexes0.SYS_C005202;
     public static final Index XPK_PROGR_SPECIALITY = Indexes0.XPK_PROGR_SPECIALITY;
     public static final Index SYS_C005109 = Indexes0.SYS_C005109;
-    public static final Index SYS_C005369 = Indexes0.SYS_C005369;
+    public static final Index SYNC_LOG_ID_UINDEX = Indexes0.SYNC_LOG_ID_UINDEX;
     public static final Index XPK_TIME_TABLE = Indexes0.XPK_TIME_TABLE;
     public static final Index SYS_C005191 = Indexes0.SYS_C005191;
     public static final Index SYS_C005165 = Indexes0.SYS_C005165;
@@ -121,8 +121,8 @@ public class Indexes {
         public static Index SYS_C005202 = Internal.createIndex("SYS_C005202", ScientificProject.SCIENTIFIC_PROJECT, new OrderField[] { ScientificProject.SCIENTIFIC_PROJECT.ID }, true);
         public static Index XPK_PROGR_SPECIALITY = Internal.createIndex("XPK_PROGR_SPECIALITY", Speciality.SPECIALITY, new OrderField[] { Speciality.SPECIALITY.SPEC_ID }, true);
         public static Index SYS_C005109 = Internal.createIndex("SYS_C005109", Student.STUDENT, new OrderField[] { Student.STUDENT.ID }, true);
-        public static Index SYS_C005369 = Internal.createIndex("SYS_C005369", SyncLog.SYNC_LOG, new OrderField[] { SyncLog.SYNC_LOG.ID }, true);
-        public static Index XPK_TIME_TABLE = Internal.createIndex("XPK_TIME_TABLE", TimeTable.TIME_TABLE, new OrderField[] { TimeTable.TIME_TABLE.OCCUPATION_ID, TimeTable.TIME_TABLE.WEEK_DAY_ID, TimeTable.TIME_TABLE.ODEVITY_ID, TimeTable.TIME_TABLE.VARIANT_OCCUPATION_ID, TimeTable.TIME_TABLE.CLASS_ID, TimeTable.TIME_TABLE.GROUP_ID, TimeTable.TIME_TABLE.DISCIPLINE_ID }, true);
+        public static Index SYNC_LOG_ID_UINDEX = Internal.createIndex("SYNC_LOG_ID_UINDEX", SyncLog.SYNC_LOG, new OrderField[] { SyncLog.SYNC_LOG.ID }, true);
+        public static Index XPK_TIME_TABLE = Internal.createIndex("XPK_TIME_TABLE", TimeTable.TIME_TABLE, new OrderField[] { TimeTable.TIME_TABLE.TIME_TABLE_ID }, true);
         public static Index SYS_C005191 = Internal.createIndex("SYS_C005191", TypeEdition.TYPE_EDITION, new OrderField[] { TypeEdition.TYPE_EDITION.ID }, true);
         public static Index SYS_C005165 = Internal.createIndex("SYS_C005165", TypePosition.TYPE_POSITION, new OrderField[] { TypePosition.TYPE_POSITION.ID }, true);
         public static Index SYS_C005196 = Internal.createIndex("SYS_C005196", TypePublication.TYPE_PUBLICATION, new OrderField[] { TypePublication.TYPE_PUBLICATION.ID }, true);
