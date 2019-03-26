@@ -53,7 +53,7 @@ public class MysqlMigrationService {
 
 		private static final Integer MYSQL_DB_ID = 3;
 
-	@Scheduled(fixedDelayString = "#{ 170 * 1000}")
+	@Scheduled(fixedDelayString = "#{ 120 * 1000}", initialDelayString = "#30*1000")
 	public void process() throws ClassNotFoundException, SQLException {
 
 		Timestamp syncStartTime = new Timestamp(new Date().getTime());
