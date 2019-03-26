@@ -1,5 +1,6 @@
 package com.sadb.transformation.oracle;
 
+import com.sadb.generated.dest.oracle.tables.records.SyncLogRecord;
 import com.sadb.generated.source.oracle.tables.*;
 import com.sadb.generated.source.oracle.tables.Results;
 import com.sadb.generated.source.oracle.tables.records.*;
@@ -10,17 +11,19 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.ZoneOffset;
+import java.util.*;
+
+import static com.sadb.generated.dest.oracle.Tables.SYNC_LOG;
 
 
 @Service
 public class OracleMigrationService {
+    private static final Integer ORACLE_SOURCE_DB_ID = 0;
     private static final String JDBC_DRIVER = "oracle.jdbc.OracleDriver";
 
     //    private static final String URL = System.getenv("aws_oracle_url");
@@ -32,6 +35,9 @@ public class OracleMigrationService {
 
     @Scheduled(fixedDelayString = "#{ 60 * 1000}")
     public void process() throws ClassNotFoundException, SQLException {
+
+        Timestamp syncStartTime = new Timestamp(new Date().getTime());
+
         List<TableRecord<?>> toInsert = new ArrayList<>();
         List<UpdatableRecord<?>> toUpdate = new ArrayList<>();
 
@@ -46,26 +52,56 @@ public class OracleMigrationService {
         DSLContext contextSourceOracle = DSL.using(connectionSourceOracle, SQLDialect.ORACLE);
         DSLContext contextOracle = DSL.using(connectionOracle, SQLDialect.ORACLE);
 
-////        MEGAFACULTY MEGAFACULTY MEGAFACULTY
-//        Result<MegafacultyRecord> oracleSourceMegafaculty =
-//                contextSourceOracle.select().from(Megafaculty.MEGAFACULTY).fetch().into(Megafaculty.MEGAFACULTY);
-//
-//        Result<com.sadb.generated.dest.oracle.tables.records.MegafacultyRecord> oracleMegafaculty =
-//                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Megafaculty.MEGAFACULTY).fetch().into(com.sadb.generated.dest.oracle.tables.Megafaculty.MEGAFACULTY);
-//
-//        processMegafaculty(
-//                oracleSourceMegafaculty,
-//                oracleMegafaculty,
-//                toInsert,
-//                toUpdate
-//        );
+        // Get last sync time
+
+        Result<SyncLogRecord> logRecords = contextOracle
+                .select()
+                .from(SYNC_LOG)
+                .where(SYNC_LOG.DB_TYPE.eq(BigInteger.valueOf(ORACLE_SOURCE_DB_ID)))
+                .orderBy(SYNC_LOG.TIMESTAMP.asc())
+                .fetch().into(SYNC_LOG);
+
+        Timestamp lastOracleSourceSync = logRecords.get(0).getTimestamp();
+
+
+//        MEGAFACULTY MEGAFACULTY MEGAFACULTY
+        Result<MegafacultyRecord> oracleSourceMegafaculty =
+                contextSourceOracle
+                        .select()
+                        .from(Megafaculty.MEGAFACULTY)
+                        .where(Megafaculty.MEGAFACULTY.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(Megafaculty.MEGAFACULTY);
+
+        Result<com.sadb.generated.dest.oracle.tables.records.MegafacultyRecord> oracleMegafaculty =
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.Megafaculty.MEGAFACULTY)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.Megafaculty.MEGAFACULTY);
+
+        processMegafaculty(
+                oracleSourceMegafaculty,
+                oracleMegafaculty,
+                toInsert,
+                toUpdate
+        );
 
         // LECTURER LECTURER LECTURER LECTURER LECTURER LECTURER LECTURER
-/*        Result<LecturerRecord> oracleSourceLecturer =
-                contextSourceOracle.select().from(Lecturer.LECTURER).fetch().into(Lecturer.LECTURER);
+        Result<LecturerRecord> oracleSourceLecturer =
+                contextSourceOracle
+                        .select()
+                        .from(Lecturer.LECTURER)
+                        .where(Lecturer.LECTURER.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(Lecturer.LECTURER);
 
         Result<com.sadb.generated.dest.oracle.tables.records.LecturerRecord> oracleLectures =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Lecturer.LECTURER).fetch().into(com.sadb.generated.dest.oracle.tables.Lecturer.LECTURER);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.Lecturer.LECTURER)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.Lecturer.LECTURER);
 
 
         processOracleLecturer(
@@ -73,15 +109,24 @@ public class OracleMigrationService {
                 oracleLectures,
                 toInsert,
                 toUpdate
-        );*/
+        );
 
         // STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS STUDENTS
 
         Result<StudentRecord> oracleSourceStudents =
-                contextOracle.select().from(Student.STUDENT).fetch().into(Student.STUDENT);
+                contextOracle
+                        .select()
+                        .from(Student.STUDENT)
+                        .where(Student.STUDENT.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(Student.STUDENT);
 
         Result<com.sadb.generated.dest.oracle.tables.records.StudentRecord> oracleStudents =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Student.STUDENT).fetch().into(com.sadb.generated.dest.oracle.tables.Student.STUDENT);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.Student.STUDENT)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.Student.STUDENT);
 
 
         processOracleStudents(
@@ -91,130 +136,238 @@ public class OracleMigrationService {
                 toUpdate
         );
 
-/*        //  FACULTY FACULTY FACULTY FACULTY FACULTY
+        //  FACULTY FACULTY FACULTY FACULTY FACULTY
 
         Result<FacultyRecord> oracleSourseFaculty =
-                contextSourceOracle.select().from(Faculty.FACULTY).fetch().into(Faculty.FACULTY);
+                contextSourceOracle
+                        .select()
+                        .from(Faculty.FACULTY)
+                        .where(Faculty.FACULTY.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(Faculty.FACULTY);
 
         Result<com.sadb.generated.dest.oracle.tables.records.FacultyRecord> oracleFaculty =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Faculty.FACULTY).fetch().into(com.sadb.generated.dest.oracle.tables.Faculty.FACULTY);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.Faculty.FACULTY)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.Faculty.FACULTY);
 
         processFaculty(
                 oracleSourseFaculty,
                 oracleFaculty,
                 toInsert,
                 toUpdate
-        );*/
+        );
 
-/*        Result<ProgramTrackRecord> oracleSourseProgramTrack =
-                contextSourceOracle.select().from(ProgramTrack.PROGRAM_TRACK).fetch().into(ProgramTrack.PROGRAM_TRACK);
+        //        PROGRAM_TRACK PROGRAM_TRACK PROGRAM_TRACK
+
+        Result<ProgramTrackRecord> oracleSourseProgramTrack =
+                contextSourceOracle
+                        .select()
+                        .from(ProgramTrack.PROGRAM_TRACK)
+                        .where(ProgramTrack.PROGRAM_TRACK.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(ProgramTrack.PROGRAM_TRACK);
 
         Result<com.sadb.generated.dest.oracle.tables.records.ProgramTrackRecord> oracleProgramTrack =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.ProgramTrack.PROGRAM_TRACK).fetch().into(com.sadb.generated.dest.oracle.tables.ProgramTrack.PROGRAM_TRACK);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.ProgramTrack.PROGRAM_TRACK)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.ProgramTrack.PROGRAM_TRACK);
 
         processProgramTrack(
                 oracleSourseProgramTrack,
                 oracleProgramTrack,
                 toInsert,
                 toUpdate
-        );*/
+        );
 
-/*        Result<SpecialityRecord> oracleSourseSpeciality =
-                contextSourceOracle.select().from(Speciality.SPECIALITY).fetch().into(Speciality.SPECIALITY);
+        //        SPECIALITY SPECIALITY SPECIALITY
+
+        Result<SpecialityRecord> oracleSourseSpeciality =
+                contextSourceOracle
+                        .select()
+                        .from(Speciality.SPECIALITY)
+                        .where(Speciality.SPECIALITY.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(Speciality.SPECIALITY);
 
         Result<com.sadb.generated.dest.oracle.tables.records.SpecialityRecord> oracleSpeciality =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Speciality.SPECIALITY).fetch().into(com.sadb.generated.dest.oracle.tables.Speciality.SPECIALITY);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.Speciality.SPECIALITY)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.Speciality.SPECIALITY);
 
         processSpeciality(
                 oracleSourseSpeciality,
                 oracleSpeciality,
                 toInsert,
                 toUpdate
-        );*/
+        );
 
-/*        Result<AcademicYearRecord> oracleSourseAcademicYear =
-                contextSourceOracle.select().from(AcademicYear.ACADEMIC_YEAR).fetch().into(AcademicYear.ACADEMIC_YEAR);
+        //        ACADEMIC_YEAR ACADEMIC_YEAR ACADEMIC_YEAR
+
+        Result<AcademicYearRecord> oracleSourseAcademicYear =
+                contextSourceOracle
+                        .select()
+                        .from(AcademicYear.ACADEMIC_YEAR)
+                        .where(AcademicYear.ACADEMIC_YEAR.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(AcademicYear.ACADEMIC_YEAR);
 
         Result<com.sadb.generated.dest.oracle.tables.records.AcademicYearRecord> oracleAcademicYear =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.AcademicYear.ACADEMIC_YEAR).fetch().into(com.sadb.generated.dest.oracle.tables.AcademicYear.ACADEMIC_YEAR);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.AcademicYear.ACADEMIC_YEAR)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.AcademicYear.ACADEMIC_YEAR);
 
         processAcademicYear(
                 oracleSourseAcademicYear,
                 oracleAcademicYear,
                 toInsert,
                 toUpdate
-        );*/
+        );
 
-/*        Result<ClassRoomRecord> oracleSourseClassRoom =
-                contextSourceOracle.select().from(ClassRoom.CLASS_ROOM).fetch().into(ClassRoom.CLASS_ROOM);
+        //        CLASS_ROOM CLASS_ROOM CLASS_ROOM
+
+        Result<ClassRoomRecord> oracleSourseClassRoom =
+                contextSourceOracle
+                        .select()
+                        .from(ClassRoom.CLASS_ROOM)
+                        .where(ClassRoom.CLASS_ROOM.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(ClassRoom.CLASS_ROOM);
 
         Result<com.sadb.generated.dest.oracle.tables.records.ClassRoomRecord> oracleClassRoom =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.ClassRoom.CLASS_ROOM).fetch().into(com.sadb.generated.dest.oracle.tables.ClassRoom.CLASS_ROOM);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.ClassRoom.CLASS_ROOM)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.ClassRoom.CLASS_ROOM);
 
         processClassRoom(
                 oracleSourseClassRoom,
                 oracleClassRoom,
                 toInsert,
                 toUpdate
-        );*/
+        );
 
-/*        Result<FacultyLecturerRecord> oracleSourseFacultyLecturer =
-                contextSourceOracle.select().from(FacultyLecturer.FACULTY_LECTURER).fetch().into(FacultyLecturer.FACULTY_LECTURER);
+        //        FACULTY_LECTURER FACULTY_LECTURER FACULTY_LECTURER
+
+        Result<FacultyLecturerRecord> oracleSourseFacultyLecturer =
+                contextSourceOracle
+                        .select()
+                        .from(FacultyLecturer.FACULTY_LECTURER)
+                        .where(FacultyLecturer.FACULTY_LECTURER.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(FacultyLecturer.FACULTY_LECTURER);
 
         Result<com.sadb.generated.dest.oracle.tables.records.FacultyLecturerRecord> oracleFacultyLecturer =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.FacultyLecturer.FACULTY_LECTURER).fetch().into(com.sadb.generated.dest.oracle.tables.FacultyLecturer.FACULTY_LECTURER);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.FacultyLecturer.FACULTY_LECTURER)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.FacultyLecturer.FACULTY_LECTURER);
 
         processFacultyLecturer(
                 oracleSourseFacultyLecturer,
                 oracleFacultyLecturer,
                 toInsert,
                 toUpdate
-        );*/
+        );
 
-/*        Result<GroupsRecord> oracleSourseGroups =
-                contextSourceOracle.select().from(Groups.GROUPS).fetch().into(Groups.GROUPS);
+        //        GROUPS GROUPS GROUPS
+
+        Result<GroupsRecord> oracleSourseGroups =
+                contextSourceOracle
+                        .select()
+                        .from(Groups.GROUPS)
+                        .where(Groups.GROUPS.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(Groups.GROUPS);
 
         Result<com.sadb.generated.dest.oracle.tables.records.GroupsRecord> oracleGroups =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Groups.GROUPS).fetch().into(com.sadb.generated.dest.oracle.tables.Groups.GROUPS);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.Groups.GROUPS)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.Groups.GROUPS);
 
         processGroups(
                 oracleSourseGroups,
                 oracleGroups,
                 toInsert,
                 toUpdate
-        );*/
+        );
 
-/*        Result<OccupationRecord> oracleSourseOccupation =
-                contextSourceOracle.select().from(Occupation.OCCUPATION).fetch().into(Occupation.OCCUPATION);
+        //        OCCUPATION OCCUPATION OCCUPATION
+
+        Result<OccupationRecord> oracleSourseOccupation =
+                contextSourceOracle
+                        .select()
+                        .from(Occupation.OCCUPATION)
+                        .where(Occupation.OCCUPATION.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(Occupation.OCCUPATION);
 
         Result<com.sadb.generated.dest.oracle.tables.records.OccupationRecord> oracleOccupation =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Occupation.OCCUPATION).fetch().into(com.sadb.generated.dest.oracle.tables.Occupation.OCCUPATION);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.Occupation.OCCUPATION)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.Occupation.OCCUPATION);
 
         processOccupation(
                 oracleSourseOccupation,
                 oracleOccupation,
                 toInsert,
                 toUpdate
-        );*/
+        );
 
-/*        Result<OdevityWeekRecord> oracleSourseOdevityWeek =
-                contextSourceOracle.select().from(OdevityWeek.ODEVITY_WEEK).fetch().into(OdevityWeek.ODEVITY_WEEK);
+        //        ODEVITY_WEEK ODEVITY_WEEK ODEVITY_WEEK
+
+        Result<OdevityWeekRecord> oracleSourseOdevityWeek =
+                contextSourceOracle
+                        .select()
+                        .from(OdevityWeek.ODEVITY_WEEK)
+                        .where(OdevityWeek.ODEVITY_WEEK.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(OdevityWeek.ODEVITY_WEEK);
 
         Result<com.sadb.generated.dest.oracle.tables.records.OdevityWeekRecord> oracleOdevityWeek =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.OdevityWeek.ODEVITY_WEEK).fetch().into(com.sadb.generated.dest.oracle.tables.OdevityWeek.ODEVITY_WEEK);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.OdevityWeek.ODEVITY_WEEK)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.OdevityWeek.ODEVITY_WEEK);
 
         processOdevityWeek(
                 oracleSourseOdevityWeek,
                 oracleOdevityWeek,
                 toInsert,
                 toUpdate
-        );*/
+        );
 
-/*        Result<VariantOccupationRecord> oracleSourseVariantOccupation =
-                contextSourceOracle.select().from(VariantOccupation.VARIANT_OCCUPATION).fetch().into(VariantOccupation.VARIANT_OCCUPATION);
+        //        VARIANT_OCCUPATION VARIANT_OCCUPATION VARIANT_OCCUPATION
+
+        Result<VariantOccupationRecord> oracleSourseVariantOccupation =
+                contextSourceOracle
+                        .select()
+                        .from(VariantOccupation.VARIANT_OCCUPATION)
+                        .where(VariantOccupation.VARIANT_OCCUPATION.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(VariantOccupation.VARIANT_OCCUPATION);
 
         Result<com.sadb.generated.dest.oracle.tables.records.VariantOccupationRecord> oracleVariantOccupation =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.VariantOccupation.VARIANT_OCCUPATION).fetch().into(com.sadb.generated.dest.oracle.tables.VariantOccupation.VARIANT_OCCUPATION);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.VariantOccupation.VARIANT_OCCUPATION)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.VariantOccupation.VARIANT_OCCUPATION);
 
         processVariantOccupation(
                 oracleSourseVariantOccupation,
@@ -223,25 +376,46 @@ public class OracleMigrationService {
                 toUpdate
         );
 
+        //        WEEK_DAY WEEK_DAY WEEK_DAY
+
         Result<WeekDayRecord> oracleSourseWeekDay =
-                contextSourceOracle.select().from(WeekDay.WEEK_DAY).fetch().into(WeekDay.WEEK_DAY);
+                contextSourceOracle
+                        .select()
+                        .from(WeekDay.WEEK_DAY)
+                        .where(WeekDay.WEEK_DAY.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(WeekDay.WEEK_DAY);
 
         Result<com.sadb.generated.dest.oracle.tables.records.WeekDayRecord> oracleWeekDay =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.WeekDay.WEEK_DAY).fetch().into(com.sadb.generated.dest.oracle.tables.WeekDay.WEEK_DAY);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.WeekDay.WEEK_DAY)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.WeekDay.WEEK_DAY);
 
         processWeekDay(
                 oracleSourseWeekDay,
                 oracleWeekDay,
                 toInsert,
                 toUpdate
-        );*/
+        );
 
-/*
+        //        TIME_TABLE TIME_TABLE TIME_TABLE
+
         Result<TimeTableRecord> oracleSourseTimeTable =
-                contextSourceOracle.select().from(TimeTable.TIME_TABLE).fetch().into(TimeTable.TIME_TABLE);
+                contextSourceOracle
+                        .select()
+                        .from(TimeTable.TIME_TABLE)
+                        .where(TimeTable.TIME_TABLE.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(TimeTable.TIME_TABLE);
 
         Result<com.sadb.generated.dest.oracle.tables.records.TimeTableRecord> oracleTimeTable =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.TimeTable.TIME_TABLE).fetch().into(com.sadb.generated.dest.oracle.tables.TimeTable.TIME_TABLE);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.TimeTable.TIME_TABLE)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.TimeTable.TIME_TABLE);
 
         processTimeTable(
                 oracleSourseTimeTable,
@@ -249,33 +423,60 @@ public class OracleMigrationService {
                 toInsert,
                 toUpdate
         );
-*/
 
-/*        Result<DisciplineRecord> oracleSourseDiscipline =
-                contextSourceOracle.select().from(Discipline.DISCIPLINE).fetch().into(Discipline.DISCIPLINE);
+        //        DISCIPLINE DISCIPLINE DISCIPLINE
+
+        Result<DisciplineRecord> oracleSourseDiscipline =
+                contextSourceOracle
+                        .select()
+                        .from(Discipline.DISCIPLINE)
+                        .where(Discipline.DISCIPLINE.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(Discipline.DISCIPLINE);
 
         Result<com.sadb.generated.dest.oracle.tables.records.DisciplineRecord> oracleDiscipline =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Discipline.DISCIPLINE).fetch().into(com.sadb.generated.dest.oracle.tables.Discipline.DISCIPLINE);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.Discipline.DISCIPLINE)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.Discipline.DISCIPLINE);
 
         processOracleDiscipline(
                 oracleSourseDiscipline,
                 oracleDiscipline,
                 toInsert,
                 toUpdate
-        );*/
+        );
 
-/*        Result<ResultsRecord> oracleSourseResults =
-                contextSourceOracle.select().from(Results.RESULTS).fetch().into(Results.RESULTS);
+        //        RESULTS RESULTS RESULTS
+
+        Result<ResultsRecord> oracleSourseResults =
+                contextSourceOracle
+                        .select()
+                        .from(Results.RESULTS)
+                        .where(Results.RESULTS.UPDATE_TIME.ge(new java.sql.Date(lastOracleSourceSync.getTime())))
+                        .fetch()
+                        .into(Results.RESULTS);
 
         Result<com.sadb.generated.dest.oracle.tables.records.ResultsRecord> oracleResults =
-                contextOracle.select().from(com.sadb.generated.dest.oracle.tables.Results.RESULTS).fetch().into(com.sadb.generated.dest.oracle.tables.Results.RESULTS);
+                contextOracle
+                        .select()
+                        .from(com.sadb.generated.dest.oracle.tables.Results.RESULTS)
+                        .fetch()
+                        .into(com.sadb.generated.dest.oracle.tables.Results.RESULTS);
 
         processOracleResults(
                 oracleSourseResults,
                 oracleResults,
                 toInsert,
                 toUpdate
-        );*/
+        );
+
+        SyncLogRecord syncLogRecord = new SyncLogRecord();
+        syncLogRecord.setDbType(BigInteger.valueOf(ORACLE_SOURCE_DB_ID));
+        syncLogRecord.setTimestamp(syncStartTime);
+
+        toInsert.add(syncLogRecord);
 
         if (!toInsert.isEmpty()) {
             contextOracle.batchInsert(toInsert).execute();
@@ -314,21 +515,27 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.MegafacultyRecord megafacultyRecord;
 
+
+                Mode mode;
                 if (oldRecord == null) {
                     megafacultyRecord = new com.sadb.generated.dest.oracle.tables.records.MegafacultyRecord();
+                    megafacultyRecord.setMegafacId(oracleMegafacultyRecord.getMegafacId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     megafacultyRecord = oldRecord;
                     megafacultyRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                megafacultyRecord.setMegafacId(oracleMegafacultyRecord.getMegafacId().longValue());
+
                 megafacultyRecord.setMfacultyName(oracleMegafacultyRecord.getMfacultyName());
+
                 megafacultyRecord.setCreatTime(new Timestamp(oracleMegafacultyRecord.getUpdateTime().getTime()));
                 megafacultyRecord.setUpdateTime(oracleSourceRecordUpdateDate);
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(megafacultyRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(megafacultyRecord);
                 }
             }
@@ -361,34 +568,39 @@ public class OracleMigrationService {
                 com.sadb.generated.dest.oracle.tables.records.LecturerRecord oldRecord = lecturerIdToRecordMap.get(oracleSourceLecturerRecord.getLecId().intValue());
 
                 com.sadb.generated.dest.oracle.tables.records.LecturerRecord lecturerRecord;
+
+                Mode mode;
                 if (oldRecord == null) {
                     lecturerRecord = new com.sadb.generated.dest.oracle.tables.records.LecturerRecord();
+                    lecturerRecord.setLecId(oracleSourceLecturerRecord.getLecId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     lecturerRecord = oldRecord;
                     lecturerRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                lecturerRecord.setLecId(oracleSourceLecturerRecord.getLecId().longValue());
                 lecturerRecord.setPatronymicName(oracleSourceLecturerRecord.getPatronymicName());
                 lecturerRecord.setFirstName(oracleSourceLecturerRecord.getFirstName());
                 lecturerRecord.setSecondName(oracleSourceLecturerRecord.getSecondName());
                 lecturerRecord.setPost(oracleSourceLecturerRecord.getPost());
-                lecturerRecord.setBirthPlace(oracleSourceLecturerRecord.getBirthPlace());
+                lecturerRecord.setWorkPeriodFrom(new Timestamp(oracleSourceLecturerRecord.getWorkPeriodFrom().getTime()));
+                if (oracleSourceLecturerRecord.getBirthPlace() != null) {
+                    lecturerRecord.setBirthPlace(oracleSourceLecturerRecord.getBirthPlace());
+                }
                 if (oracleSourceLecturerRecord.getBirthDate() != null) {
                     lecturerRecord.setBirthDate(new Timestamp(oracleSourceLecturerRecord.getBirthDate().getTime()));
-                }
-                if (oracleSourceLecturerRecord.getWorkPeriodFrom() != null) {
-                    lecturerRecord.setWorkPeriodFrom(new Timestamp(oracleSourceLecturerRecord.getWorkPeriodFrom().getTime()));
                 }
                 if (oracleSourceLecturerRecord.getWorkPeriodTo() != null) {
                     lecturerRecord.setWorkPeriodTo(new Timestamp(oracleSourceLecturerRecord.getWorkPeriodTo().getTime()));
                 }
+
                 lecturerRecord.setUpdateTime(new Timestamp(oracleSourceLecturerRecord.getUpdateTime().getTime()));
                 lecturerRecord.setCreatTime(new Timestamp(oracleSourceLecturerRecord.getCreatTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(lecturerRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(lecturerRecord);
                 }
             }
@@ -422,23 +634,25 @@ public class OracleMigrationService {
                         studentIdToRecordMap.get(oracleSourceStudentRecord.getStudentId().intValue());
 
                 com.sadb.generated.dest.oracle.tables.records.StudentRecord studentRecord;
+
+                Mode mode;
                 if (oldRecord == null) {
                     studentRecord = new com.sadb.generated.dest.oracle.tables.records.StudentRecord();
+                    studentRecord.setId(BigDecimal.valueOf(oracleSourceStudentRecord.getStudentId().longValue()));
+                    mode = Mode.INSERT;
                 } else {
                     studentRecord = oldRecord;
                     studentRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                studentRecord.setId(BigDecimal.valueOf(oracleSourceStudentRecord.getStudentId().longValue()));
-                if (oracleSourceStudentRecord.getSecondName() != null) {
+                if (mode == Mode.INSERT) {
                     studentRecord.setSurname(oracleSourceStudentRecord.getSecondName());
-                }
-                if (oracleSourceStudentRecord.getFirstName() != null) {
                     studentRecord.setName(oracleSourceStudentRecord.getFirstName());
-                }
-                if (oracleSourceStudentRecord.getPatronymicName() != null) {
                     studentRecord.setSecondName(oracleSourceStudentRecord.getPatronymicName());
                 }
+
+
                 if (oracleSourceStudentRecord.getBirthDate() != null) {
                     studentRecord.setBirthDate(new Timestamp(oracleSourceStudentRecord.getBirthDate().getTime()));
                 }
@@ -451,12 +665,13 @@ public class OracleMigrationService {
                 if (oracleSourceStudentRecord.getEducationType() != null) {
                     studentRecord.setEducationType(oracleSourceStudentRecord.getEducationType());
                 }
+
                 studentRecord.setUpdationDate(new Timestamp(oracleSourceStudentRecord.getUpdateTime().getTime()));
                 studentRecord.setCreationDate(new Timestamp(oracleSourceStudentRecord.getCreatTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(studentRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(studentRecord);
                 }
             }
@@ -493,22 +708,26 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.FacultyRecord facultyRecord;
 
+                Mode mode;
                 if (oldRecord == null) {
                     facultyRecord = new com.sadb.generated.dest.oracle.tables.records.FacultyRecord();
+                    facultyRecord.setFacId(oracleFacultyRecord.getFacId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     facultyRecord = oldRecord;
                     facultyRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                facultyRecord.setFacId(oracleFacultyRecord.getFacId().longValue());
                 facultyRecord.setFacName(oracleFacultyRecord.getFacName());
                 facultyRecord.setMegafacId(oracleFacultyRecord.getMegafacId().longValue());
+
                 facultyRecord.setCreatTime(new Timestamp(oracleFacultyRecord.getCreatTime().getTime()));
                 facultyRecord.setUpdateTime(new Timestamp(oracleFacultyRecord.getUpdateTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(facultyRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(facultyRecord);
                 }
             }
@@ -544,24 +763,28 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.ProgramTrackRecord programTrackRecordRecord;
 
+                Mode mode;
                 if (oldRecord == null) {
                     programTrackRecordRecord = new com.sadb.generated.dest.oracle.tables.records.ProgramTrackRecord();
+                    programTrackRecordRecord.setProgId(oracleProgramTrackRecord.getProgId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     programTrackRecordRecord = oldRecord;
                     programTrackRecordRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                programTrackRecordRecord.setProgId(oracleProgramTrackRecord.getProgId().longValue());
                 programTrackRecordRecord.setFacId(oracleProgramTrackRecord.getFacId().longValue());
                 programTrackRecordRecord.setProgmName(oracleProgramTrackRecord.getProgmName());
                 programTrackRecordRecord.setProgmType(oracleProgramTrackRecord.getProgmType());
                 programTrackRecordRecord.setProgramTrackNum(oracleProgramTrackRecord.getProgramTrackNum());
+
                 programTrackRecordRecord.setCreatTime(new Timestamp(oracleProgramTrackRecord.getCreatTime().getTime()));
                 programTrackRecordRecord.setUpdateTime(new Timestamp(oracleProgramTrackRecord.getUpdateTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(programTrackRecordRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(programTrackRecordRecord);
                 }
             }
@@ -597,16 +820,21 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.SpecialityRecord specialityRecord;
 
+                Mode mode;
                 if (oldRecord == null) {
                     specialityRecord = new com.sadb.generated.dest.oracle.tables.records.SpecialityRecord();
+                    specialityRecord.setSpecId(oracleSpecialityRecord.getSpecId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     specialityRecord = oldRecord;
                     specialityRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                specialityRecord.setSpecId(oracleSpecialityRecord.getSpecId().longValue());
+
                 specialityRecord.setProgId(oracleSpecialityRecord.getProgId().longValue());
                 specialityRecord.setSpecName(oracleSpecialityRecord.getSpecName());
+                specialityRecord.setSpecDegree(oracleSpecialityRecord.getSpecDegree());
                 if (oracleSpecialityRecord.getFreeEducCount() != null) {
                     specialityRecord.setFreeEducCount(oracleSpecialityRecord.getFreeEducCount().longValue());
                 }
@@ -616,13 +844,13 @@ public class OracleMigrationService {
                 if (oracleSpecialityRecord.getSponsoredEducCount() != null) {
                     specialityRecord.setSponsoredEducCount(oracleSpecialityRecord.getSponsoredEducCount().longValue());
                 }
-                specialityRecord.setSpecDegree(oracleSpecialityRecord.getSpecDegree());
+
                 specialityRecord.setCreatTime(new Timestamp(oracleSpecialityRecord.getCreatTime().getTime()));
                 specialityRecord.setUpdateTime(new Timestamp(oracleSpecialityRecord.getUpdateTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(specialityRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(specialityRecord);
                 }
             }
@@ -658,21 +886,25 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.AcademicYearRecord acodemicYearRecord;
 
+                Mode mode;
                 if (oldRecord == null) {
                     acodemicYearRecord = new com.sadb.generated.dest.oracle.tables.records.AcademicYearRecord();
+                    acodemicYearRecord.setAcademYearId(oracleAcademicYearRecord.getAcademYearId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     acodemicYearRecord = oldRecord;
                     acodemicYearRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                acodemicYearRecord.setAcademYearId(oracleAcademicYearRecord.getAcademYearId().longValue());
                 acodemicYearRecord.setAcademYear(oracleAcademicYearRecord.getAcademYear());
+
                 acodemicYearRecord.setCreatTime(new Timestamp(oracleAcademicYearRecord.getCreatTime().getTime()));
                 acodemicYearRecord.setUpdateTime(new Timestamp(oracleAcademicYearRecord.getUpdateTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(acodemicYearRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(acodemicYearRecord);
                 }
             }
@@ -708,23 +940,25 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.ClassRoomRecord classRoomRecord;
 
+                Mode mode;
                 if (oldRecord == null) {
                     classRoomRecord = new com.sadb.generated.dest.oracle.tables.records.ClassRoomRecord();
+                    classRoomRecord.setClassId(oracleClassRoomRecord.getClassId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     classRoomRecord = oldRecord;
                     classRoomRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                classRoomRecord.setClassId(oracleClassRoomRecord.getClassId().longValue());
-                if (oracleClassRoomRecord.getClassNumber() != null) {
-                    classRoomRecord.setClassNumber(oracleClassRoomRecord.getClassNumber().longValue());
-                }
+                classRoomRecord.setClassNumber(oracleClassRoomRecord.getClassNumber().longValue());
+
                 classRoomRecord.setCreatTime(new Timestamp(oracleClassRoomRecord.getCreatTime().getTime()));
                 classRoomRecord.setUpdateTime(new Timestamp(oracleClassRoomRecord.getUpdateTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(classRoomRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(classRoomRecord);
                 }
             }
@@ -760,22 +994,26 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.FacultyLecturerRecord facultulecturerRecord;
 
+                Mode mode;
                 if (oldRecord == null) {
                     facultulecturerRecord = new com.sadb.generated.dest.oracle.tables.records.FacultyLecturerRecord();
+                    facultulecturerRecord.setFacLectId(oracleFacultyLecturerRecord.getFacLectId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     facultulecturerRecord = oldRecord;
                     facultulecturerRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                facultulecturerRecord.setFacLectId(oracleFacultyLecturerRecord.getFacLectId().longValue());
                 facultulecturerRecord.setFacId(oracleFacultyLecturerRecord.getFacId().longValue());
                 facultulecturerRecord.setLecId(oracleFacultyLecturerRecord.getLecId().longValue());
+
                 facultulecturerRecord.setCreatTime(new Timestamp(oracleFacultyLecturerRecord.getCreatTime().getTime()));
                 facultulecturerRecord.setUpdateTime(new Timestamp(oracleFacultyLecturerRecord.getUpdateTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(facultulecturerRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(facultulecturerRecord);
                 }
             }
@@ -811,32 +1049,34 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.GroupsRecord groupsRecord;
 
+                Mode mode;
                 if (oldRecord == null) {
                     groupsRecord = new com.sadb.generated.dest.oracle.tables.records.GroupsRecord();
+                    groupsRecord.setGroupId(oracleGroupsRecord.getGroupId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     groupsRecord = oldRecord;
                     groupsRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                groupsRecord.setGroupId(oracleGroupsRecord.getGroupId().longValue());
                 groupsRecord.setSpecId(oracleGroupsRecord.getSpecId().longValue());
                 groupsRecord.setAcademYearId(oracleGroupsRecord.getAcademYearId().longValue());
                 groupsRecord.setGroupNum(oracleGroupsRecord.getGroupNum());
-                if (oracleGroupsRecord.getCourse() != null) {
-                    groupsRecord.setCourse(oracleGroupsRecord.getCourse().longValue());
-                }
+                groupsRecord.setCourse(oracleGroupsRecord.getCourse().longValue());
                 if (oracleGroupsRecord.getEducationTimeFrom() != null) {
                     groupsRecord.setEducationTimeFrom(new Timestamp(oracleGroupsRecord.getEducationTimeFrom().getTime()));
                 }
                 if (oracleGroupsRecord.getEducationTimeTo() != null) {
                     groupsRecord.setEducationTimeTo(new Timestamp(oracleGroupsRecord.getEducationTimeTo().getTime()));
                 }
+
                 groupsRecord.setCreatTime(new Timestamp(oracleGroupsRecord.getCreatTime().getTime()));
                 groupsRecord.setUpdateTime(new Timestamp(oracleGroupsRecord.getUpdateTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(groupsRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(groupsRecord);
                 }
             }
@@ -872,29 +1112,27 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.OccupationRecord occupationRecord;
 
+                Mode mode;
                 if (oldRecord == null) {
                     occupationRecord = new com.sadb.generated.dest.oracle.tables.records.OccupationRecord();
+                    occupationRecord.setOccupationId(oracleOccupationRecord.getOccupationId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     occupationRecord = oldRecord;
                     occupationRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                occupationRecord.setOccupationId(oracleOccupationRecord.getOccupationId().longValue());
-                if (oracleOccupationRecord.getOccupatonNum() != null) {
-                    occupationRecord.setOccupatonNum(oracleOccupationRecord.getOccupatonNum().longValue());
-                }
-                if (oracleOccupationRecord.getOccupationTimeFrom() != null) {
-                    occupationRecord.setOccupationTimeFrom(oracleOccupationRecord.getOccupationTimeFrom());
-                }
-                if (oracleOccupationRecord.getOccupationTimeTo() != null) {
-                    occupationRecord.setOccupationTimeTo(oracleOccupationRecord.getOccupationTimeTo());
-                }
+                occupationRecord.setOccupatonNum(oracleOccupationRecord.getOccupatonNum().longValue());
+                occupationRecord.setOccupationTimeFrom(oracleOccupationRecord.getOccupationTimeFrom());
+                occupationRecord.setOccupationTimeTo(oracleOccupationRecord.getOccupationTimeTo());
+
                 occupationRecord.setCreatTime(new Timestamp(oracleOccupationRecord.getCreatTime().getTime()));
                 occupationRecord.setUpdateTime(new Timestamp(oracleOccupationRecord.getUpdateTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(occupationRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(occupationRecord);
                 }
             }
@@ -929,21 +1167,25 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.OdevityWeekRecord odevityWeekRecord;
 
+                Mode mode;
                 if (oldRecord == null) {
                     odevityWeekRecord = new com.sadb.generated.dest.oracle.tables.records.OdevityWeekRecord();
+                    odevityWeekRecord.setOdevityId(oracleOdevityWeekRecord.getOdevityId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     odevityWeekRecord = oldRecord;
                     odevityWeekRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                odevityWeekRecord.setOdevityId(oracleOdevityWeekRecord.getOdevityId().longValue());
                 odevityWeekRecord.setWeek(oracleOdevityWeekRecord.getWeek());
+
                 odevityWeekRecord.setCreatTime(new Timestamp(oracleOdevityWeekRecord.getCreatTime().getTime()));
                 odevityWeekRecord.setUpdateTime(new Timestamp(oracleOdevityWeekRecord.getUpdateTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(odevityWeekRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(odevityWeekRecord);
                 }
             }
@@ -979,21 +1221,25 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.VariantOccupationRecord variantOccupationRecord;
 
+                Mode mode;
                 if (oldRecord == null) {
                     variantOccupationRecord = new com.sadb.generated.dest.oracle.tables.records.VariantOccupationRecord();
+                    variantOccupationRecord.setVariantOccupationId(oracleVariantOccupationRecord.getVariantOccupationId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     variantOccupationRecord = oldRecord;
                     variantOccupationRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                variantOccupationRecord.setVariantOccupationId(oracleVariantOccupationRecord.getVariantOccupationId().longValue());
                 variantOccupationRecord.setVarOccType(oracleVariantOccupationRecord.getVarOccType());
+
                 variantOccupationRecord.setCreatTime(new Timestamp(oracleVariantOccupationRecord.getCreatTime().getTime()));
                 variantOccupationRecord.setUpdateTime(new Timestamp(oracleVariantOccupationRecord.getUpdateTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(variantOccupationRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(variantOccupationRecord);
                 }
             }
@@ -1029,21 +1275,25 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.WeekDayRecord weekDayRecord;
 
+                Mode mode;
                 if (oldRecord == null) {
                     weekDayRecord = new com.sadb.generated.dest.oracle.tables.records.WeekDayRecord();
+                    weekDayRecord.setWeekDayId(oracleWeekDayRecord.getWeekDayId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     weekDayRecord = oldRecord;
                     weekDayRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                weekDayRecord.setWeekDayId(oracleWeekDayRecord.getWeekDayId().longValue());
                 weekDayRecord.setDay(oracleWeekDayRecord.getDay());
+
                 weekDayRecord.setCreatTime(new Timestamp(oracleWeekDayRecord.getCreatTime().getTime()));
                 weekDayRecord.setUpdateTime(new Timestamp(oracleWeekDayRecord.getUpdateTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(weekDayRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(weekDayRecord);
                 }
             }
@@ -1079,23 +1329,25 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.DisciplineRecord disciplineRecord;
 
+                Mode mode;
                 if (oldRecord == null) {
                     disciplineRecord = new com.sadb.generated.dest.oracle.tables.records.DisciplineRecord();
+                    disciplineRecord.setDisciplineId(oracleDisciplineRecord.getDisciplineId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     disciplineRecord = oldRecord;
                     disciplineRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                disciplineRecord.setDisciplineId(oracleDisciplineRecord.getDisciplineId().longValue());
-                if (oracleDisciplineRecord.getDisciplineName() != null) {
-                    disciplineRecord.setDisciplineName(oracleDisciplineRecord.getDisciplineName());
-                }
+                disciplineRecord.setDisciplineName(oracleDisciplineRecord.getDisciplineName());
+
                 disciplineRecord.setCreatTime(new Timestamp(oracleDisciplineRecord.getCreatTime().getTime()));
                 disciplineRecord.setUpdateTime(new Timestamp(oracleDisciplineRecord.getUpdateTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(disciplineRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(disciplineRecord);
                 }
             }
@@ -1131,14 +1383,17 @@ public class OracleMigrationService {
 
                 com.sadb.generated.dest.oracle.tables.records.ResultsRecord resultsRecord;
 
+                Mode mode;
                 if (oldRecord == null) {
                     resultsRecord = new com.sadb.generated.dest.oracle.tables.records.ResultsRecord();
+                    resultsRecord.setResultId(oracleResultsRecord.getResultId().longValue());
+                    mode = Mode.INSERT;
                 } else {
                     resultsRecord = oldRecord;
                     resultsRecord.changed(true);
+                    mode = Mode.UPDATE;
                 }
 
-                resultsRecord.setResultId(oracleResultsRecord.getResultId().longValue());
                 resultsRecord.setDisciplineId(oracleResultsRecord.getDisciplineId().longValue());
                 resultsRecord.setAcademYearId(oracleResultsRecord.getAcademYearId().longValue());
                 resultsRecord.setStudentId(oracleResultsRecord.getStudentId().longValue());
@@ -1154,13 +1409,74 @@ public class OracleMigrationService {
                 if (oracleResultsRecord.getResultEu() != null) {
                     resultsRecord.setResultEu(oracleResultsRecord.getResultEu());
                 }
+
                 resultsRecord.setCreatTime(new Timestamp(oracleResultsRecord.getCreatTime().getTime()));
                 resultsRecord.setUpdateTime(new Timestamp(oracleResultsRecord.getUpdateTime().getTime()));
 
-                if (oracleRecordUpdateDate == null) {
+                if (mode == Mode.INSERT) {
                     toInsert.add(resultsRecord);
-                } else if (oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+                } else {
                     toUpdate.add(resultsRecord);
+                }
+            }
+
+        }
+
+    }
+
+    private void processTimeTable(
+            List<TimeTableRecord> oracleSourceTimeTables,
+            List<com.sadb.generated.dest.oracle.tables.records.TimeTableRecord> oracleTimeTables,
+            List<TableRecord<?>> toInsert,
+            List<UpdatableRecord<?>> toUpdate) {
+
+        Map<Integer, Timestamp> TimeTableIdToUpdatedDateMap = new HashMap<>();
+        Map<Integer, com.sadb.generated.dest.oracle.tables.records.TimeTableRecord> TimeTableIdToRecordMap = new HashMap<>();
+
+        oracleTimeTables.forEach(oracleTimeTable -> {
+            TimeTableIdToUpdatedDateMap.put(oracleTimeTable.getTimeTableId().intValue(), oracleTimeTable.getUpdateTime());
+            TimeTableIdToRecordMap.put(oracleTimeTable.getTimeTableId().intValue(), oracleTimeTable);
+        });
+
+        for (TimeTableRecord oracleTimeTableRecord : oracleSourceTimeTables) {
+
+
+            Timestamp oracleSourceRecordUpdateDate = new Timestamp(oracleTimeTableRecord.getUpdateTime().getTime());
+            Timestamp oracleRecordUpdateDate = TimeTableIdToUpdatedDateMap.get(oracleTimeTableRecord.getTimeTableId().intValue());
+
+            if (oracleRecordUpdateDate == null || oracleSourceRecordUpdateDate.after(oracleRecordUpdateDate)) {
+
+                com.sadb.generated.dest.oracle.tables.records.TimeTableRecord oldRecord =
+                        TimeTableIdToRecordMap.get(oracleTimeTableRecord.getTimeTableId().intValue());
+
+                com.sadb.generated.dest.oracle.tables.records.TimeTableRecord timeTableRecord;
+
+                Mode mode;
+                if (oldRecord == null) {
+                    timeTableRecord = new com.sadb.generated.dest.oracle.tables.records.TimeTableRecord();
+                    timeTableRecord.setTimeTableId(oracleTimeTableRecord.getTimeTableId().longValue());
+                    mode = Mode.INSERT;
+                } else {
+                    timeTableRecord = oldRecord;
+                    timeTableRecord.changed(true);
+                    mode = Mode.UPDATE;
+                }
+
+                timeTableRecord.setDisciplineId(oracleTimeTableRecord.getDisciplineId().longValue());
+                timeTableRecord.setClassId(oracleTimeTableRecord.getClassId().longValue());
+                timeTableRecord.setGroupId(oracleTimeTableRecord.getGroupId().longValue());
+                timeTableRecord.setOccupationId(oracleTimeTableRecord.getOccupationId().longValue());
+                timeTableRecord.setWeekDayId(oracleTimeTableRecord.getWeekDayId().longValue());
+                timeTableRecord.setOdevityId(oracleTimeTableRecord.getDisciplineId().longValue());
+                timeTableRecord.setVariantOccupationId(oracleTimeTableRecord.getVariantOccupationId().longValue());
+
+                timeTableRecord.setCreatTime(new Timestamp(oracleTimeTableRecord.getCreatTime().getTime()));
+                timeTableRecord.setUpdateTime(new Timestamp(oracleTimeTableRecord.getUpdateTime().getTime()));
+
+                if (mode == Mode.INSERT) {
+                    toInsert.add(timeTableRecord);
+                } else {
+                    toUpdate.add(timeTableRecord);
                 }
             }
 
@@ -1172,16 +1488,8 @@ public class OracleMigrationService {
         return ConnectionManager.getConnection(URL, USER, PASSWORD);
     }
 
-    public static void main(String[] args) {
-        OracleMigrationService orclMS = new OracleMigrationService();
-        try {
-            orclMS.process();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+    private static enum Mode {
+        INSERT, UPDATE
     }
 
 }
