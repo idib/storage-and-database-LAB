@@ -2,11 +2,13 @@ package com.sadb.transformation.mongo;
 
 import com.mongodb.client.*;
 import com.sadb.generated.dest.oracle.tables.EventType;
+import com.sadb.generated.dest.oracle.tables.Room;
 import com.sadb.generated.dest.oracle.tables.Student;
 import com.sadb.generated.dest.oracle.tables.records.*;
 import com.sadb.transformation.ConnectionManager;
 import org.bson.Document;
 import org.jooq.*;
+import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -59,6 +61,12 @@ public class MongoMigrationService {
 	public static void main(String[] args) throws ParseException {
 		DSLContext contextOracle = DSL.using(ConnectionManager.getDestDBConnection(), SQLDialect.ORACLE);
 
+		contextOracle.delete(ROOM).where("1=1").execute();
+		contextOracle.delete(BLOCK).where("1=1").execute();
+		contextOracle.delete(DORMITORY).where("1=1").execute();
+		contextOracle.delete(EVENTS).where("1=1").execute();
+		contextOracle.delete(EVENT_TYPE).where("1=1").execute();
+
 
 		MongoMigrationService m = new MongoMigrationService();
 		m.process();
@@ -79,7 +87,7 @@ public class MongoMigrationService {
 		return new java.sql.Date(uDate.getTime());
 	}
 
-	@Scheduled(fixedDelayString = "#{ 60 * 1000}")
+	@Scheduled(fixedDelayString = "#{ 120 * 1000}", initialDelayString = "#{ 60 * 1000}")
 	public void process() throws ParseException {
 
 		List<TableRecord<?>> toInsert = new LinkedList<>();
@@ -177,6 +185,14 @@ public class MongoMigrationService {
 											studentRecord.setRoomId(idRoom);
 											std.put(idStudent.longValue(), studentRecord);
 
+
+											try {
+												contextOracle.update(STUDENT).set(STUDENT.ROOM_ID, idRoom)
+														.where(STUDENT.ID.eq(studentRecord.getId())).execute();
+
+											} catch (DataAccessException e) {
+//												e.printStackTrace();
+											}
 										}
 									}
 								}
@@ -294,6 +310,8 @@ public class MongoMigrationService {
 
 			if (oldStudent.getDateCheckout() != newStudent.getDateCheckout())
 				oldStudent.setDateCheckout(newStudent.getDateCheckout());
+
+			oldStudent.setRoomId(newStudent.getRoomId());
 
 
 			if (newStudent.getUpdationDate().after(oldStudent.getUpdationDate())) {
