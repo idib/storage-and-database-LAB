@@ -1,541 +1,586 @@
---
---
--- universal
---
---
+create sequence TYPE_POSITION_SEQ
+/
 
+create sequence CONFERENCE_SEQ
+/
 
-CREATE TABLE student (
-  id              numeric PRIMARY KEY,
-  name            VARCHAR(255) NOT NULL,
-  surname         VARCHAR(255) NOT NULL,
-  second_name     VARCHAR(255) NOT NULL,
+create sequence PUBLICATIONS_SEQ
+/
 
-  --   postgres
-  university      varchar(255),
-  education_place varchar(255),
-  speciality      varchar(255),
-  semester        numeric,
-  creation_date   timestamp,
-  updation_date   timestamp,
+create sequence TYPE_EDITION_SEQ
+/
 
-  -- mongo
-  concession      boolean      NOT NULL,
-  room_id         integer      NOT NULL,
-  date_checkin    DATE         NOT NULL,
-  date_checkout   DATE         NOT NULL,
-  form_education  integer      NOT NULL,
+create sequence TYPE_PUBLICATION_SEQ
+/
 
-  -- MySQL
-  position_id     int          NOT NULL,
+create sequence SCIENTIFIC_PROJECT_SEQ
+/
 
-  -- Oraсle
-  GROUP_ID        INTEGER      NOT NULL,
-  BIRTH_DATE      timestamp    NULL,
-  BIRTH_PLACE     VARCHAR(255) NULL
-);
+create sequence READER_SHEET_SEQ
+/
 
+create sequence DORMITORY_SEQ
+/
 
-CREATE TABLE RESULTS
+create sequence BLOCK_SEQ
+/
+
+create sequence ROOM_SEQ
+/
+
+create sequence FORM_EDUCATION_SEQ
+/
+
+create sequence EVENTS_SEQ
+/
+
+create sequence EVENT_TYPE_SEQ
+/
+
+create sequence SYNC_LOG_SEQ
+/
+
+create table DISCIPLINE
 (
-  RESULT         VARCHAR(20)  NULL,
-  EX_TYPE        VARCHAR(20)  NULL  CONSTRAINT VR_RESULT_TYPE CHECK (EX_TYPE IN ('EXAM', 'PASS_FAIL_EXAM')),
-  DISCIPLINE_ID  INTEGER      NOT NULL,
-  RESULT_DATE    TIMESTAMP(0) NULL,
-  RESULT_EU      VARCHAR(20)  NULL,
-  ACADEM_YEAR_ID INTEGER      NOT NULL,
-  RESULT_ID      INTEGER      NOT NULL,
-  STUDENT_ID     INTEGER      NOT NULL,
-  CREAT_TIME     TIMESTAMP(0) NULL,
-  UPDATE_TIME    TIMESTAMP(0) NULL,
-  teacher_id     INTEGER      NOT NULL
-);
+  DISCIPLINE_ID NUMBER(10) not null
+    constraint XPK_DISCIPLINE
+    primary key,
+  DISCIPLINE_NAME VARCHAR2(150),
+  LECTIONS_HOURS NUMBER,
+  PRACTICALS_HOURS NUMBER,
+  LABS_HOUES NUMBER,
+  EDUCATION_STANDART_TYPE VARCHAR2(255),
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
-CREATE TABLE DISCIPLINE
+create table LECTURER
 (
-  DISCIPLINE_ID           INTEGER      NOT NULL,
-  DISCIPLINE_NAME         VARCHAR(20)  NULL,
-  lections_hours          numeric,
-  practicals_hours        numeric,
-  labs_houes              numeric,
-  education_standart_type varchar(255),
-  CREAT_TIME              TIMESTAMP(0) NULL,
-  UPDATE_TIME             TIMESTAMP(0) NULL
-);
+  LEC_ID NUMBER(10) not null
+    constraint XPK_LECTURER
+    primary key,
+  SECOND_NAME VARCHAR2(50),
+  FIRST_NAME VARCHAR2(50),
+  PATRONYMIC_NAME VARCHAR2(50),
+  BIRTH_DATE TIMESTAMP(0),
+  BIRTH_PLACE VARCHAR2(255),
+  POST VARCHAR2(100),
+  WORK_PERIOD_FROM TIMESTAMP(0),
+  WORK_PERIOD_TO TIMESTAMP(0),
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
-
-CREATE TABLE LECTURER
+create table ACADEMIC_YEAR
 (
-  LEC_ID           INTEGER      NOT NULL,
-  SECOND_NAME      VARCHAR(20)  NULL,
-  FIRST_NAME       VARCHAR(20)  NULL,
-  PATRONYMIC_NAME  VARCHAR(20)  NULL,
-  BIRTH_DATE       TIMESTAMP(0) NULL,
-  BIRTH_PLACE      VARCHAR(20)  NULL,
-  POST             VARCHAR(20)  NULL,
-  WORK_PERIOD_FROM TIMESTAMP(0) NULL,
-  WORK_PERIOD_TO   TIMESTAMP(0) NULL,
-  CREAT_TIME       TIMESTAMP(0) NULL,
-  UPDATE_TIME      TIMESTAMP(0) NULL
-);
+  ACADEM_YEAR VARCHAR2(20),
+  ACADEM_YEAR_ID NUMBER(10) not null
+    constraint XPK_ACADEMIC_YEAR
+    primary key,
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
---
---
--- oracle
---
---
-
-
-CREATE TABLE ACADEMIC_YEAR
+create table CLASS_ROOM
 (
-  ACADEM_YEAR    VARCHAR(20)  NULL,
-  ACADEM_YEAR_ID INTEGER      NOT NULL,
-  CREAT_TIME     TIMESTAMP(0) NULL,
-  UPDATE_TIME    TIMESTAMP(0) NULL
-);
+  CLASS_ID NUMBER(10) not null
+    constraint XPK_CLASS_ROOM
+    primary key,
+  CLASS_NUMBER NUMBER(10),
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
-ALTER TABLE ACADEMIC_YEAR
-  ADD CONSTRAINT XPK_ACADEMIC_YEAR PRIMARY KEY (ACADEM_YEAR_ID);
-
-CREATE TABLE CLASS_ROOM
+create table MEGAFACULTY
 (
-  CLASS_ID     INTEGER      NOT NULL,
-  CLASS_NUMBER INTEGER      NULL,
-  CREAT_TIME   TIMESTAMP(0) NULL,
-  UPDATE_TIME  TIMESTAMP(0) NULL
-);
+  MEGAFAC_ID NUMBER(10) not null
+    constraint XPK_MFAC
+    primary key,
+  MFACULTY_NAME VARCHAR2(255),
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
-ALTER TABLE CLASS_ROOM
-  ADD CONSTRAINT XPK_CLASS_ROOM PRIMARY KEY (CLASS_ID);
-
-ALTER TABLE DISCIPLINE
-  ADD CONSTRAINT XPK_DISCIPLINE PRIMARY KEY (DISCIPLINE_ID);
-
-CREATE TABLE FACULTY
+create table FACULTY
 (
-  FAC_ID      INTEGER      NOT NULL,
-  FAC_NAME    VARCHAR(20)  NULL,
-  MEGAFAC_ID  INTEGER      NOT NULL,
-  CREAT_TIME  TIMESTAMP(0) NULL,
-  UPDATE_TIME TIMESTAMP(0) NULL
-);
+  FAC_ID NUMBER(10) not null
+    constraint XPK_FAC
+    primary key,
+  FAC_NAME VARCHAR2(150),
+  MEGAFAC_ID NUMBER(10) not null
+    constraint R_33
+    references MEGAFACULTY,
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
-ALTER TABLE FACULTY
-  ADD CONSTRAINT XPK_FAC PRIMARY KEY (FAC_ID);
-
-CREATE TABLE FACULTY_LECTURER
+create table FACULTY_LECTURER
 (
-  LEC_ID      INTEGER      NOT NULL,
-  FAC_ID      INTEGER      NOT NULL,
-  FAC_LECT_ID INTEGER      NOT NULL,
-  CREAT_TIME  TIMESTAMP(0) NULL,
-  UPDATE_TIME TIMESTAMP(0) NULL
-);
+  LEC_ID NUMBER(10) not null
+    constraint R_16
+    references LECTURER,
+  FAC_ID NUMBER(10) not null
+    constraint R_15
+    references FACULTY,
+  FAC_LECT_ID NUMBER(10) not null
+    constraint XPK_FAC_LECTUR
+    primary key,
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
-ALTER TABLE FACULTY_LECTURER
-  ADD CONSTRAINT XPK_FAC_LECTUR PRIMARY KEY (FAC_LECT_ID);
-
-CREATE TABLE GROUPS
+create table OCCUPATION
 (
-  GROUP_ID            INTEGER      NOT NULL,
-  SPEC_ID             INTEGER      NULL,
-  GROUP_NUM           VARCHAR(20)  NULL,
-  COURSE              INTEGER      NULL,
-  EDUCATION_TIME_FROM TIMESTAMP(0) NULL,
-  EDUCATION_TIME_TO   TIMESTAMP(0) NULL,
-  ACADEM_YEAR_ID      INTEGER      NOT NULL,
-  CREAT_TIME          TIMESTAMP(0) NULL,
-  UPDATE_TIME         TIMESTAMP(0) NULL
-);
+  OCCUPATION_ID NUMBER(10) not null
+    constraint XPK_OCCUPATION
+    primary key,
+  OCCUPATON_NUM NUMBER(10),
+  OCCUPATION_TIME_FROM VARCHAR2(25) default NULL,
+  OCCUPATION_TIME_TO VARCHAR2(25) default NULL,
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
-ALTER TABLE GROUPS
-  ADD CONSTRAINT XPK_GROUP PRIMARY KEY (GROUP_ID);
-
-ALTER TABLE LECTURER
-  ADD CONSTRAINT XPK_LECTURER PRIMARY KEY (LEC_ID);
-
-CREATE TABLE MEGAFACULTY
+create table ODEVITY_WEEK
 (
-  MEGAFAC_ID    INTEGER      NOT NULL,
-  MFACULTY_NAME VARCHAR(20)  NULL,
-  CREAT_TIME    TIMESTAMP(0) NULL,
-  UPDATE_TIME   TIMESTAMP(0) NULL
-);
+  ODEVITY_ID NUMBER(10) not null
+    constraint XPK_ODEVITY_WEEK
+    primary key,
+  WEEK VARCHAR2(20)
+    constraint VR_WEEK
+    check (WEEK IN ('EVEN', 'UNEVER')),
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
-ALTER TABLE MEGAFACULTY
-  ADD CONSTRAINT XPK_MFAC PRIMARY KEY (MEGAFAC_ID);
-
-CREATE TABLE OCCUPATION
+create table PROGRAM_TRACK
 (
-  OCCUPATION_ID        INTEGER      NOT NULL,
-  OCCUPATON_NUM        INTEGER      NULL,
-  OCCUPATION_TIME_FROM TIMESTAMP(0) NULL,
-  OCCUPATION_TIME_TO   TIMESTAMP(0) NULL,
-  CREAT_TIME           TIMESTAMP(0) NULL,
-  UPDATE_TIME          TIMESTAMP(0) NULL
-);
+  PROG_ID NUMBER(10) not null
+    constraint XPK_PROGRAM_TRACK
+    primary key,
+  FAC_ID NUMBER(10)
+    constraint R_4
+    references FACULTY,
+  PROGM_NAME VARCHAR2(150),
+  PROGRAM_TRACK_NUM VARCHAR2(20),
+  PROGM_TYPE VARCHAR2(20)
+    constraint VR_TYPE
+    check (PROGM_TYPE IN ('FULL_TIME', 'PART_TIME')),
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
-ALTER TABLE OCCUPATION
-  ADD CONSTRAINT XPK_OCCUPATION PRIMARY KEY (OCCUPATION_ID);
-
-CREATE TABLE ODEVITY_WEEK
+create table SPECIALITY
 (
-  ODEVITY_ID  INTEGER      NOT NULL,
-  WEEK        VARCHAR(20)  NULL  CONSTRAINT VR_WEEK CHECK (WEEK IN ('EVEN', 'UNEVER')),
-  CREAT_TIME  TIMESTAMP(0) NULL,
-  UPDATE_TIME TIMESTAMP(0) NULL
-);
+  SPEC_ID NUMBER(10) not null
+    constraint XPK_PROGR_SPECIALITY
+    primary key,
+  SPEC_NAME VARCHAR2(255),
+  SPEC_NUMBER VARCHAR2(20),
+  SPEC_DEGREE VARCHAR2(10)
+    constraint VR_DEGREE
+    check (SPEC_DEGREE IN ('MAGISTER', 'BACHELOR')),
+  FREE_EDUC_COUNT NUMBER(10),
+  PAID_EDUC_COUNT NUMBER(10),
+  SPONSORED_EDUC_COUNT NUMBER(10),
+  PROG_ID NUMBER(10)
+    constraint R_26
+    references PROGRAM_TRACK,
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
-ALTER TABLE ODEVITY_WEEK
-  ADD CONSTRAINT XPK_ODEVITY_WEEK PRIMARY KEY (ODEVITY_ID);
-
-CREATE TABLE PROGRAM_TRACK
+create table GROUPS
 (
-  PROG_ID           INTEGER      NOT NULL,
-  FAC_ID            INTEGER      NULL,
-  PROGM_NAME        VARCHAR(20)  NULL,
-  PROGRAM_TRACK_NUM VARCHAR(20)  NULL,
-  PROGM_TYPE        VARCHAR(20)  NULL  CONSTRAINT VR_TYPE CHECK (PROGM_TYPE IN ('FULL_TIME', 'PART_TIME')),
-  CREAT_TIME        TIMESTAMP(0) NULL,
-  UPDATE_TIME       TIMESTAMP(0) NULL
-);
+  GROUP_ID NUMBER(10) not null
+    constraint XPK_GROUP
+    primary key,
+  SPEC_ID NUMBER(10)
+    constraint R_6
+    references SPECIALITY,
+  GROUP_NUM VARCHAR2(20),
+  COURSE NUMBER(10),
+  EDUCATION_TIME_FROM TIMESTAMP(0),
+  EDUCATION_TIME_TO TIMESTAMP(0),
+  ACADEM_YEAR_ID NUMBER(10) not null
+    constraint R_29
+    references ACADEMIC_YEAR,
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
-ALTER TABLE PROGRAM_TRACK
-  ADD CONSTRAINT XPK_PROGRAM_TRACK PRIMARY KEY (PROG_ID);
-
-
-ALTER TABLE RESULTS
-  ADD CONSTRAINT XPK_RESULTS PRIMARY KEY (RESULT_ID);
-
-CREATE TABLE SPECIALITY
+create table VARIANT_OCCUPATION
 (
-  SPEC_ID              INTEGER      NOT NULL,
-  SPEC_NAME            VARCHAR(20)  NULL,
-  SPEC_NUMBER          VARCHAR(20)  NULL,
-  SPEC_DEGREE          VARCHAR(10)  NULL  CONSTRAINT VR_DEGREE CHECK (SPEC_DEGREE IN ('MAGISTER', 'BACHELOR')),
-  FREE_EDUC_COUNT      INTEGER      NULL,
-  PAID_EDUC_COUNT      INTEGER      NULL,
-  SPONSORED_EDUC_COUNT INTEGER      NULL,
-  PROG_ID              INTEGER      NULL,
-  CREAT_TIME           TIMESTAMP(0) NULL,
-  UPDATE_TIME          TIMESTAMP(0) NULL
-);
+  VARIANT_OCCUPATION_ID NUMBER(10) not null
+    constraint XPK_ARIANT_OCC
+    primary key,
+  VAR_OCC_TYPE VARCHAR2(20)
+    constraint VR_OCCUPATION_TYPE
+    check (VAR_OCC_TYPE IN ('LECTURE', 'PRACTIC')),
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
-ALTER TABLE SPECIALITY
-  ADD CONSTRAINT XPK_PROGR_SPECIALITY PRIMARY KEY (SPEC_ID);
-
-CREATE TABLE TIME_TABLE
+create table WEEK_DAY
 (
-  WEEK_DAY_ID           INTEGER NOT NULL,
-  OCCUPATION_ID         INTEGER NOT NULL,
-  ODEVITY_ID            INTEGER NOT NULL,
-  VARIANT_OCCUPATION_ID INTEGER NOT NULL,
-  CLASS_ID              INTEGER NOT NULL,
-  GROUP_ID              INTEGER NOT NULL,
-  DISCIPLINE_ID         INTEGER NOT NULL
-);
+  WEEK_DAY_ID NUMBER(10) not null
+    constraint XPK_WEEK_DAY
+    primary key,
+  DAY VARCHAR2(20)
+    constraint VR_DAY
+    check (DAY IN
+           ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY')),
+  CREAT_TIME TIMESTAMP(0),
+  UPDATE_TIME TIMESTAMP(0)
+)
+/
 
-ALTER TABLE TIME_TABLE
-  ADD CONSTRAINT XPK_TIME_TABLE PRIMARY KEY (OCCUPATION_ID, WEEK_DAY_ID, ODEVITY_ID, VARIANT_OCCUPATION_ID, CLASS_ID, GROUP_ID, DISCIPLINE_ID);
-
-CREATE TABLE VARIANT_OCCUPATION
+create table TYPE_POSITION
 (
-  VARIANT_OCCUPATION_ID INTEGER      NOT NULL,
-  VAR_OCC_TYPE          VARCHAR(20)  NULL  CONSTRAINT VR_OCCUPATION_TYPE CHECK (VAR_OCC_TYPE IN ('LECTURE', 'PRACTIC')),
-  CREAT_TIME            TIMESTAMP(0) NULL,
-  UPDATE_TIME           TIMESTAMP(0) NULL
-);
+  ID NUMBER(10) not null
+    primary key,
+  NAME VARCHAR2(255) not null,
+  DATA_UPDATE TIMESTAMP(0) not null,
+  DATA_CREATE TIMESTAMP(0) not null
+)
+/
 
-ALTER TABLE VARIANT_OCCUPATION
-  ADD CONSTRAINT XPK_ARIANT_OCC PRIMARY KEY (VARIANT_OCCUPATION_ID);
-
-CREATE TABLE WEEK_DAY
+create table CONFERENCE
 (
-  WEEK_DAY_ID INTEGER      NOT NULL,
-  DAY         VARCHAR(20)  NULL  CONSTRAINT VR_DAY CHECK (DAY IN
-                                                          ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY')),
-  CREAT_TIME  TIMESTAMP(0) NULL,
-  UPDATE_TIME TIMESTAMP(0) NULL
-);
+  ID NUMBER(10) not null
+    primary key,
+  NAME VARCHAR2(500) default NULL not null,
+  VENUE VARCHAR2(255) not null,
+  DATE_CONFERENCE DATE not null,
+  DATA_UPDATE TIMESTAMP(0) not null,
+  DATA_CREATE TIMESTAMP(0) not null
+)
+/
 
---
---
---
--- MYSQL
---
---
+create table TYPE_EDITION
+(
+  ID NUMBER(10) not null
+    primary key,
+  NAME VARCHAR2(500) default NULL not null,
+  DATA_UPDATE TIMESTAMP(0) not null,
+  DATA_CREATE TIMESTAMP(0) not null
+)
+/
 
-CREATE SEQUENCE Type_position_seq;
+create table TYPE_PUBLICATION
+(
+  ID NUMBER(10) not null
+    primary key,
+  NAME VARCHAR2(255) not null,
+  DATA_UPDATE TIMESTAMP(0) not null,
+  DATA_CREATE TIMESTAMP(0) not null
+)
+/
 
-CREATE TABLE Type_position (
-  id          int          NOT NULL DEFAULT NEXTVAL('Type_position_seq'),
-  Name        varchar(255) NOT NULL,
-  data_update TIMESTAMP(0) NOT NULL,
-  data_create TIMESTAMP(0) NOT NULL,
-  PRIMARY KEY (id)
-);
+create table SCIENTIFIC_PROJECT
+(
+  ID NUMBER(10) not null
+    primary key,
+  NAME VARCHAR2(255) not null,
+  PERIOD_PARTICIPATION VARCHAR2(255) not null,
+  DATA_UPDATE TIMESTAMP(0) not null,
+  DATA_CREATE TIMESTAMP(0) not null
+)
+/
 
-CREATE SEQUENCE Conference_seq;
+create table DORMITORY
+(
+  ID NUMBER(10) not null
+    constraint DORMITORY_PK
+    primary key,
+  NAME CLOB not null,
+  ADDRESS CLOB not null,
+  DATE_UPDATE TIMESTAMP(6) not null,
+  DATE_CREATE TIMESTAMP(6) not null
+)
+/
 
-CREATE TABLE Conference (
-  id              int          NOT NULL DEFAULT NEXTVAL('Conference_seq'),
-  Name            varchar(255) NOT NULL,
-  Venue           varchar(255) NOT NULL,
-  date_conference DATE         NOT NULL,
-  data_update     TIMESTAMP(0) NOT NULL,
-  data_create     TIMESTAMP(0) NOT NULL,
-  PRIMARY KEY (id)
-);
+create trigger DORMITORY_SEQ_TR
+  before insert
+  on DORMITORY
+  for each row when (NEW.id IS NULL)
+  BEGIN
+    SELECT dormitory_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+  END;
+/
 
-CREATE SEQUENCE Publications_seq;
+create table BLOCK
+(
+  ID NUMBER(10) not null
+    constraint BLOCK_PK
+    primary key,
+  FLOOR NUMBER(10) not null,
+  DATE_DISINSECTION DATE not null,
+  DORM_ID NUMBER(10) not null
+    constraint BLOCK_FK0
+    references DORMITORY,
+  DATE_UPDATE TIMESTAMP(6) not null,
+  DATE_CREATE TIMESTAMP(6) not null
+)
+/
 
-CREATE TABLE Publications (
-  id                   int              NOT NULL DEFAULT NEXTVAL('Publications_seq'),
-  Title_edition        varchar(255)     NOT NULL,
-  Language_publication varchar(255)     NOT NULL,
-  Volume_edition       varchar(255)     NOT NULL,
-  Place_editon         varchar(255)     NOT NULL,
-  edition_id           int              NOT NULL,
-  Co_authors           varchar(255)     NOT NULL,
-  Citation_index       DOUBLE PRECISION NOT NULL,
-  Data_publication     DATE             NOT NULL,
-  participant_id       int              NOT NULL,
-  id_type_publication  int              NOT NULL,
-  data_update          TIMESTAMP(0)     NOT NULL,
-  data_create          TIMESTAMP(0)     NOT NULL,
-  PRIMARY KEY (id)
-);
+create trigger BLOCK_SEQ_TR
+  before insert
+  on BLOCK
+  for each row when (NEW.id IS NULL)
+  BEGIN
+    SELECT block_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+  END;
+/
 
-CREATE SEQUENCE Type_edition_seq;
+create table ROOM
+(
+  ID NUMBER(10) not null
+    constraint ROOM_PK
+    primary key,
+  NUMBERROOM VARCHAR2(255) not null,
+  MAX_STUDENT NUMBER(10) not null,
+  BLOCK_ID NUMBER(10) not null
+    constraint ROOM_FK0
+    references BLOCK,
+  DATE_UPDATE TIMESTAMP(6) not null,
+  DATE_CREATE TIMESTAMP(6) not null
+)
+/
 
-CREATE TABLE Type_edition (
-  id          int          NOT NULL DEFAULT NEXTVAL('Type_edition_seq'),
-  Name        varchar(255) NOT NULL,
-  data_update TIMESTAMP(0) NOT NULL,
-  data_create TIMESTAMP(0) NOT NULL,
-  PRIMARY KEY (id)
-);
+create table STUDENT
+(
+  ID NUMBER not null
+    primary key,
+  NAME VARCHAR2(255) default NULL,
+  SURNAME VARCHAR2(255) default NULL,
+  SECOND_NAME VARCHAR2(255) default NULL,
+  UNIVERSITY VARCHAR2(255) default NULL,
+  EDUCATION_PLACE VARCHAR2(255) default NULL,
+  SPECIALITY VARCHAR2(255) default null,
+  SEMESTER NUMBER default NULL,
+  CREATION_DATE TIMESTAMP(6),
+  UPDATION_DATE TIMESTAMP(6),
+  CONCESSION CHAR default NULL,
+  ROOM_ID NUMBER(10) default NULL
+    constraint STUDENT_FK0
+    references ROOM,
+  DATE_CHECKIN DATE default NULL,
+  DATE_CHECKOUT DATE default NULL,
+  FORM_EDUCATION VARCHAR2(255) default NULL,
+  POSITION_ID NUMBER(10) default NULL
+    constraint PARTICIPANT_FK0
+    references TYPE_POSITION,
+  GROUP_ID NUMBER(10) default NULL,
+  BIRTH_DATE TIMESTAMP(6) default NULL,
+  BIRTH_PLACE VARCHAR2(255) default NULL,
+  EDUCATION_TYPE VARCHAR2(255) default null
+)
+/
 
-CREATE SEQUENCE Type_publication_seq;
+create table RESULTS
+(
+  RESULT VARCHAR2(20) default null,
+  EX_TYPE VARCHAR2(20) default null
+    constraint VR_RESULT_TYPE
+    check (EX_TYPE IN ('EXAM', 'PASS_FAIL_EXAM')),
+  DISCIPLINE_ID NUMBER(10) default NULL
+    constraint R_18
+    references DISCIPLINE,
+  RESULT_DATE TIMESTAMP(0) default null,
+  RESULT_EU VARCHAR2(20) default null,
+  ACADEM_YEAR_ID NUMBER(10) default NULL
+    constraint R_31
+    references ACADEMIC_YEAR,
+  RESULT_ID NUMBER(10) not null
+    constraint XPK_RESULTS
+    primary key,
+  STUDENT_ID NUMBER(10) default NULL
+    constraint R_17
+    references STUDENT,
+  CREAT_TIME TIMESTAMP(0) default null,
+  UPDATE_TIME TIMESTAMP(0) default null,
+  TEACHER_ID NUMBER(10) default NULL
+    constraint RESULTS_FK1
+    references LECTURER
+)
+/
 
-CREATE TABLE Type_publication (
-  id          int          NOT NULL DEFAULT NEXTVAL('Type_publication_seq'),
-  Name        varchar(255) NOT NULL,
-  data_update TIMESTAMP(0) NOT NULL,
-  data_create TIMESTAMP(0) NOT NULL,
-  PRIMARY KEY (id)
-);
+create table PUBLICATIONS
+(
+  ID NUMBER(10) not null
+    primary key,
+  TITLE_EDITION VARCHAR2(255) not null,
+  LANGUAGE_PUBLICATION VARCHAR2(255) not null,
+  VOLUME_EDITION VARCHAR2(255) not null,
+  PLACE_EDITON VARCHAR2(255) not null,
+  EDITION_ID NUMBER(10) not null
+    constraint PUBLICATIONS_FK0
+    references TYPE_EDITION,
+  CO_AUTHORS VARCHAR2(255) not null,
+  CITATION_INDEX BINARY_DOUBLE not null,
+  DATA_PUBLICATION DATE not null,
+  PARTICIPANT_ID NUMBER(10) not null
+    constraint PUBLICATIONS_FK1
+    references STUDENT,
+  ID_TYPE_PUBLICATION NUMBER(10) not null
+    constraint PUBLICATIONS_FK2
+    references TYPE_PUBLICATION,
+  DATA_UPDATE TIMESTAMP(0) not null,
+  DATA_CREATE TIMESTAMP(0) not null
+)
+/
 
-CREATE SEQUENCE Scientific_project_seq;
+create table READER_SHEET
+(
+  ID NUMBER(10) not null
+    primary key,
+  PARTICIPANT_ID NUMBER(10) not null
+    constraint READER_SHEET_FK0
+    references STUDENT,
+  TITLE_BOOK VARCHAR2(255) not null,
+  DATE_TAKE DATE not null,
+  DATE_PUT DATE not null,
+  DATA_UPDATE TIMESTAMP(0) not null,
+  DATA_CREATE TIMESTAMP(0) not null
+)
+/
 
-CREATE TABLE Scientific_project (
-  id                   int          NOT NULL DEFAULT NEXTVAL('Scientific_project_seq'),
-  Name                 varchar(255) NOT NULL,
-  Period_participation varchar(255) NOT NULL,
-  data_update          TIMESTAMP(0) NOT NULL,
-  data_create          TIMESTAMP(0) NOT NULL,
-  PRIMARY KEY (id)
-);
+create table LIST_PARTICIPANT
+(
+  PARTICIPANT_ID NUMBER(10) not null
+    constraint LIST_PARTICIPANT_FK0
+    references STUDENT,
+  CONFERENCE_ID NUMBER(10) not null
+    constraint LIST_PARTICIPANT_FK1
+    references CONFERENCE,
+  DATA_UPDATE TIMESTAMP(0) not null,
+  DATA_CREATE TIMESTAMP(0) not null
+)
+/
 
-CREATE SEQUENCE Reader_sheet_seq;
+create table LIST_PARTICIPANT_PROJECT
+(
+  PARTICIPANT_ID NUMBER(10) not null
+    constraint LIST_PARTICIPANT_PROJECT_FK0
+    references STUDENT,
+  PROJECT_ID NUMBER(10) not null
+    constraint LIST_PARTICIPANT_PROJECT_FK1
+    references SCIENTIFIC_PROJECT,
+  DATA_UPDATE TIMESTAMP(0) not null,
+  DATA_CREATE TIMESTAMP(0) not null
+)
+/
 
-CREATE TABLE Reader_sheet (
-  id             int          NOT NULL DEFAULT NEXTVAL('Reader_sheet_seq'),
-  participant_id int          NOT NULL,
-  Title_book     varchar(255) NOT NULL,
-  Date_take      DATE         NOT NULL,
-  Date_put       DATE         NOT NULL,
-  data_update    TIMESTAMP(0) NOT NULL,
-  data_create    TIMESTAMP(0) NOT NULL,
-  PRIMARY KEY (id)
-);
+create trigger ROOM_SEQ_TR
+  before insert
+  on ROOM
+  for each row when (NEW.id IS NULL)
+  BEGIN
+    SELECT room_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+  END;
+/
 
-CREATE TABLE List_participant (
-  participant_id int          NOT NULL,
-  conference_id  int          NOT NULL,
-  data_update    TIMESTAMP(0) NOT NULL,
-  data_create    TIMESTAMP(0) NOT NULL
-);
+create table EVENT_TYPE
+(
+  ID NUMBER(10) not null
+    constraint EVENT_TYPE_PK
+    primary key,
+  NAME VARCHAR2(255) not null,
+  DATE_UPDATE TIMESTAMP(6) not null,
+  DATE_CREATE TIMESTAMP(6) not null
+)
+/
 
-CREATE TABLE List_participant_project (
-  participant_id int          NOT NULL,
-  project_id     int          NOT NULL,
-  data_update    TIMESTAMP(0) NOT NULL,
-  data_create    TIMESTAMP(0) NOT NULL
-);
+create table EVENTS
+(
+  ID NUMBER(10) not null
+    constraint EVENTS_PK
+    primary key,
+  STUDENT_ID NUMBER(10) not null
+    constraint EVENTS_FK0
+    references STUDENT,
+  EVENT_TYPE_ID NUMBER(10) not null
+    constraint EVENTS_FK1
+    references EVENT_TYPE,
+  DATETIME TIMESTAMP(6) not null,
+  DATE_UPDATE TIMESTAMP(6) not null,
+  DATE_CREATE TIMESTAMP(6) not null
+)
+/
 
---
---
--- Mongo
---
---
+create trigger EVENTS_SEQ_TR
+  before insert
+  on EVENTS
+  for each row when (NEW.id IS NULL)
+  BEGIN
+    SELECT events_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+  END;
+/
 
-CREATE TABLE dormitory (
-  id          serial    NOT NULL,
-  name        TEXT      NOT NULL,
-  address     TEXT      NOT NULL,
-  date_update TIMESTAMP NOT NULL,
-  date_create TIMESTAMP NOT NULL,
-  CONSTRAINT dormitory_pk PRIMARY KEY (id)
-);
-CREATE TABLE block (
-  id                serial    NOT NULL,
-  floor             integer   NOT NULL,
-  date_disinsection DATE      NOT NULL,
-  dorm_id           integer   NOT NULL,
-  date_update       TIMESTAMP NOT NULL,
-  date_create       TIMESTAMP NOT NULL,
-  CONSTRAINT block_pk PRIMARY KEY (id)
-);
+create trigger EVENT_TYPE_SEQ_TR
+  before insert
+  on EVENT_TYPE
+  for each row when (NEW.id IS NULL)
+  BEGIN
+    SELECT event_type_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+  END;
+/
 
-CREATE TABLE room (
-  id          serial       NOT NULL,
-  number      VARCHAR(255) NOT NULL,
-  max_student integer      NOT NULL,
-  block_id    integer      NOT NULL,
-  date_update TIMESTAMP    NOT NULL,
-  date_create TIMESTAMP    NOT NULL,
-  CONSTRAINT room_pk PRIMARY KEY (id)
-);
+create table DB
+(
+  ID NUMBER not null
+    primary key,
+  NAME VARCHAR2(50) not null
+)
+/
 
-CREATE TABLE form_education (
-  id          serial       NOT NULL,
-  name        VARCHAR(255) NOT NULL,
-  date_update TIMESTAMP    NOT NULL,
-  date_create TIMESTAMP    NOT NULL,
-  CONSTRAINT form_education_pk PRIMARY KEY (id)
-);
+create table SYNC_LOG
+(
+  ID NUMBER not null,
+  DB_TYPE NUMBER not null
+    constraint SYNC_LOG_DB_ID_FK
+    references DB,
+  TIMESTAMP TIMESTAMP(0) default NULL not null
+)
+/
 
-CREATE TABLE events (
-  id            serial    NOT NULL,
-  student_id    integer   NOT NULL,
-  event_type_id integer   NOT NULL,
-  datetime      TIMESTAMP NOT NULL,
-  date_update   TIMESTAMP NOT NULL,
-  date_create   TIMESTAMP NOT NULL,
-  CONSTRAINT events_pk PRIMARY KEY (id)
-);
+create unique index SYNC_LOG_ID_UINDEX
+  on SYNC_LOG (ID)
+/
 
-CREATE TABLE event_type (
-  id          serial       NOT NULL,
-  name        VARCHAR(255) NOT NULL,
-  date_update TIMESTAMP    NOT NULL,
-  date_create TIMESTAMP    NOT NULL,
-  CONSTRAINT event_type_pk PRIMARY KEY (id)
-);
+alter table SYNC_LOG
+  add constraint SYNC_LOG_PK
+primary key (ID)
+/
 
+create table TIME_TABLE
+(
+  WEEK_DAY_ID NUMBER not null,
+  OCCUPATION_ID NUMBER not null,
+  ODEVITY_ID NUMBER not null,
+  VARIANT_OCCUPATION_ID NUMBER not null,
+  CLASS_ID NUMBER not null,
+  GROUP_ID NUMBER not null,
+  DISCIPLINE_ID NUMBER not null,
+  CREAT_TIME DATE,
+  UPDATE_TIME DATE,
+  TIME_TABLE_ID NUMBER not null
+    constraint XPK_TIME_TABLE
+    primary key
+)
+/
 
-
---
---
--- FOREIGN KEY
---
---
-
--- oracle
-
-ALTER TABLE WEEK_DAY
-  ADD CONSTRAINT XPK_WEEK_DAY PRIMARY KEY (WEEK_DAY_ID);
-
-ALTER TABLE FACULTY
-  ADD CONSTRAINT R_33 FOREIGN KEY (MEGAFAC_ID) REFERENCES MEGAFACULTY (MEGAFAC_ID);
-
-ALTER TABLE FACULTY_LECTURER
-  ADD CONSTRAINT R_15 FOREIGN KEY (FAC_ID) REFERENCES FACULTY (FAC_ID);
-
-ALTER TABLE FACULTY_LECTURER
-  ADD CONSTRAINT R_16 FOREIGN KEY (LEC_ID) REFERENCES LECTURER (LEC_ID);
-
-ALTER TABLE GROUPS
-  ADD CONSTRAINT R_6 FOREIGN KEY (SPEC_ID) REFERENCES SPECIALITY (SPEC_ID);
-
-ALTER TABLE GROUPS
-  ADD CONSTRAINT R_29 FOREIGN KEY (ACADEM_YEAR_ID) REFERENCES ACADEMIC_YEAR (ACADEM_YEAR_ID);
-
-ALTER TABLE PROGRAM_TRACK
-  ADD CONSTRAINT R_4 FOREIGN KEY (FAC_ID) REFERENCES FACULTY (FAC_ID);
-
-ALTER TABLE RESULTS
-  ADD CONSTRAINT R_17 FOREIGN KEY (STUDENT_ID) REFERENCES student (id);
-
-ALTER TABLE RESULTS
-  ADD CONSTRAINT R_18 FOREIGN KEY (DISCIPLINE_ID) REFERENCES DISCIPLINE (DISCIPLINE_ID);
-
-ALTER TABLE RESULTS
-  ADD CONSTRAINT R_31 FOREIGN KEY (ACADEM_YEAR_ID) REFERENCES ACADEMIC_YEAR (ACADEM_YEAR_ID);
-
-ALTER TABLE SPECIALITY
-  ADD CONSTRAINT R_26 FOREIGN KEY (PROG_ID) REFERENCES PROGRAM_TRACK (PROG_ID);
-
-ALTER TABLE STUDENT
-  ADD CONSTRAINT R_28 FOREIGN KEY (GROUP_ID) REFERENCES GROUPS (GROUP_ID);
-
-ALTER TABLE TIME_TABLE
-  ADD CONSTRAINT R_19 FOREIGN KEY (WEEK_DAY_ID) REFERENCES WEEK_DAY (WEEK_DAY_ID);
-
-ALTER TABLE TIME_TABLE
-  ADD CONSTRAINT R_20 FOREIGN KEY (ODEVITY_ID) REFERENCES ODEVITY_WEEK (ODEVITY_ID);
-
-ALTER TABLE TIME_TABLE
-  ADD CONSTRAINT R_21 FOREIGN KEY (OCCUPATION_ID) REFERENCES OCCUPATION (OCCUPATION_ID);
-
-ALTER TABLE TIME_TABLE
-  ADD CONSTRAINT R_22 FOREIGN KEY (VARIANT_OCCUPATION_ID) REFERENCES VARIANT_OCCUPATION (VARIANT_OCCUPATION_ID);
-
-ALTER TABLE TIME_TABLE
-  ADD CONSTRAINT R_23 FOREIGN KEY (CLASS_ID) REFERENCES CLASS_ROOM (CLASS_ID);
-
-ALTER TABLE TIME_TABLE
-  ADD CONSTRAINT R_24 FOREIGN KEY (GROUP_ID) REFERENCES GROUPS (GROUP_ID);
-
-ALTER TABLE TIME_TABLE
-  ADD CONSTRAINT R_25 FOREIGN KEY (DISCIPLINE_ID) REFERENCES DISCIPLINE (DISCIPLINE_ID);
-
--- MYSQL
-
-ALTER TABLE student
-  ADD CONSTRAINT Participant_fk0 FOREIGN KEY (position_id) REFERENCES Type_position (id);
-
-ALTER TABLE Publications
-  ADD CONSTRAINT Publications_fk0 FOREIGN KEY (edition_id) REFERENCES Type_edition (id);
-
-ALTER TABLE Publications
-  ADD CONSTRAINT Publications_fk1 FOREIGN KEY (participant_id) REFERENCES student (id);
-
-ALTER TABLE Publications
-  ADD CONSTRAINT Publications_fk2 FOREIGN KEY (id_type_publication) REFERENCES Type_publication (id);
-
-ALTER TABLE Reader_sheet
-  ADD CONSTRAINT Reader_sheet_fk0 FOREIGN KEY (participant_id) REFERENCES student (id);
-
-ALTER TABLE List_participant
-  ADD CONSTRAINT List_participant_fk0 FOREIGN KEY (participant_id) REFERENCES student (id);
-
-ALTER TABLE List_participant
-  ADD CONSTRAINT List_participant_fk1 FOREIGN KEY (conference_id) REFERENCES Conference (id);
-
-ALTER TABLE List_participant_project
-  ADD CONSTRAINT List_participant_project_fk0 FOREIGN KEY (participant_id) REFERENCES student (id);
-
-ALTER TABLE List_participant_project
-  ADD CONSTRAINT List_participant_project_fk1 FOREIGN KEY (project_id) REFERENCES Scientific_project (id);
-
--- Mongo
-
-
-ALTER TABLE block
-  ADD CONSTRAINT block_fk0 FOREIGN KEY (dorm_id) REFERENCES dormitory (id);
-ALTER TABLE room
-  ADD CONSTRAINT room_fk0 FOREIGN KEY (block_id) REFERENCES block (id);
-ALTER TABLE student
-  ADD CONSTRAINT student_fk0 FOREIGN KEY (room_id) REFERENCES room (id);
-ALTER TABLE student
-  ADD CONSTRAINT student_fk1 FOREIGN KEY (form_education) REFERENCES form_education (id);
-ALTER TABLE events
-  ADD CONSTRAINT events_fk0 FOREIGN KEY (student_id) REFERENCES student (id);
-ALTER TABLE events
-  ADD CONSTRAINT events_fk1 FOREIGN KEY (event_type_id) REFERENCES event_type (id);
-
--- Postgres
-ALTER TABLE RESULTS
-  ADD CONSTRAINT RESULTS_fk1 FOREIGN KEY (teacher_id) REFERENCES LECTURER (LEC_ID);
